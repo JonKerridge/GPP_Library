@@ -11,7 +11,7 @@ import jcsp.lang.ChannelInput
 import jcsp.lang.ChannelOutput
 
 /**
- * An AnyGroupOfPipeline comprises a network of groups parallel occurrences and each pipeline comprises stages
+ * An AnyGroupOfPipelines comprises a network of groups parallel occurrences and each pipeline comprises stages
  * Worker processes.  Inputs from the preceding process are assumed to come from an Any-ended channel.
  * Similarly, outputs go to an Any-ended channel.
  *

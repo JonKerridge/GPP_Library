@@ -15,7 +15,7 @@ import jcsp.lang.One2OneChannel
 
 /**
  *
- * A AnyPipelineOfGroupCollects comprises a collection of Groups, linked together to form a pipeline.
+ * A ListPipelineOfGroupCollects comprises a collection of Groups, linked together to form a pipeline.
  * The pipeline starts with an AnyGroupList followed by zero of more ListGroupList processes followed by a
  * GroupCollect.
  * <p>

@@ -23,7 +23,7 @@ import jcsp.lang.ChannelOutput
  * <p>
  * @param inputAny the any end of a one2any channel from which objects are read,
  * 					each Collect process reads from the input channel.
- * @param rDetails A {@link GPP_Library.ResultDetails} object defining the same result class used by each Collect process in the group
+ * @param rDetails A list of {@link GPP_Library.ResultDetails} objects defining the result class used by each Collect process in the group
  * @param collectors The number of Collect processes that will be created when the Group is run
  *
  * @param logPhaseName an optional string property, which if specified indicates that the process should be logged

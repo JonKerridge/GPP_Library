@@ -7,7 +7,7 @@ import groovyJCSP.*
 import jcsp.lang.*
 
 /**
- * A GroupOfPipeline comprises a network of groups parallel occurrences and each pipeline comprises stages
+ * A ListGroupOfPipelines comprises a network of groups parallel occurrences and each pipeline comprises stages
  * Worker processes.  Inputs from the preceding process are assumed
  * to come from a channel input list.
  *

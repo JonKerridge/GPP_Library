@@ -12,7 +12,7 @@ import jcsp.lang.One2OneChannel
 
 /**
  *
- * A AnyPipelineOfGroups comprises a collection of Groups, linked together to form a pipeline.
+ * A ListPipelineOfGroups comprises a collection of Groups, linked together to form a pipeline.
  * The pipeline starts with an ListGroupList followed by zero or more ListGroupList processes.
  * <p>
  * @param inputList The channel input list from which data objects are read.
