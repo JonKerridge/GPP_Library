@@ -1,47 +1,47 @@
 /**
- * Package jcsp.GPP_Library.tests.scripts
  * defines scripts used to test the components.
- * They use the classes defined in TestDataDefs.  The script AllTests in
- * that package can be used to run all the tests<p>
+ * They use the classes defined in TestDataDefs.
+ * The script AllTests can be used to run all the tests<p>
  *
  * <b>The scripts test the components.</b>
  *
- * Test1  Emit  Collect<br>
- * Test2  Emit Worker Collect<br>
- * Test3  Emit CombineNto1 Collect<br>
- * Test4  Emit CombineNto1 EmitFromInput Collect<br>
- * Test5  Emit OneFanAny AnyFanOne Collect
- * Test6  Emit OneFanAny AnyFanAny AnyFanOne Collect
- * Test8  Emit OneFanList ListFanOne Collect
- * Test8a  Emit OneFanList ListMergeOne Collect
- * Test9  Emit OneParCastList ListParOne Collect
- * Test11 Emit OneSeqCastList ListSeqOne Collect
- * Test12 Emit OneParCastList ListParOne Collect
- * Test13 Emit OneParCastList ListFanOne Collect
- * Test14 Emit OneSeqCastList ListFanOne Collect
- *
- *
- *
- * Test20 Emit OneFanAny AnyGroupList ListGroupList ListGroupAny AnyFanOne Collect
- * Test21 Emit OneFanList ListGroupList ListGroupList ListGroupAny AnyFanOne Collect
- * Test22 Emit OneFanList ListGroupList ListGroupList ListGroupList ListFanOne Collect
- * Test23 Emit OneSeqCastList ListGroupList ListGroupList ListGroupList ListFanOne Collect
- * Test24 Emit OneSeqCastList ListGroupList ListGroupList-sync ListGroupList ListFanOne Collect
- * Test23a Emit OneSeqCastList ListGroupList ListGroupList ListGroupList ListMergeOne Collect
- * Test24a Emit OneSeqCastList ListGroupList ListGroupList-sync ListGroupList ListMergeOne Collect
- * Test25 Emit OneSeqCastList ListGroupList ListGroupList-sync ListGroupList ListParOne Collect
- * Test26 Emit OneSeqCastList ListGroupList ListGroupList-sync ListGroupList ListSeqOne Collect
- * Test27 Emit OneParCastList ListGroupList ListGroupList-sync ListGroupList ListSeqOne Collect
- * Test28 Emit OneParCastList ListGroupList-sync ListGroupList-sync ListGroupList-sync ListSeqOne Collect
- * Test30 Emit OneFanAny AnyGroupAny AnyGroupAny AnyGroupAny AnyFanOne Collect
- * Test31 Emit OnePipelineOne Collect
- * Test32 Emit OnePipelineCollect
- * Test33 Emit OneFanAny GroupOfPipelineCollects
- * Test35 Emit OneFanList GroupOfPipelines ListFanOne Collect
- * Test35a Emit OneFanList GroupOfPipelines ListMergeOne Collect
- * Test36 Emit OneFanAny PipelineOfGroups AnyFanOne Collect
- * Test37 Emit ThreePhaseWorker Collect
- * Test38 EmitWithLocal Collect
+ * 1.	Emit -> Worker(null()) -> Collect
+ * 2.	Emit -> CombineNto1 -> Worker(null()) -> Collect
+ * 3.	Emit -> CombineNto1 -> EmitFromInput -> Worker(null()) -> Collect
+ * 4.	Emit -> ThreePhaseWorker(null()) -> Collect
+ * 5.	EmitWithLocal -> Worker(null()) -> Collect
+ * 6.	Emit -> OneFanAny -> AnyGroupAny(3, null()) -> AnyFanOne -> Collect
+ * 7.	Emit -> OneFanAny -> AnyGroupAny(3, null()) -> AnyFanAny -> AnyGroupAny(3, null()) ->AnyFanOne -> Collect
+ * 8.	Emit -> OneFanList -> ListGroupList(3, null()) -> ListFanOne -> Collect
+ * 9.	Emit -> OneFanList -> ListGroupList(3, null()) -> ListMergeOne -> Collect
+ * 10.	Emit -> OneSeqCastList -> ListGroupList(3, null()) -> ListFanOne -> Collect
+ * 11.	Emit -> OneSeqCastList -> ListGroupList(3, null()) -> ListMergeOne -> Collect
+ * 12.	Emit -> OneSeqCastList -> ListGroupList(3, null()) -> ListSeqOne -> Collect
+ * 13.	Emit -> OneSeqCastList -> ListGroupList(3, null()) -> ListParOne -> Collect
+ * 14.	Emit -> OneParCastList -> ListGroupList(3, null()) -> ListFanOne -> Collect
+ * 15.	Emit -> OneParCastList -> ListGroupList(3, null()) -> ListMergeOne -> Collect
+ * 16.	Emit -> OneParCastList -> ListGroupList(3, null()) -> ListSeqOne -> Collect
+ * 17.	Emit -> OneParCastList -> ListGroupList(3, null()) -> ListParOne -> Collect
+ * 18.	Emit -> OneParCastList -> ListGroupList(3, null()) -> N_WayMerge -> Collect
+ * 19.	Emit -> OneFanAny -> AnyGroupList(3, f1(m1)) -> ListGroupList(3, f2(m2)) -> ListGroupAny(3, f3(m3)) -> AnyFanOne -> Collect
+ * 20.	Emit -> OneFanList -> ListGroupList(3, f1(m1)) -> ListGroupList(3, f2(m2)) -> ListGroupAny(3, f3(m3)) -> AnyFanOne -> Collect
+ * 21.	Emit -> OneFanList -> ListGroupList(3, f1(m1)) -> ListGroupList(3, f2(m2), sync) -> ListGroupAny(3, f3(m3)) -> AnyFanOne -> Collect
+ * 22.	Emit -> OneFanList -> ListGroupList(3, f1(m1)) -> ListGroupList(3, f2(m2)) -> ListGroupList(3, f3(m3), sync) -> ListFanOne -> Collect
+ * 23.	Emit -> OneFanList -> ListGroupList(3, f1(m1),sync) -> ListGroupList(3, f2(m2)) -> ListGroupList(3, f3(m3)) -> ListFanOne -> Collect
+ * 24.	Emit -> OneFanList -> ListGroupList(3, f1(m1),sync) -> ListGroupList(3, f2(m2), sync) -> ListGroupList(3, f3(m3), sync) -> ListFanOne -> Collect
+ *      Tests 22, 23 and 24 MUST emit a number of objects divisible by 3 due to the effect of synchronisation
+ * 25.	Emit -> OneFanAny -> AnyGroupAny(3, f1(m1)) -> AnyGroupAny(3, f2(m2))  -> AnyGroupAny(3, f3(m3)) -> AnyFanOne -> Collect
+ * 26.	Emit -> OnePipelineOne -> Collect
+ * 27.	Emit -> OnePipelineCollect
+ * 28.	Emit -> OneFanAny -> AnyGroupOfPipelineCollects
+ * 29.	Emit -> OneFanList -> ListGroupOfPipelines -> ListFanOne -> Collect
+ * 30.	Emit -> OneFanList -> ListGroupOfPipelines -> ListMergeOne -> Collect
+ * 31.	Emit -> OneFanAny -> AnyPipelineOfGroups ->  AnyFanOne -> Collect
+ * 32.  Emit -> OneFanAny -> AnyGroupOfPipelines -> AnyFanOne -> Collect
+ * 33.  Emit -> OneFanList -> ListGroupOfPipelineCollects
+ * 34.  Emit-> OneFanList -> ListPipelineOfGroups -> ListFanOne -> Collect
+ * 35.  Emit-> OneFanList -> ListPipelineOfGroupCollects
+ * 36.  Emit -> OneFanAny -> AnyPipelineOfGroupCollects
  *
  * <p>
   *

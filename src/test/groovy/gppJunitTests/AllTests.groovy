@@ -4,49 +4,52 @@ import org.junit.runner.JUnitCore
 // runs as a groovy script and provides a sequence of JUnit tests
 
 result = JUnitCore.runClasses (
-            JUtest01,
-            JUtest02,
-            JUtest03,
-            JUtest04,
-            JUtest05,
-            JUtest06,
-            JUtest08,
-            JUtest08a,
-            JUtest09,
-            JUtest11,
-            JUtest12,
-            JUtest13,
-            JUtest14,
-            JUtest20,
-            JUtest21,
-            JUtest22,
-            JUtest23,
-            JUtest24,
-            JUtest23a,
-            JUtest24a,
-            JUtest25,
-            JUtest26,
-            JUtest27,
-            JUtest28,
-            JUtest30,
-            JUtest31,
-            JUtest32,
-            JUtest33,
-            JUtest35,
-            JUtest35a,
-            JUtest36,
-            JUtest37,
-            JUtest38,
-            )
+    Test01,
+    Test02,
+    Test03,
+    Test04,
+    Test05,
+    Test06,
+    Test07,
+    Test08,
+    Test09,
+    Test10,
+    Test11,
+    Test12,
+    Test13,
+    Test14,
+    Test15,
+    Test16,
+    Test17,
+    Test18,
+    Test19,
+    Test20,
+    Test21,
+    Test22,
+    Test23,
+    Test24,
+    Test25,
+    Test26,
+    Test27,
+    Test28,
+    Test29,
+    Test30,
+    Test31,
+    Test32,
+    Test33,
+    Test34,
+    Test35,
+    Test36,
+)
 
 String message = "Ran: " + result.getRunCount() +
-                 ", Ignored: " + result.getIgnoreCount() +
-                  ", Failed: " + result.getFailureCount()
+    ", Ignored: " + result.getIgnoreCount() +
+    ", Failed: " + result.getFailureCount()
 if (result.wasSuccessful()) {
-    println "\nSUCCESS! " + message
+  println "\nSUCCESS! " + message
 } else {
-    println "\nFAILURE! " + message + "\n"
-    result.getFailures().each {
-        println it.toString()
-    }
+  println "\nFAILURE! " + message + "\n"
+  result.getFailures().each {
+    println it.toString()
+  }
 }

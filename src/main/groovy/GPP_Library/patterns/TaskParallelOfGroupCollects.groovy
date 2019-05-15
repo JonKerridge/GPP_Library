@@ -3,7 +3,7 @@ package GPP_Library.patterns
 import GPP_Library.CompositeDetails
 import GPP_Library.DataDetails
 import GPP_Library.connectors.spreaders.OneFanAny
-import GPP_Library.functionals.composites.PipelineOfGroupCollects
+import GPP_Library.functionals.composites.AnyPipelineOfGroupCollects
 import GPP_Library.terminals.Emit
 import groovy.transform.CompileStatic
 import groovyJCSP.*
@@ -11,7 +11,7 @@ import jcsp.lang.*
 
 /**
  * A TaskParallelOFGroupCollects comprises a sequence of processes in a so-called Farm.  The sequence comprises
- * Emit; OneFanAny; PipelineOfGroupCollects. The properties of the pattern provide all the
+ * Emit; OneFanAny; AnyPipelineOfGroupCollects. The properties of the pattern provide all the
  * external values required to run the pattern.  The internal channels required to
  * connect the processes together are all declared within the class outwith programmer concerns.
  * <p>
@@ -22,7 +22,7 @@ import jcsp.lang.*
  * 					by each stage process
  * @param stageModifier A List containing the possible modifiers for the operation, within each stage by each worker in a group
  * 					accessing the element that corresponds to the index of the stage.
- * @param workers An int specifying the number of workers in the PipelineOfGroupCollects
+ * @param workers An int specifying the number of workers in the AnyPipelineOfGroupCollects
  * @param cDetails A List of {@link GPP_Library.CompositeDetails} objects containing data pertaining to each group of processes.
  * @param rDetails A list of {@link GPP_Library.ResultDetails} objects containing data pertaining to result class used by each of the Collect process, it MUST be specified.
  * @param stages The number of stages in the pipeline of processes that will be created
@@ -57,7 +57,7 @@ class TaskParallelOfGroupCollects {
 									outputAny: toPoG.out(),
 									destinations: workers)
 
-		def poG = new PipelineOfGroupCollects( inputAny: toPoG.in(),
+		def poG = new AnyPipelineOfGroupCollects( inputAny: toPoG.in(),
 										stages: stages,
 										cDetails: cDetails,
 										stageOp: stageOp,

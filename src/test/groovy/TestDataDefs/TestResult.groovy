@@ -13,24 +13,28 @@ class TestResult extends DataClass {
     int w1 = 0
     int w2 = 0
     int w3 = 0
+    List cloneOrder = []
 
     static String init = "initClass"
     static String collector = "collector"
     static String finalise = "finalise"
 
     int initClass ( List d){
-        return DataClassInterface.completedOK
+        return completedOK
     }
 
     int collector (TestData d) { // d can be of many types eg TestData, CombineData
         sum += d.data
         finalInstance = d.instanceNumber > finalInstance ? d.instanceNumber : finalInstance
         dataSets += 1
-        if ( d.cloneNumber > maxCloneNumber) maxCloneNumber = d.cloneNumber
+        if ( d.cloneNumber > maxCloneNumber) {
+            maxCloneNumber = d.cloneNumber
+            cloneOrder.add(d.cloneNumber)
+        }
         w1 += d.w1
         w2 += d.w2
         w3 += d.w3
-        return DataClassInterface.completedOK
+        return completedOK
     }
     int finalise ( List d) {
         TestExtract er = d[0]
@@ -41,9 +45,10 @@ class TestResult extends DataClass {
         er.w1 = w1
         er.w2 = w2
         er.w3 = w3
+        er.cloneOrder = cloneOrder
         //println "Final sum = $sum from $dataSets dataSets with final instance $finalInstance and maxClone = $maxCloneNumber"
         //println "Worker out values "
-        return DataClassInterface.completedOK
+        return completedOK
     }
 
 }

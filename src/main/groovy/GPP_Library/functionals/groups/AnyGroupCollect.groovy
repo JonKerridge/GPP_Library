@@ -44,7 +44,7 @@ import jcsp.lang.ChannelOutput
 class AnyGroupCollect implements CSProcess{
 
 	ChannelInput inputAny
-	ResultDetails rDetails
+	List <ResultDetails> rDetails
 	int collectors
 
 	String logPhaseName = ""
@@ -54,7 +54,7 @@ class AnyGroupCollect implements CSProcess{
 	void run() {
 		List network = (0 ..< collectors).collect { e ->
 			new Collect ( input: inputAny,
-						  rDetails: rDetails,
+						  rDetails: rDetails[e],
 						  logPhaseName: logPhaseName == "" ? "" : logPhaseName + "$e",
 					      logPropertyName: logPropertyName,
 						  visLogChan: visLogChan)
