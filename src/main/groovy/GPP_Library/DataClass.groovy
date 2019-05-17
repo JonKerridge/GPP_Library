@@ -24,6 +24,7 @@ class DataClass implements DataClassInterface, Serializable, Cloneable {
       "Emit: error during Emit Class Create: ",                               //4
       "Collect: error during Collect Class Initialise: ",                     //5
       "Collect: error during Collecting: ",                                   //6
+      " ",                                                                    //7
       "Collect: error during Finalise: ",                                     //8
       "ThreePhaseWorker: error during Local Class Initialise: ",              //9
       "Three PhaseWorker : error during Input Method: ",                      //10

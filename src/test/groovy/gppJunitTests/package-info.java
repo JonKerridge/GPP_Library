@@ -46,7 +46,8 @@
  * 38.  Emit -> OneNodeRequestedList ->> NodeRequestingFanList ->> ListFanOne ->> AnyFanOne -> Collect (2 clusters)
  * 39.  Emit -> OneNodeRequestedList ->> NodeRequestingParCastList ->> ListFanOne ->> AnyFanOne -> Collect (2 clusters)
  * 40.  Emit -> OneNodeRequestedList ->> NodeRequestingSeqCastList ->> ListFanOne ->> AnyFanOne -> Collect (2 clusters)
- *
+ * 41.  Emit -> OneDirectedList -> ListGroupList -> ListFanOne -> Collect
+ * 42.  Emit -> OneIndexedList -> ListGroupList -> ListFanOne -> Collect
  * <p>
   *
   */

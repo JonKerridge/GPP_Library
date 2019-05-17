@@ -21,7 +21,8 @@ import jcsp.lang.ChannelOutput
  * @param indexMethod A String containing the name of a function in the input object that returns
  * the element of the outputList to which the object should be written.
  * @param indexBounds a list of values passed to indexMethod that can be used to check
- * that the index returned is within required limits.
+ * that the index returned is within required limits. Expected value is [ lowerBound, upperBound, divisor].
+ * Divisor will typically be the size of the outputList but this ensures a stronger check.
  */
 @CompileStatic
 class OneIndexedList extends DataClass implements CSProcess {
@@ -29,9 +30,11 @@ class OneIndexedList extends DataClass implements CSProcess {
   ChannelInput input
   ChannelOutputList outputList
   String indexFunction
-  List indexBounds = null
+  List indexBounds = null  // indexFunction ( [ lowerBound, upperBound, divisor)
 
   void run(){
+    assert (indexBounds != null) : "OneIndexedList: bounds must be specified"
+    assert (indexBounds.size() == 3) : "OneIndexedList: bounds specified as $indexBounds should be [lower, upper, divisor]"
     int destinations = outputList.size()
     Object inputObject = input.read()
     while ( ! (inputObject instanceof UniversalTerminator ) ){

@@ -14,6 +14,7 @@ class TestData extends DataClass {
   int w1 = 0
   int w2 = 0
   int w3 = 0
+  public int indexProperty = -1  // will assume 3 workers in group
   static String totalInitialise = "initClass"
   static String partialInitialise = "init"
   static String create = "createInstance"
@@ -27,6 +28,7 @@ class TestData extends DataClass {
   static String finaliseMethod = "finalise"
   static String combineMethod = "combine"
   static String mergeMethod = "mergeMethod"
+  static String indexer = "indexing"
 
   int initClass ( List d){
     instances = d[0]
@@ -50,6 +52,7 @@ class TestData extends DataClass {
     if ( instance > instances) return normalTermination
     else {
       data = instance
+      indexProperty = data % 3 //ASSUME THERE ARE THREE WORKS IN GROUP
       instanceNumber = instance
       instance = instance + 1
       return normalContinuation
@@ -166,6 +169,19 @@ class TestData extends DataClass {
     }
     return currentLocation
   }
+
+  int indexing (List bounds){
+    int lower = bounds[0]
+    int upper = bounds[1]
+    int divisor = bounds[2]
+    int index = data % divisor
+    if ( (index < lower)  || index > upper)
+      return -index
+    else
+      return index
+  }
+
+
 
 
   String toString() {

@@ -31,6 +31,7 @@ class OneDirectedList implements CSProcess {
 		def o = input.read()
 		while ( ! (o instanceof UniversalTerminator ) ){
 			int destination = (int) o.getProperty(indexProperty)
+			assert ((destination >= 0) && (destination < destinations)): "OneDirectedList:  $indexProperty  < 0 or >= $destinations"
 //			println "writing to $batch from ${o.toString()}"
 			((ChannelOutput)outputList[destination]).write(o)
 			o = input.read()
