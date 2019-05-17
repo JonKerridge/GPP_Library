@@ -161,6 +161,7 @@ class DataClass implements DataClassInterface, Serializable, Cloneable {
    */
   @Override
   public Object clone() {
+    println " method clone() needs to be implemented - see DataClass"
     return null
   }
 
@@ -173,6 +174,7 @@ class DataClass implements DataClassInterface, Serializable, Cloneable {
    */
   @Override
   public Object serialize() {
+    println " method serialize() needs to be implemented - see DataClass"
     return null;
   }
 }

@@ -33,15 +33,19 @@
  * 25.	Emit -> OneFanAny -> AnyGroupAny(3, f1(m1)) -> AnyGroupAny(3, f2(m2))  -> AnyGroupAny(3, f3(m3)) -> AnyFanOne -> Collect
  * 26.	Emit -> OnePipelineOne -> Collect
  * 27.	Emit -> OnePipelineCollect
- * 28.	Emit -> OneFanAny -> AnyGroupOfPipelineCollects
+ * 28.	Emit -> OneFanAny -> AnyGroupOfPipelineCollects  (also tests AnyGroupCollect implicitly)
  * 29.	Emit -> OneFanList -> ListGroupOfPipelines -> ListFanOne -> Collect
  * 30.	Emit -> OneFanList -> ListGroupOfPipelines -> ListMergeOne -> Collect
  * 31.	Emit -> OneFanAny -> AnyPipelineOfGroups ->  AnyFanOne -> Collect
  * 32.  Emit -> OneFanAny -> AnyGroupOfPipelines -> AnyFanOne -> Collect
  * 33.  Emit -> OneFanList -> ListGroupOfPipelineCollects
  * 34.  Emit-> OneFanList -> ListPipelineOfGroups -> ListFanOne -> Collect
- * 35.  Emit-> OneFanList -> ListPipelineOfGroupCollects
+ * 35.  Emit-> OneFanList -> ListPipelineOfGroupCollects  (also tests ListGroupCollect implicitly)
  * 36.  Emit -> OneFanAny -> AnyPipelineOfGroupCollects
+ * 37.  Emit -> OneNodeRequestedList ->> NodeRequestingFanAny ->> AnyFanOne ->> AnyFanOne -> Collect (2 clusters)
+ * 38.  Emit -> OneNodeRequestedList ->> NodeRequestingFanList ->> ListFanOne ->> AnyFanOne -> Collect (2 clusters)
+ * 39.  Emit -> OneNodeRequestedList ->> NodeRequestingParCastList ->> ListFanOne ->> AnyFanOne -> Collect (2 clusters)
+ * 40.  Emit -> OneNodeRequestedList ->> NodeRequestingSeqCastList ->> ListFanOne ->> AnyFanOne -> Collect (2 clusters)
  *
  * <p>
   *

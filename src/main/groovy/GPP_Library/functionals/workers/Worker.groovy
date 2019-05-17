@@ -87,6 +87,7 @@ class Worker extends DataClass implements CSProcess {
         running = false
       }
       else {
+//        println "Worker calling $function on ${inputObject.toString()}"
         callUserMethod(inputObject, function, [dataModifier, wc], 1)
         switch (workerType) {
           case 1:
@@ -117,6 +118,7 @@ class Worker extends DataClass implements CSProcess {
     }
     // the inputObject is a UT
     output.write(inputObject)
+//    println "Worker has terminated"
   } //runMethod
 
   void run(){

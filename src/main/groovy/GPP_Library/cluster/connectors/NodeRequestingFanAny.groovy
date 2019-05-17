@@ -41,13 +41,14 @@ class NodeRequestingFanAny implements CSProcess {
 //			println "NRFA: read response ${o.toString()}"
 			if ( !( o instanceof UniversalTerminator)){
 				outputAny.write(o)
-//				println "NRFA: has written object"
+//				println "NRFA: has written object ${o.toString()}"
 				
 			}
 			else
 				running = false
 		}
 		for ( i in 1..destinations) outputAny.write(new UniversalTerminator())
+//		println "NRFA has terminated"
 	}
 }
 

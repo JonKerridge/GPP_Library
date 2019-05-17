@@ -132,8 +132,23 @@ class TestData extends DataClass {
     newTD.data = this.data
     newTD.instanceNumber = this.instanceNumber
     newTD.cloneNumber = cloneInstance
+    newTD.w1 = this.w1
+    newTD.w2 = this.w2
+    newTD.w3 = this.w3
     cloneInstance += 1
     return newTD
+  }
+
+  @Override
+  SerialisedTestData serialize() {
+    def std = new SerialisedTestData()
+    std.instanceNumber = this.instanceNumber
+    std.cloneNumber = this.cloneNumber
+    std.w1 = this.w1
+    std.w2 = this.w2
+    std.w3 = this.w3
+    std.data = this.data
+    return std
   }
 
   int mergeMethod (List <TestData> buffers){

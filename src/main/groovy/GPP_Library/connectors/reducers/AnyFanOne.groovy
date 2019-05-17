@@ -40,6 +40,7 @@ class AnyFanOne  implements CSProcess{
 		while ( running ){
 			if ( !( o instanceof UniversalTerminator)){
 				output.write(o)
+//				println "AFO has written ${o.toString()}"
 				o = inputAny.read()
 			}
 			else {
@@ -49,6 +50,7 @@ class AnyFanOne  implements CSProcess{
 			}
 		}
 		output.write(o)
+//		println "AFO has terminated"
 	}
 
 }

@@ -42,6 +42,7 @@ class OneNodeRequestedList implements CSProcess {
 			response[index].write(new UniversalTerminator())
 			terminated = terminated + 1
 		}
+//		println "ONRL has terminated"
 	}
 
 }

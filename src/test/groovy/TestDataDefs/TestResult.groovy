@@ -23,7 +23,7 @@ class TestResult extends DataClass {
         return completedOK
     }
 
-    int collector (TestData d) { // d can be of many types eg TestData, CombineData
+    int collector (Object d) { // d can be of many types eg TestData, CombineData Serialised testData
         sum += d.data
         finalInstance = d.instanceNumber > finalInstance ? d.instanceNumber : finalInstance
         dataSets += 1
