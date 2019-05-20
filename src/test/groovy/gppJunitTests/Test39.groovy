@@ -104,7 +104,7 @@ class Test39 {
     testParallel.run()
     testParallel.removeAllProcesses()
 
-    println "38: $er"
+    println "39: $er"
 
     assertTrue(er.finalSum == 630)
     assertTrue(er.dataSetCount == 60)
