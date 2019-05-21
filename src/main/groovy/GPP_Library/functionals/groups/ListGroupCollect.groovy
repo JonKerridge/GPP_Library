@@ -43,28 +43,28 @@ import jcsp.lang.ChannelOutput
 @CompileStatic
 class ListGroupCollect implements CSProcess{
 
-	ChannelInputList inputList
-	List <ResultDetails> rDetails
-	int workers
+  ChannelInputList inputList
+  List <ResultDetails> rDetails
+  int workers
 
-	String logPhaseName = ""
-	String logPropertyName = ""
-	ChannelOutput visLogChan = null
+  String logPhaseName = ""
+  String logPropertyName = ""
+  ChannelOutput visLogChan = null
 
-	void run() {
-        int inSize = inputList.size()
-        int rSize = rDetails.size()
-        assert inSize == workers : "ListGroupCollect: inputList size, $inSize, does not equal the number of workers $workers"
-        assert rSize == workers : "ListGroupCollect: rDetails size, $rSize, does not equal the number of workers $workers"
-		List network = (0 ..< workers).collect { e ->
-			new Collect ( input: (ChannelInput)inputList[e],
-						  rDetails: rDetails[e],
-						  logPhaseName: logPhaseName == "" ? "" : logPhaseName + ", $e",
-						  logPropertyName: logPropertyName,
-			 			  visLogChan: visLogChan)
-		}
-		new PAR (network).run()
+  void run() {
+    int inSize = inputList.size()
+    int rSize = rDetails.size()
+    assert inSize == workers : "ListGroupCollect: inputList size, $inSize, does not equal the number of workers $workers"
+    assert rSize == workers : "ListGroupCollect: rDetails size, $rSize, does not equal the number of workers $workers"
+    List network = (0 ..< workers).collect { e ->
+      new Collect ( input: (ChannelInput)inputList[e],
+          rDetails: rDetails[e],
+          logPhaseName: logPhaseName == "" ?  "" : (String)"$e, "  + logPhaseName ,
+          logPropertyName: logPropertyName,
+          visLogChan: visLogChan)
+    }
+    new PAR (network).run()
 
-	}
+  }
 
 }

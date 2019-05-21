@@ -254,6 +254,7 @@ public class Visualiser extends Application {
     }
 
     public static void updateProcess(String process, int tag, String packet){
+//        System.out.println ("UP: process " + process + "::tag " +  tag +"::packet " + packet);
         p.get(process).update(tag, packet);
     }
 

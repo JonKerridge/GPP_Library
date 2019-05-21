@@ -55,8 +55,8 @@ class AnyGroupCollect implements CSProcess{
 		List network = (0 ..< collectors).collect { e ->
 			new Collect ( input: inputAny,
 						  rDetails: rDetails[e],
-						  logPhaseName: logPhaseName == "" ? "" : logPhaseName + "$e",
-					      logPropertyName: logPropertyName,
+							logPhaseName: logPhaseName == "" ?  "" : (String)"$e, "  + logPhaseName ,
+				      logPropertyName: logPropertyName,
 						  visLogChan: visLogChan)
 		}
 		new PAR (network).run()
