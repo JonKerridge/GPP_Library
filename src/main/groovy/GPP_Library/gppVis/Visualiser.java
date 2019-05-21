@@ -50,7 +50,7 @@ public class Visualiser extends Application {
         ps = primaryStage;
     }
 
-    public static void networkScene() {
+    public static void networkScene(String logFileName) {
         Pane controls = getControlsPane();
 
         Pane stats = getStatsPane();
@@ -65,6 +65,7 @@ public class Visualiser extends Application {
         bp.setPadding(new Insets(5));
 
         ps.setScene(new Scene(bp));
+        ps.setTitle(logFileName);
         ps.centerOnScreen();
         ps.show();
     }
