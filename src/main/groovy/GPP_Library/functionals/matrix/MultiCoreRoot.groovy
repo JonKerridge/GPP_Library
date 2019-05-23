@@ -92,7 +92,7 @@ class MultiCoreRoot implements CSProcess {
     Object data
     data = new Object()
 
-    if (logPhaseName == "") { //not logging
+    if (logPropertyName == "") { //not logging
       runMethod()
     } // not logging
 
@@ -106,11 +106,12 @@ class MultiCoreRoot implements CSProcess {
         data = input.read()
         if (data instanceof UniversalTerminator) {
           running = false
+          Logger.inputCompleteEvent(logPhaseName, timer.read(), "UT")
         }
         else {  // process a new data set
           Logger.inputCompleteEvent(logPhaseName, timer.read(), data.getProperty(logPropertyName))
           data.&"$partitionMethod"(nodes)
-          Logger.workStartEvent(timer.read())
+          Logger.workStartEvent(logPhaseName, timer.read())
           for ( i in 0 ..< nodes) toNodes[i].write(data)
 //                    println "sent data to nodes"
           for ( i in 0 ..< nodes) fromNodes.read()
@@ -137,10 +138,14 @@ class MultiCoreRoot implements CSProcess {
               iterating = data.&"$errorMethod"(errorMargin)
               data.&"$updateMethod"()
 //                            println " done the update and iterating = $iterating after $iterations iterations"
-              if ( !finalOut) output.write(data)
+              if ( !finalOut) {
+//                Logger.outputReadyEvent(logPhaseName, timer.read(), data.getProperty(logPropertyName))
+                output.write(data)
+//                Logger.outputCompleteEvent(logPhaseName, timer.read(), data.getProperty(logPropertyName))
+              }
             }
           } // iterate or loop until differences less than errorMargin
-          Logger.workEndEvent(timer.read())
+          Logger.workEndEvent(logPhaseName, timer.read())
           // send final result
 //                    println "result ${data.M.getByColumn(data.n + 1)}"
           Logger.outputReadyEvent(logPhaseName, timer.read(), data.getProperty(logPropertyName))

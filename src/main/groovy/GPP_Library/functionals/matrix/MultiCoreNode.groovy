@@ -58,7 +58,7 @@ class MultiCoreNode implements CSProcess {
     Object data
     data = new Object()
 
-    if (logPhaseName == "") {
+    if (logPropertyName == "") {
       runMethod()
     } //not logging
     else { // logging

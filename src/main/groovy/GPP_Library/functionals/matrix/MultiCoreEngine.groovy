@@ -52,10 +52,8 @@ import jcsp.lang.*
  *@param updateMethod The method, called in MultiCoreRoot, that copies a set of intermediate results into the location where
  *they are accessed during the calculationMethod.
  *
- * @param logPhaseName an optional string property, which, if specified, indicates that the process should be logged
- * otherwise the process will not be logged
  * @param logPropertyName the name of a property in the matrix object that will uniquely identify an instance of the object.
- * LogPropertyName must be specified if logPhaseName is specified
+ * LogPropertyName must be specified if logging is required.  The names associated with the log phases are generated internally.
  */
 
 @CompileStatic
@@ -72,7 +70,7 @@ class MultiCoreEngine implements CSProcess {
   String errorMethod = ""
   String updateMethod = ""
 
-  String logPhaseName = ""
+  //String logPhaseName = ""  // will get set internally
   String logPropertyName = ""
 
   void run(){
@@ -95,7 +93,7 @@ class MultiCoreEngine implements CSProcess {
         partitionMethod: partitionMethod,
         errorMethod: errorMethod,
         updateMethod: updateMethod,
-        logPhaseName: ""  + logPhaseName,
+        logPhaseName: "root",
         logPropertyName: logPropertyName
     )
     for ( i in 0 ..< nodes) {
@@ -103,7 +101,7 @@ class MultiCoreEngine implements CSProcess {
           output: nodesToRoot.out(),
           calculationMethod: calculationMethod,
           nodeId: i,
-          logPhaseName: logPhaseName == "" ? "" : (String)"$i, "  + logPhaseName ,
+          logPhaseName: logPropertyName == "" ? "" : (String)"$i, node" ,
           logPropertyName: logPropertyName
       )
     }
