@@ -9,7 +9,7 @@ import jcsp.lang.ChannelInput
 import jcsp.lang.ChannelOutput
 
 /**
- * The N_WayMerge process accespts inputs from its inputList and uses the method mergeChoice to determine
+ * The N_WayMerge process accepts inputs from its inputList and uses the method mergeChoice to determine
  * which of the available inputs will be written to the output channel in such a way as to maintain an
  * overall sorted order.  It is presumed that the input data stream will be read in a sorted order.<p>
  *
