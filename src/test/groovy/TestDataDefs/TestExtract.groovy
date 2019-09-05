@@ -6,7 +6,7 @@ class TestExtract {
     int finalInstance
     int maxClone
     int w1, w2, w3
-    List cloneOrder
+    List cloneOrder =[]
 
     String toString() {
         String s = "Final Sum = $finalSum"

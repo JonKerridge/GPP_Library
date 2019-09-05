@@ -69,7 +69,7 @@ class AnyPipelineOfGroupCollects implements CSProcess {
     assert (stageOp != null): "AnyPipelineOfGroupCollects: stageOp MUST be specified, one for each stage of the pipeline"
     assert stages > 0: "AnyPipelineOfGroupCollects: value of stages not specified, $stages, must be >= 2"
     assert opSize == stages: "AnyPipelineOfGroupCollects : size of stageOp, $opSize, not equal to number of stages, $stages"
-    assert rSize == stages: "AnyPipelineOfGroupCollects : size of rDetails, $rSize, not equal to number of stages, $workers"
+    assert rSize == workers: "AnyPipelineOfGroupCollects : size of rDetails, $rSize, not equal to number of workers, $workers"
     if (cDetails != null) {
       int cgSize = cDetails.cDetails.size() // number of groups
       int csSize = cDetails.cDetails[0].size() // number of stages

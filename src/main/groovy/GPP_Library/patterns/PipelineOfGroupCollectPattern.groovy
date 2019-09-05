@@ -26,7 +26,7 @@ import jcsp.lang.*
  * @param cDetails A List of {@link GPP_Library.CompositeDetails} objects containing data pertaining to each group of processes.
  * @param rDetails A list of {@link GPP_Library.ResultDetails} objects containing data pertaining to result class used by each of the Collect process, it MUST be specified.
  * @param stages The number of stages in the pipeline of processes that will be created
- * 					when the Pipeline is run
+ * 					when the Pipeline is run, not incl=uding the final Collect process.
  * @param outData A List of booleans. If true the stage with the same index will output each processed input object. If false the stage will output
  * 				  the workerClass once only, after it has processed all the input data objects. The output
  *                only happens after the finalise method has been called. outData defaults to [true, ... true]
@@ -35,7 +35,7 @@ import jcsp.lang.*
  *
 */
 @CompileStatic
-class TaskParallelOfGroupCollects {
+class PipelineOfGroupCollectPattern {
 
 	DataDetails eDetails
 	int stages

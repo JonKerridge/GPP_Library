@@ -7,11 +7,11 @@ import GPP_Library.functionals.pipelines.OnePipelineOne
 import GPP_Library.terminals.Collect
 import GPP_Library.terminals.Emit
 import groovy.transform.CompileStatic
-import groovyJCSP.*
-import jcsp.lang.*
+import groovyJCSP.PAR
+import jcsp.lang.Channel
 
 /**
- * A TaskParallelCollect comprises a sequence of processes in a so-called Farm.  The sequence comprises
+ * A TaskParallelPattern comprises a sequence of processes in a so-called pipeline.  The sequence comprises
  * Emit; Pipeline; Collect. The properties of the pattern provide all the
  * external values required to run the pattern.  The internal channels required to
  * connect the processes together are all declared within the class outwith programmer concerns.
@@ -21,7 +21,7 @@ import jcsp.lang.*
  * @param lDetails A {@link GPP_Library.LocalDetails}  list object containing information concerning each stage of the Pipeline
  * @param stageOp A List of String values identifying the operation to be undertaken
  * 					by each stage process
- * @param stageModifier A List Containing a possible modifiers for the operation, with each stage
+ * @param stageModifier A List Containing a possible modifier for the operation, with each stage
  * 					accessing the element that corresponds to the index of the stage.
  * @param pDetails A List of {@link GPP_Library.PipelineDetails} objects containing data pertaining to any local class used by the stage processes.
  * @param rDetails A {@link GPP_Library.ResultDetails} object containing data pertaining to result class used by the Collect process, it MUST be specified.
@@ -36,7 +36,7 @@ import jcsp.lang.*
 */
 
 @CompileStatic
-class TaskParallelCollect {
+class TaskParallelPattern {
 
 	DataDetails eDetails
 	int stages

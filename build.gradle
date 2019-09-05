@@ -4,10 +4,11 @@ plugins {
 }
 
 group 'GPP_Library'
-version '1.0.1'
+version '1.0.2'
 
 // version 1.0.0 was the base version with the Builder reconfigured
 // version 1.0.1 includes the Visualisation of matrix style engines
+// version 1.0.2 created a complete set of patterns with more meaningful names
 
 apply plugin: 'groovy'
 apply plugin: 'java'

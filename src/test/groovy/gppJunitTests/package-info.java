@@ -48,6 +48,12 @@
  * 40.  Emit -> OneNodeRequestedList ->> NodeRequestingSeqCastList ->> ListFanOne ->> AnyFanOne -> Collect (2 clusters)
  * 41.  Emit -> OneDirectedList -> ListGroupList -> ListFanOne -> Collect
  * 42.  Emit -> OneIndexedList -> ListGroupList -> ListFanOne -> Collect
+ * 43.  DataParallelPattern, based on Test 6
+ * 44.  TaskParallelPattern, based on Test 26
+ * 45.  GroupOfPipelinesPatter, based on Test 32
+ * 46.  PipelineOfGroupsPattern, based on Test 31
+ * 47.  GroupOfPipelineCollectPattern  based on Test 28
+ * 48.  PipelineOfGroupCollectPattern  based on Test 36
  * <p>
   *
   */
