@@ -54,13 +54,13 @@ class StencilEngine implements CSProcess {
 
     ChannelInput input
     ChannelOutput output
-    int nodes
-    String partitionMethod = ""
-    String convolutionMethod = ""
-    List convolutionData = null
-    String functionMethod = ""
-    List functionData = null
-    String updateImageIndexMethod = ""
+    int nodes                       // number of StencilNode processes
+    String partitionMethod = ""     // name of partition method
+    String convolutionMethod = ""   // name of convolution method
+    List convolutionData = null     // List of parameters required by convolution method
+    String functionMethod = ""      // name of any universally applied function
+    List functionData = null        // List of parameters for function
+    String updateImageIndexMethod = "" // name of method used to update index of double buffer
 
     String logPhaseName = ""
     String logPropertyName = ""

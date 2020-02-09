@@ -39,7 +39,7 @@ class MultiCoreRoot implements CSProcess {
       else {  // process a new data set
         data.&"$partitionMethod"(nodes)
         for ( i in 0 ..< nodes) ((ChannelOutput)toNodes[i]).write(data)
-//                    println "sent data to nodes"
+//                    println "sent data reference to nodes"
         for ( i in 0 ..< nodes) fromNodes.read()
 //                    println "received data acknowledgements"
         if (iterations != 0){
@@ -82,7 +82,8 @@ class MultiCoreRoot implements CSProcess {
     for ( i in 0 ..< nodes) fromNodes.read() // get signals to indicate Node termination
 //            println "received UT acknowledgements"
     output.write(data)  // data contains a UniversalTerminator
-  }
+  } // run method
+
   void run(){
     assert partitionMethod != "" : "MultiCoreRoot: partitionMethod must be specified"
     assert updateMethod != "" : "MultiCoreRoot: updateMethod must be specified"

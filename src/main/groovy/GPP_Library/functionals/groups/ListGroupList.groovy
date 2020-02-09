@@ -71,7 +71,7 @@ class ListGroupList implements CSProcess{
             assert (workers == gDetails.workers): "ListGroupList: Number of workers mismatch, Process exepcted $workers, Details specified ${gDetails.workers}"
 		def barrier = null
 //		if ((gDetails != null)&&(workers != gDetails.workers)) 
-//			gpp.DataClass.unexpectedReturnCode("ListGroupList: Number of workers mismatch, Process exepcted $workers, Details specified ${gDetails.workers}", -1)
+//			gpp.DataClass.unexpectedReturnCode("ListGroupList: Number of workers mismatch, Process expected $workers, Details specified ${gDetails.workers}", -1)
 		if (synchronised) barrier = new Barrier(workers)
 		List network = (0 ..< workers).collect { e ->
 			new Worker ( input: (ChannelInput)inputList[e],

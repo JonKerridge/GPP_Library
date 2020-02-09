@@ -10,10 +10,10 @@ import jcsp.lang.*
  * number of {@link GPP_Library.functionals.matrix.MultiCoreNode} processes. The goal of the complete process
  * network is to undertake operations on one or more large matrices by partitioning the matrix operations over the node
  * processes.  The matrix data structure is shared among all the processes, thus the data structure has to be partitioned
- * in such a way that every process can read all the elelemnts in the matrix but only one of the nodes can write to one of the
- * partitions.  The matrix has to have sufficient space to store intermediate results. At the ned of each iteration dat will
+ * in such a way that every process can read all the elements in the matrix but only one of the nodes can write to one of the
+ * partitions.  The matrix has to have sufficient space to store intermediate results. At the end of each iteration data will
  * be transferred from the intermediate space to the original space for the next iteration.<p>
- * The processing can be organised as a fixed number of iterations or can be terminated when a termianl condition has been reached.
+ * The processing can be organised as a fixed number of iterations or can be terminated when a terminal condition has been reached.
  * The object that contains the matrix will also require other structures such as a means of defining the partitions into
  * which the matrix is subdivided.<p>
  * The MultiCoreRoot process has been designed to read a stream of data objects comprising one or more matrices.
@@ -23,13 +23,13 @@ import jcsp.lang.*
  * is given in gpp_demos.solarSystem and the equivalent matrix version is given in gpp_demos.nbody both of which solve
  * the same N-body problem.<p>
  * The methods required by the matrix data object are: <br>
- * initMethod (List d) called by Emit to initialise the data object, d contains any required parameteres<br>
- * createMethod (List d) called by Emit to populate the data object from the input file, d contains any required parameteres<br>
+ * initMethod (List d) called by Emit to initialise the data object, d contains any required parameters<br>
+ * createMethod (List d) called by Emit to populate the data object from the input file, d contains any required parameters<br>
  * partitionMethod (nodes) creates the partition ranges based on the size of the matric and the number of nodes<br>
  * errorMethod (errorMargin) determines whether the end of iterations has been reached, returns boolean,
  * true if the iteration needs to be repeated, false otherwise<br>
- * calaculationMethod (nodeIndex) undertakes the required calculation on the partition identified by nodeIndex<br>
- * updateMethod () copies the latest update to the matrix into the normal space<br>
+ * calculationMethod (nodeIndex) undertakes the required calculation on the partition identified by nodeIndex<br>
+ * updateMethod () copies the latest update to the matrix into the original space<br>
  *
  *@param input The channel from which input objects are read
  *@param output The channel to which processed objects are written

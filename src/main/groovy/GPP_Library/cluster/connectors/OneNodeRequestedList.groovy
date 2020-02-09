@@ -26,7 +26,7 @@ class OneNodeRequestedList implements CSProcess {
 		def o = input.read()
 		while (!(o instanceof UniversalTerminator)){
 			index = alt.fairSelect()
-//			println "ONRL at processed at $index"
+//			println "ONRL processed at $index"
 			request[index].read()
 //			println "ONRL has read signal and processing ${o.toString()}"
 			def smp = o.serialize()
