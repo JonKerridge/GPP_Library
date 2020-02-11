@@ -10,7 +10,7 @@ version '1.0.4'
 // version 1.0.1 includes the Visualisation of matrix style engines
 // version 1.0.2 created a complete set of patterns with more meaningful names
 // version 1.0.3 built using Java 13
-// version 1.0.4 built using Java 11 (LTS) and Groovy 3.0.0
+// version 1.0.4 built using Java 11 (LTS) and Groovy 3.0.0!
 
 apply plugin: 'groovy'
 apply plugin: 'java'
