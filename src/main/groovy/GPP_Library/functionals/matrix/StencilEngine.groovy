@@ -62,7 +62,7 @@ class StencilEngine implements CSProcess {
     List functionData = null        // List of parameters for function
     String updateImageIndexMethod = "" // name of method used to update index of double buffer
 
-    String logPhaseName = ""
+    //String logPhaseName = "" set internally
     String logPropertyName = ""
 
     void run(){
@@ -82,7 +82,7 @@ class StencilEngine implements CSProcess {
                                       convolutionData: convolutionData,
                                       functionMethod: functionMethod,
                                       functionData: functionData,
-                                      logPhaseName: logPhaseName == "" ? "" : (String)"$n, "  + logPhaseName ,
+                                      logPhaseName: logPropertyName == "" ? "" : (String)"$n, node" ,
                                       logPropertyName: logPropertyName)
         }
         network << new StencilManager( input: input,
@@ -91,7 +91,7 @@ class StencilEngine implements CSProcess {
                                      fromNodes: fromNodes.in(),
                                      nodes: nodes,
                                      partitionMethod: partitionMethod,
-                                     logPhaseName: ""  + logPhaseName,
+                                     logPhaseName: "manager",
                                      logPropertyName: logPropertyName,
                                      updateImageIndexMethod: updateImageIndexMethod)
         new PAR(network).run()
