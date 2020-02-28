@@ -4,13 +4,15 @@ plugins {
 }
 
 group 'GPP_Library'
-version '1.0.4'
+version '1.0.5'
 
 // version 1.0.0 was the base version with the Builder reconfigured
 // version 1.0.1 includes the Visualisation of matrix style engines
 // version 1.0.2 created a complete set of patterns with more meaningful names
 // version 1.0.3 built using Java 13
 // version 1.0.4 built using Java 11 (LTS) and Groovy 3.0.0!
+// version 1.0.4a includes an Emit Single process to get Gough Recursion working not in repo
+// version 1.0.5 includes an EmitSingle J11 G3.0.1
 
 apply plugin: 'groovy'
 apply plugin: 'java'
@@ -38,12 +40,12 @@ mainClassName = "gppVis/Viualiser/org.openjfx.MainApp"
 //}
 
 dependencies {
-  compile 'org.codehaus.groovy:groovy-all:3.0.0'
+  compile 'org.codehaus.groovy:groovy-all:3.0.1'
   compile group: 'javax.xml.bind', name: 'jaxb-api', version: '2.3.0'
   compile 'cspforjava:jcsp:1.1.0'
   compile 'groovyJCSP:groovyJCSP:1.1.3'
   compile group: 'junit', name: 'junit', version: '4.12'
-  testCompile 'org.codehaus.groovy:groovy-all:3.0.0'
+  testCompile 'org.codehaus.groovy:groovy-all:3.0.1'
   testCompile group: 'javax.xml.bind', name: 'jaxb-api', version: '2.3.0'
   testCompile 'cspforjava:jcsp:1.1.0'
   testCompile 'groovyJCSP:groovyJCSP:1.1.3'
