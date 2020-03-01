@@ -1,0 +1,58 @@
+o1: Final Sum = 210 from 20 data sets with final instance 20 max clone is 0 ... W-values = w1: 0, w2: 0, w3: 0
+n2: Final Sum = 210 from 1 data sets with final instance 20 max clone is 0 ... W-values = w1: 0, w2: 0, w3: 0
+n3: Final Sum = 1050 from 5 data sets with final instance 5 max clone is 0 ... W-values = w1: 0, w2: 0, w3: 0
+m4: Final Sum = 840 from 2 data sets with final instance 2 max clone is 0 ... W-values = w1: 0, w2: 0, w3: 0
+
+	p5: Final Sum = 2210 from 20 data sets with final instance 20 max clone is 0 ... W-values = w1: 0, w2: 0, w3: 0
+o6: Final Sum = 210 from 20 data sets with final instance 20 max clone is 0 ... W-values = w1: 0, w2: 0, w3: 0
+o7: Final Sum = 210 from 20 data sets with final instance 20 max clone is 0 ... W-values = w1: 0, w2: 0, w3: 0
+o8: Final Sum = 210 from 20 data sets with final instance 20 max clone is 0 ... W-values = w1: 0, w2: 0, w3: 0
+o9: Final Sum = 210 from 20 data sets with final instance 20 max clone is 0 ... W-values = w1: 0, w2: 0, w3: 0
+p10: Final Sum = 840 from 80 data sets with final instance 20 max clone is 80 ... W-values = w1: 0, w2: 0, w3: 0
+ø Clone Order =  1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 79 80
+p11: Final Sum = 840 from 80 data sets with final instance 20 max clone is 80 ... W-values = w1: 0, w2: 0, w3: 0
+ø Clone Order =  1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 79 80
+p12: Final Sum = 840 from 80 data sets with final instance 20 max clone is 80 ... W-values = w1: 0, w2: 0, w3: 0
+ø Clone Order =  1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 79 80
+p13: Final Sum = 840 from 80 data sets with final instance 20 max clone is 80 ... W-values = w1: 0, w2: 0, w3: 0
+ø Clone Order =  1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 79 80
+p14: Final Sum = 840 from 80 data sets with final instance 20 max clone is 80 ... W-values = w1: 0, w2: 0, w3: 0
+Q Clone Order =  4 8 12 16 20 24 28 32 36 40 44 48 52 56 60 64 68 72 76 77 78 80
+p15: Final Sum = 840 from 80 data sets with final instance 20 max clone is 80 ... W-values = w1: 0, w2: 0, w3: 0
+ø Clone Order =  1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 79 80
+ p16: Final Sum = 840 from 80 data sets with final instance 20 max clone is 80 ... W-values = w1: 0, w2: 0, w3: 0
+ ø Clone Order =  1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 79 80
+"!p17: Final Sum = 840 from 80 data sets with final instance 20 max clone is 80 ... W-values = w1: 0, w2: 0, w3: 0
+"!ø Clone Order =  1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 79 80
+$#p18: Final Sum = 840 from 80 data sets with final instance 20 max clone is 80 ... W-values = w1: 0, w2: 0, w3: 0
+$#ø Clone Order =  1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 79 80
+&%y19: Final Sum = 210 from 20 data sets with final instance 20 max clone is 0 ... W-values = w1: 210, w2: 2210, w3: 20210
+('y20: Final Sum = 210 from 20 data sets with final instance 20 max clone is 0 ... W-values = w1: 210, w2: 2210, w3: 20210
+*)y21: Final Sum = 231 from 21 data sets with final instance 21 max clone is 0 ... W-values = w1: 231, w2: 2331, w3: 21231
+,+y22: Final Sum = 231 from 21 data sets with final instance 21 max clone is 0 ... W-values = w1: 231, w2: 2331, w3: 21231
+.-y23: Final Sum = 231 from 21 data sets with final instance 21 max clone is 0 ... W-values = w1: 231, w2: 2331, w3: 21231
+0/y24: Final Sum = 231 from 21 data sets with final instance 21 max clone is 0 ... W-values = w1: 231, w2: 2331, w3: 21231
+21y25: Final Sum = 210 from 20 data sets with final instance 20 max clone is 0 ... W-values = w1: 210, w2: 2210, w3: 20210
+43x26: Final Sum = 210 from 20 data sets with final instance 20 max clone is 0 ... W-values = w1: 410, w2: 2210, w3: 4210
+65x27: Final Sum = 210 from 20 data sets with final instance 20 max clone is 0 ... W-values = w1: 410, w2: 2210, w3: 4210
+87v28: Final Sum = 210 from 20 data sets with final instance 20 max clone is 0 ... W-values = w1: 210, w2: 210, w3: 210
+:9v29: Final Sum = 210 from 20 data sets with final instance 20 max clone is 0 ... W-values = w1: 210, w2: 210, w3: 210
+<;v30: Final Sum = 210 from 20 data sets with final instance 20 max clone is 0 ... W-values = w1: 210, w2: 210, w3: 210
+>=v31: Final Sum = 210 from 20 data sets with final instance 20 max clone is 0 ... W-values = w1: 210, w2: 210, w3: 210
+@?v32: Final Sum = 210 from 20 data sets with final instance 20 max clone is 0 ... W-values = w1: 210, w2: 210, w3: 210
+BAv33: Final Sum = 210 from 20 data sets with final instance 20 max clone is 0 ... W-values = w1: 210, w2: 210, w3: 210
+DCv34: Final Sum = 210 from 20 data sets with final instance 20 max clone is 0 ... W-values = w1: 210, w2: 210, w3: 210
+FEv35: Final Sum = 210 from 20 data sets with final instance 20 max clone is 0 ... W-values = w1: 210, w2: 210, w3: 210
+HGv36: Final Sum = 210 from 20 data sets with final instance 20 max clone is 0 ... W-values = w1: 210, w2: 210, w3: 210
+JIp37: Final Sum = 210 from 20 data sets with final instance 20 max clone is 0 ... W-values = w1: 0, w2: 0, w3: 0
+LKp38: Final Sum = 210 from 20 data sets with final instance 20 max clone is 0 ... W-values = w1: 0, w2: 0, w3: 0
+NMp39: Final Sum = 630 from 60 data sets with final instance 20 max clone is 0 ... W-values = w1: 0, w2: 0, w3: 0
+POp40: Final Sum = 630 from 60 data sets with final instance 20 max clone is 0 ... W-values = w1: 0, w2: 0, w3: 0
+RQp41: Final Sum = 210 from 20 data sets with final instance 20 max clone is 0 ... W-values = w1: 0, w2: 0, w3: 0
+TSp42: Final Sum = 210 from 20 data sets with final instance 20 max clone is 0 ... W-values = w1: 0, w2: 0, w3: 0
+VUp43: Final Sum = 210 from 20 data sets with final instance 20 max clone is 0 ... W-values = w1: 0, w2: 0, w3: 0
+XWx44: Final Sum = 210 from 20 data sets with final instance 20 max clone is 0 ... W-values = w1: 410, w2: 2210, w3: 4210
+ZYv45: Final Sum = 210 from 20 data sets with final instance 20 max clone is 0 ... W-values = w1: 210, w2: 210, w3: 210
+\[v46: Final Sum = 210 from 20 data sets with final instance 20 max clone is 0 ... W-values = w1: 210, w2: 210, w3: 210
+^]v47: Final Sum = 210 from 20 data sets with final instance 20 max clone is 0 ... W-values = w1: 210, w2: 210, w3: 210
+`_v48: Final Sum = 210 from 20 data sets with final instance 20 max clone is 0 ... W-values = w1: 210, w2: 210, w3: 210

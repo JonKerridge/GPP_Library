@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="gppJunitTests.Test14" tests="1" skipped="0" failures="0" errors="0" timestamp="2020-02-28T09:56:07" hostname="Jon-Xpc" time="0.021">
+  <properties/>
+  <testcase name="test" classname="gppJunitTests.Test14" time="0.021"/>
+  <system-out><![CDATA[14: Final Sum = 840 from 80 data sets with final instance 20 max clone is 80 ... W-values = w1: 0, w2: 0, w3: 0
+ Clone Order =  4 8 12 16 20 24 28 32 36 40 44 48 52 56 60 64 68 72 76 77 78 80
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
