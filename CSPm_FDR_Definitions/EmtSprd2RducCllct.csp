@@ -1,0 +1,52 @@
+datatype objects = A | B | C | D | E | UT  
+
+subtype emitObj = A | B | C | D | E | UT            -- emitted objects
+
+channel a: emitObj          -- channels connecting the processes
+channel b: {0..1}.emitObj   -- indicating the object types that
+channel c: emitObj          -- form the events on the channel
+channel finished : Bool     -- used during system refinement
+
+
+a_A = {|a|} -- the alphabet (events) associated with each channel
+a_B = {|b|}
+a_C = {|c|}
+
+gen(A) = B      -- the specification of objects as they
+gen(B) = C      -- are created and emiited from the
+gen(C) = D      -- Emit process
+gen(D) = E 
+gen(E) = UT     -- the final terminating Universal Terminator
+
+Emit(o) = a!o -> if o == UT then SKIP else Emit(gen(o))
+
+Spread(i) = a?o -> if o == UT then Spread_End(i) else (b!i.o -> Spread(1-i))
+Spread_End(i) = b!i.UT -> b!(1-i).UT -> SKIP
+-- ensure that UT is sent down all the channels once it has been read
+
+Reduce(i) = b?i.o -> if o == UT then Reduce_End(1-i) else ( c!o -> Reduce(i))
+Reduce_End(i) = b?i.o -> if o == UT then (c!UT -> SKIP) else (c!o -> Reduce_End(i))
+-- ensures that UT is read from all input channels BEFORE writing UT 
+-- having ensured that all data has been read from the input channel
+-- this formulation only works for two channel reducer
+
+
+Reducer() = [] x: {0..1} @ Reduce(x)    -- replicated choice
+
+Collect() = c?o -> if o == UT then Collect_End() else Collect()
+Collect_End() = finished!True -> Collect_End()
+-- this construct ensure that the system does not end with a SKIP
+-- and thus can be refined to the behaviour of TestSystem 
+-- provided the events on the other channels are hidden during assertion testing
+
+System = ((Emit(A) [| a_A |] Spread(0) ) [| a_B |] Reducer() ) [| a_C |] Collect()
+--the model used to test  to which the PoG and GoP models are refined
+
+TestSystem = finished!True -> TestSystem     
+			
+assert (System \ {|a, b, c|}) [T= TestSystem
+assert (System \ {|a, b, c|}) [F= TestSystem
+assert (System \ {|a, b, c|}) [FD= TestSystem
+assert System :[deadlock free]
+assert System :[divergence free]
+assert System :[deterministic]

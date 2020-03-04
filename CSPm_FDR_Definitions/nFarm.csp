@@ -1,0 +1,77 @@
+datatype objects = A  | B  | C  | D  | E  | 
+                   A' | B' | C' | D' | E' | UT  
+
+subtype emitObj = A | B | C | D | E | UT        --emitted objects
+subtype fObj    = A' | B' | C' | D' | E' | UT   -- processed objects
+
+N = 3   -- tested with N = 1 to 8
+
+channel a: emitObj            -- channels connecting the processes
+channel b: {0..N-1}.emitObj   -- indicating the object types that
+channel c: {0..N-1}.fObj      -- form the events on the channel
+channel d: fObj          
+channel finished : Bool       -- used during system refinement
+
+create(A) = B      -- the specification of objects as they
+create(B) = C      -- are created and emitted from the
+create(C) = D      -- Emit process
+create(D) = E 
+create(E) = UT     -- the final terminating Universal Terminator
+
+Emit(o) = a!o -> if o == UT then SKIP else Emit(create(o))
+
+Spread(i) = a?o -> if o == UT then 
+                    ( b!i.UT -> Spread_End(i, (i+1) % N)) 
+                   else 
+                    ( b!i.o -> Spread((i+1) % N) )
+Spread_End(s, n) = if s == n then SKIP else b!n.UT -> Spread_End(s, (n+1) % N )
+-- ensure that UT is sent down all the channels once it has been read
+
+Reduce(i) = c?i.o -> if o == UT then (Reduce_End(i, (i+1)%N) ) else ( d!o -> Reduce(i))
+Reduce_End(s, n) = if s==n then d!UT -> SKIP else c?n.o -> 
+                    if o == UT then 
+                        Reduce_End(s, (n+1)%N )                         
+                    else 
+                        ( d!o -> Reduce_End(s, n) ) 
+-- ensures that UT is read from all input channels BEFORE writing UT 
+-- having ensured that all data has been read from the input channel
+
+Reducer() = [] x: {0..N-1} @ Reduce(x)    -- replicated choice
+
+f(A) = A'       -- the function undertaken by Worker
+f(B) = B'
+f(C) = C'
+f(D) = D'
+f(E) = E'
+
+Worker(i) = b?i.o -> if o == UT then (c!i.UT -> SKIP) else (c!i.f(o) -> Worker(i))
+a_W(x) =  {|b.x, c.x|}  -- the alphabet used by each Worker(x)
+Workers() =  || x : {0..N-1} @  [a_W(x)] Worker(x)
+
+result = <A', B', C', D', E'>   
+
+--Collect() = d?o -> if o == UT then Collect_End() else  Collect()
+Collect() = d?o -> if o == UT then Collect_End() 
+                    else  (if elem(o, result) then Collect() else STOP)  
+
+Collect_End() = finished!True -> Collect_End()
+-- this construct ensures the system does not end with a SKIP
+-- and thus can be refined to the behaviour of TestSystem 
+-- provided the events on the other channels are hidden during assertion testing
+
+a_A = {|a|} -- the alphabet (events) associated with each channel
+a_B = {|b|} -- used in the construction of the whole system
+a_C = {|c|}
+a_D = {|d|}
+
+System = (((Emit(A) [| a_A |] Spread(0)) [|a_B|] Workers()) [| a_C |]  Reducer() ) [| a_D |] Collect()
+
+TestSystem = finished!True -> TestSystem   --the model used for testing
+			
+assert (System \ {|a, b, c, d|}) [T= TestSystem        -- hide events on all channels but finished
+assert (System \ {|a, b, c, d|}) [F= TestSystem
+assert (System \ {|a, b, c, d|}) [FD= TestSystem
+assert System :[deadlock free]
+assert System :[divergence free]
+assert System :[deterministic]
+

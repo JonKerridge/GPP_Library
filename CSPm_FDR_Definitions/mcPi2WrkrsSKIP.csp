@@ -1,0 +1,59 @@
+datatype objects = A | B | C | D | E | UT | A' | B' | C' | D' | E'
+
+subtype emitObj = A | B | C | D | E | UT        -- objects before Worker
+subtype fObj = A' | B' | C' | D' | E' | UT      -- objects after worker
+
+channel a: emitObj
+channel b: {0..1}.emitObj
+channel c: {0..1}.fObj
+channel d: fObj
+channel finished: Bool
+
+a_A = {|a|}     -- the alphabet (events) associated with each channel
+a_B = {|b|}
+a_C = {|c|}
+a_D = {|d|}
+
+gen(A) = B          -- generate each of the emit objects terminated by UT
+gen(B) = C
+gen(C) = D 
+gen(D) = E
+gen(E) = UT         -- the Universal Terminator object
+
+Emit(o) = a!o -> if o == UT then SKIP else Emit(gen(o))
+
+Spread(i) = a?o -> if o == UT then Spread_End(i) else (b!i.o -> Spread(1-i))
+Spread_End(i) = b!i.UT -> b!(1-i).UT -> SKIP
+-- ensure that UT is sent down all the channels once it has been read
+
+f(A) = A'       -- the function that defines the effect of a Worker process
+f(B) = B'
+f(C) = C'
+f(D) = D'
+f(E) = E'
+
+Worker(i) = b?i.o -> if o == UT then (c!i.UT -> SKIP) else (c!i.f(o) -> Worker(i))
+
+Reduce(i) = c?i.o -> if o == UT then Reduce_End(1-i) else ( d!o -> Reduce(i))
+Reduce_End(i) = c?i.o -> if o == UT then (d!UT -> SKIP) else (d!o -> Reduce_End(i))
+-- ensures that UT is read from all input channels BEFORE writing UT 
+-- having ensured that all data has been read from the input channel
+-- this formulation only works for two channel reducer
+
+Reducer() = [] x: {0..1} @ Reduce(x)    -- replicated  choice
+
+Collect() = d?o -> if o == UT then SKIP else Collect()
+
+a_W(x) =  {|b.x, c.x|}  -- the alphabet used by each Worker(x)
+
+Workers() =  || x : {0..1} @  [a_W(x)] Worker(x)
+
+System = (((Emit(A) [| a_A |] Spread(0)) [|a_B|] Workers()) [| a_C |] Reducer()) [| a_D |] Collect()
+
+assert (System \ {|a, b, c, d|}) [T= ( SKIP \ {|a, b, c, d|})       -- hide events on all channels
+assert (System \ {|a, b, c, d|}) [F= ( SKIP \ {|a, b, c, d|})
+assert (System \ {|a, b, c, d|}) [FD= ( SKIP \ {|a, b, c, d|})
+--assert System :[deadlock free [F]]
+assert System :[divergence free]
+assert System :[deterministic]
+

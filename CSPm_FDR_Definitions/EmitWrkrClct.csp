@@ -1,0 +1,36 @@
+datatype objects = A | B | UT | Af | Bf
+
+subtype emitObj = A | B | UT
+subtype fObj = Af | Bf | UT
+
+channel a: emitObj
+channel b: fObj
+channel finished: Bool
+
+gen(A) = B
+gen(B) = UT
+
+Emit(o) = a!o -> if o == UT then SKIP else Emit(gen(o))
+
+f(A) = Af
+f(B) = Bf
+
+Worker = a?o -> if o == UT then ( b!UT -> SKIP ) else ( b!f(o) -> Worker )
+
+Collect = b?o -> if o == UT then Collect_End else Collect
+Collect_End = finished!True -> Collect_End
+
+a_A = {|a|}
+a_B = {|b|}
+
+System = (Emit(A) [| a_A |] Worker ) [| a_B |] Collect
+
+TestSystem = finished!True -> TestSystem
+
+assert (System \ {|a, b|}) [T= TestSystem
+assert (System \ {|a, b|}) [F= TestSystem
+assert (System \ {|a, b|}) [FD= TestSystem
+
+assert System :[deadlock free]
+assert System :[divergence free]
+assert System :[deterministic]

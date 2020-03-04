@@ -1,0 +1,125 @@
+datatype objects = A | B | C | D | E | UT | 
+                    Af1 | Bf1 | Cf1 | Df1 | Ef1 |
+                    Af2 | Bf2 | Cf2 | Df2 | Ef2 | 
+                    Af3 | Bf3 | Cf3 | Df3 | Ef3 
+
+subtype emitObj = A | B | C | D | E | UT            -- emitted objects
+subtype f1Obj = Af1 | Bf1 | Cf1 | Df1 | Ef1 | UT    -- objects output after worker 1
+subtype f2Obj = Af2 | Bf2 | Cf2 | Df2 | Ef2 | UT    -- objects output after worker 2
+subtype f3Obj = Af3 | Bf3 | Cf3 | Df3 | Ef3 | UT    -- objects output after worker 3
+
+channel a: emitObj          -- channels connecting the processes
+channel b: {0..1}.emitObj   -- indicating the object types that
+channel c: {0..1}.f1Obj    -- form the events on the channel
+channel d: {0..1}.f2Obj
+channel e: {0..1}.f3Obj
+channel f: f3Obj
+channel finished : Bool     -- used during system refinement
+
+a_A = {|a|} -- the alphabet (events) associated with each channel
+a_B = {|b|}
+a_C = {|c|}
+a_D = {|d|}
+a_E = {|e|}
+a_F = {|f|}
+
+gen(A) = B      -- the specification of objects as they
+gen(B) = C      -- are created and emiited from the
+gen(C) = D      -- Emit process
+gen(D) = E 
+gen(E) = UT     -- the final terminating Universal Terminator
+
+f1(A) = Af1     -- the effect of f1() on each object that
+f1(B) = Bf1     -- passes through the first worker
+f1(C) = Cf1
+f1(D) = Df1
+f1(E) = Ef1
+
+f2(Af1) = Af2   -- the effect of f2() on each object that
+f2(Bf1) = Bf2   -- passes through the second worker
+f2(Cf1) = Cf2
+f2(Df1) = Df2
+f2(Ef1) = Ef2
+
+f3(Af2) = Af3   -- the effect of f3() on each object that
+f3(Bf2) = Bf3   -- passes through the third worker
+f3(Cf2) = Cf3
+f3(Df2) = Df3
+f3(Ef2) = Ef3
+
+Emit(o) = a!o -> if o == UT then SKIP else Emit(gen(o))
+
+Spread(i) = a?o -> if o == UT then Spread_End(i) else (b!i.o -> Spread(1-i))
+Spread_End(i) = b!i.UT -> b!(1-i).UT -> SKIP
+-- ensure that UT is sent down all the channels once it has been read
+
+Worker1(i) = b?i.o -> if o == UT then ( c!i.UT -> SKIP ) else ( c!i.f1(o) -> Worker1(i) )
+Worker2(i) = c?i.o -> if o == UT then ( d!i.UT -> SKIP ) else ( d!i.f2(o) -> Worker2(i) )
+Worker3(i) = d?i.o -> if o == UT then ( e!i.UT -> SKIP ) else ( e!i.f3(o) -> Worker3(i) )
+
+Reduce(i) = e?i.o -> if o == UT then Reduce_End(1-i) else ( f!o -> Reduce(i))
+Reduce_End(i) = e?i.o -> if o == UT then (f!UT -> SKIP) else (f!o -> Reduce_End(i))
+-- ensures that UT is read from all input channels BEFORE writing UT 
+-- having ensured that all data has been read from the input channel
+-- this formulation only works for two channel reducer
+
+Reducer() = [] x: {0..1} @ Reduce(x)    -- replicated  choice
+
+Collect() = f?o -> if o == UT then Collect_End() else Collect()
+Collect_End() = finished!True -> Collect_End()
+-- this construct ensure that the system does not end with a SKIP
+-- and thus can be refined to the behaviour of TestSystem 
+-- provided the events on the other channels are hidden during assertion testing
+
+a_Pipe(x) = {| b.x, c.x, d.x, e.x |}   -- the alphabet for a Pipeline of Workers(x)
+
+Pipe(i) = (Worker1(i) [| a_C |] Worker2(i)) [| a_D |] Worker3(i)
+
+GoP() = || x: {0..1} @ [ a_Pipe(x) ] Pipe(x)    -- define two pipes {0..1}
+
+GoPSystem = ( ( ( Emit(A) [| a_A |] Spread(0) )  
+                [| a_B |]  GoP() ) [| a_E |] Reducer() ) [| a_F |] Collect()
+
+--the model used to test  to which the PoG and GoP models are refined
+
+TestSystem = finished!True -> TestSystem     
+			
+assert (GoPSystem \ {|a, b, c, d, e, f|}) [T= TestSystem
+assert (GoPSystem \ {|a, b, c, d, e, f|}) [F= TestSystem
+assert (GoPSystem \ {|a, b, c, d, e, f|}) [FD= TestSystem
+
+assert GoPSystem :[deadlock free]
+assert GoPSystem :[divergence free]
+assert GoPSystem :[deterministic]
+
+-- the alphabets required by each of the groups
+
+a_G1(x) = {| b.x, c.x |}
+a_G2(x) = {| c.x, d.x |}
+a_G3(x) = {| d.x, e.x |}
+
+-- the groups, each comprising two parallel workers
+
+Group1() = || x:{0..1} @ [ a_G1(x) ] Worker1(x)
+Group2() = || x:{0..1} @ [ a_G2(x) ] Worker2(x)
+Group3() = || x:{0..1} @ [ a_G3(x) ] Worker3(x)
+
+PoG() = (Group1() [| a_C|] Group2()) [|a_D|] Group3()
+
+PoGSystem = ( ( ( Emit(A) [| a_A |] Spread(0) )  
+                [| a_B |]  PoG() ) [| a_E |] Reducer() ) [| a_F |] Collect()
+
+--make assertions for PoG against the TestSystem
+
+assert (PoGSystem \ {|a, b, c, d, e, f|}) [T= TestSystem
+assert (PoGSystem \ {|a, b, c, d, e, f|}) [F= TestSystem
+assert (PoGSystem \ {|a, b, c, d, e, f|}) [FD= TestSystem
+
+assert PoGSystem :[deadlock free]
+assert PoGSystem :[divergence free]
+assert PoGSystem :[deterministic]
+
+-- finally assert the PoG and Gop Models refine each other
+assert (PoGSystem \ {|a, b, c, d, e, f|}) [T= (GoPSystem \ {|a, b, c, d, e, f|})
+assert (PoGSystem \ {|a, b, c, d, e, f|}) [F= (GoPSystem \ {|a, b, c, d, e, f|})
+assert (PoGSystem \ {|a, b, c, d, e, f|}) [FD= (GoPSystem \ {|a, b, c, d, e, f|})
