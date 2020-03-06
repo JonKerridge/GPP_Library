@@ -16,8 +16,11 @@ import jcsp.lang.*
  *     while true
  *         outputList.broadcast(input.read())
  * </pre>
+ * <p>
+ *  where broadcast is a method in groovyJCSP; it writes a clone of the inputObject to
+ *  all elements of the outputList in parallel<p>
  * @param input A one2one Channel used to read data objects from the previous process
- * @param outputList An OutputChannelList to which the incoming data object is written in sequence
+ * @param outputList An OutputChannelList to which the incoming data object is written in parallel
  *
  */
 @CompileStatic
@@ -27,13 +30,15 @@ class OneParCastList  implements CSProcess{
 	ChannelOutputList outputList
 
 	void run() {
-//		int elements = outputList.size()
-		def o = input.read()
-		while ( ! (o instanceof UniversalTerminator ) ){
-			outputList.broadcast(o)
-			o = input.read()
+		Object inputObject
+		inputObject = input.read()
+		while ( ! (inputObject instanceof UniversalTerminator ) ){
+			outputList.broadcast(inputObject)
+			inputObject = input.read()
 		}
-		outputList.broadcast(o)
+		outputList.broadcast(inputObject)
 		
 	}
 }
+
+

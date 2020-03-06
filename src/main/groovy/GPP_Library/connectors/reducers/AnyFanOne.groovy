@@ -34,23 +34,25 @@ class AnyFanOne  implements CSProcess{
 	int sources = 0
 
 	void run() {
-		def o = inputAny.read()
-		boolean running = true
-		int terminated = 0
+		boolean running
+		int terminated
+		Object inputObject
+
+		running = true
+		terminated = 0
+		inputObject = inputAny.read()
 		while ( running ){
-			if ( !( o instanceof UniversalTerminator)){
-				output.write(o)
-//				println "AFO has written ${o.toString()}"
-				o = inputAny.read()
+			if ( !( inputObject instanceof UniversalTerminator)){
+				output.write(inputObject)
+				inputObject = inputAny.read()
 			}
 			else {
 				terminated = terminated + 1
 				if (terminated == sources ) running = false
-				else o = inputAny.read()
+				else inputObject = inputAny.read()
 			}
 		}
-		output.write(o)
-//		println "AFO has terminated"
+		output.write(inputObject) // this will be a UniversalTerminator
 	}
 
 }

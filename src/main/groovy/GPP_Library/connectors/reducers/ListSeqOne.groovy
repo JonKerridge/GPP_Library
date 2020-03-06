@@ -35,7 +35,8 @@ class ListSeqOne  implements CSProcess{
 	
 	void run() {
 		int elements = inputList.size()
-		List valueList  = (List)inputList.readSeq()
+		List valueList
+		valueList  = (List)inputList.readSeq()
 		while ( ! (valueList[0] instanceof UniversalTerminator ) ){
 			for ( e in 0 ..< elements) output.write(valueList[e])
 			valueList  = (List)inputList.readSeq()

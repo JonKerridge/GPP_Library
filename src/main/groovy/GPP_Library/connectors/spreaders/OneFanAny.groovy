@@ -17,7 +17,7 @@ import jcsp.lang.*
  * </pre>
  * @param input A one2one Channel used to read data objects from the previous process
  * @param outputAny A one2Any channel to which the incoming data object is written
- * @param destinations The number of receiving processes connected to the Any channel end.<p>
+ * @param destinations The number of receiving processes connected to the outputAny channel.<p>
  * 
  *
  */
@@ -29,13 +29,14 @@ class OneFanAny  implements CSProcess{
 	int destinations = 0
 	
 	void run() {
-		def o = input.read()
-		while ( ! (o instanceof UniversalTerminator ) ){
-			outputAny.write(o)
-			o = input.read()
+		Object inputObject
+		inputObject = input.read()
+		while ( ! (inputObject instanceof UniversalTerminator ) ){
+			outputAny.write(inputObject)
+			inputObject = input.read()
 		}
 		for ( i in 1 .. destinations) {
-			outputAny.write(o)
+			outputAny.write(inputObject)		// Universal terminator
 		}
 	}
 

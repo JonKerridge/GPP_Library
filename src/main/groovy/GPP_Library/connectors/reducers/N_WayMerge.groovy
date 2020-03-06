@@ -22,7 +22,7 @@ import jcsp.lang.ChannelOutput
  *The method mergeChoice has the declaration:<br>
  *static int mergeChoice (List <inputClass> buffers)
  *
- *Each input channel reads its input into one of the elements of buffers<br>
+ *Each input channel reads its input into one of the elements of the buffers<br>
  *mergeChoice then returns the index of the element of buffers that has been selected<br>
  *It is guaranteed that at least one of the buffers elements will contain valid data<br>
  *If a terminating value has been read from a channel list element then the corresponding
@@ -39,23 +39,26 @@ class N_WayMerge extends DataClass implements CSProcess{
 
 	void run(){
 		int sources = inputList.size()
-		int terminated = 0
+		int terminated, returnCode
+		terminated = 0
 		List buffers = []
 		for ( i in 0 ..< sources) buffers[i] = null
-		Object o = null
-		boolean running = true
+		Object inputObject
+		inputObject = null
+		boolean running
+		running = true
 		// read in the initial values from each inputList element
 		for ( i in 0 ..< sources){
-			o =  ((ChannelInput)inputList[i]).read()
-			if ( ! (o instanceof UniversalTerminator)){
-				buffers[i] = o
+			inputObject =  ((ChannelInput)inputList[i]).read()
+			if ( ! (inputObject instanceof UniversalTerminator)){
+				buffers[i] = inputObject
 			}
 			else {
 				terminated = terminated + 1
 			}
 		}
 		running = terminated == sources ? false : true
-		int returnCode = -1
+		returnCode = -1
 		Class dataClass = Class.forName(inClassName)
 		def dc = dataClass.newInstance()
 		while (running){
@@ -63,9 +66,9 @@ class N_WayMerge extends DataClass implements CSProcess{
             returnCode = callUserFunction(dc, mergeChoice, buffers, 25)
 			if ((returnCode >= 0) && (returnCode < sources)) {
 				output.write(buffers[returnCode])
-				o =  ((ChannelInput)inputList[returnCode]).read()
-				if ( ! (o instanceof UniversalTerminator))
-					buffers[returnCode] = o
+				inputObject =  ((ChannelInput)inputList[returnCode]).read()
+				if ( ! (inputObject instanceof UniversalTerminator))
+					buffers[returnCode] = inputObject
 				else {
 					buffers[returnCode]= null
 					terminated = terminated + 1
@@ -75,7 +78,7 @@ class N_WayMerge extends DataClass implements CSProcess{
 //			else
 //				gpp.DataClass.unexpectedReturnCode("N_WayMerge: error during $mergeChoice", returnCode)
 		}
-		output.write(o)  // write the last instance of a UT
+		output.write(inputObject)  // write the last instance of a UT
 	}
 
 }

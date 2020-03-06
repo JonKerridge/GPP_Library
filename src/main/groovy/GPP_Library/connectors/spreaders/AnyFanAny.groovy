@@ -35,21 +35,25 @@ class AnyFanAny  implements CSProcess{
 	int destinations = 0
 	
 	void run() {
-		def o = inputAny.read()
-		boolean running = true
-		int terminated = 0
+		boolean running
+		int terminated
+		Object inputObject
+
+		running = true
+		terminated = 0
+		inputObject = inputAny.read()
 		while ( running ){
-			if ( !( o instanceof UniversalTerminator)){
-				outputAny.write(o)
-				o = inputAny.read()
+			if ( !( inputObject instanceof UniversalTerminator)){
+				outputAny.write(inputObject)
+				inputObject = inputAny.read()
 			}
 			else {
 				terminated = terminated + 1
 				if (terminated == sources ) running = false
-				else o = inputAny.read()
+				else inputObject = inputAny.read()
 			}
 		}
-		for ( i in 1..destinations) outputAny.write(o)
+		for ( i in 1..destinations) outputAny.write(inputObject)
 	}
 
 }

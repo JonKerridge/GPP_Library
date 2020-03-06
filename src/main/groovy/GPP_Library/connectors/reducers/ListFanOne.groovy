@@ -25,7 +25,8 @@ import jcsp.lang.*
  *        output.write( inputList[i].read() )
  * </pre>
  * @param output A one2one Channel used to write data objects to the next process
- * @param inputList A ChannelInputList from which incoming data objects are read in sequence
+ * @param inputList A ChannelInputList from which incoming data objects are read such that
+ * the elements of the input channel list are given an equal share of the available input bandwidth
  */
 
 //@CompileStatic
@@ -36,24 +37,26 @@ class ListFanOne  implements CSProcess{
 	ChannelOutput output
 
 	void run() {
-		def sources = inputList.size()
+		int sources = inputList.size()
 		def alt = new ALT(inputList)
-		def currentIndex = 0
-		boolean running = true
-		def terminated = 0
-		def o = null
+		int currentIndex, terminated
+		currentIndex = 0
+		boolean running
+		running = true
+		terminated = 0
+		Object outputObject
 		while ( running ){
 			currentIndex = alt.fairSelect()
-			o = ((ChannelInput)inputList[currentIndex]).read()
-			if ( !( o instanceof UniversalTerminator)){
-				output.write(o)
+			outputObject = ((ChannelInput)inputList[currentIndex]).read()
+			if ( !( outputObject instanceof UniversalTerminator)){
+				output.write(outputObject)
 			}
 			else {
 				terminated = terminated + 1
 				if ( terminated == sources ) running = false
 			}
 		}
-		output.write(o)
+		output.write(outputObject)
 	}
 
 }

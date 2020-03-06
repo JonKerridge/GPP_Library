@@ -16,7 +16,7 @@ import jcsp.lang.ChannelOutput
  * @param input The channel input from which data objects are read
  * @param outputList the channel output list to which data objects are written
  * @param indexProperty A String containing the property of the input object that
- * conatins the subscript of the outputList element which is written.
+ * contains the subscript of the outputList element to which will be written.
  *
  */
 //@CompileStatic
@@ -28,17 +28,15 @@ class OneDirectedList implements CSProcess {
 	
 	void run(){
 		int destinations = outputList.size()
-		def o = input.read()
-		while ( ! (o instanceof UniversalTerminator ) ){
-			int destination = (int) o.getProperty(indexProperty)
+		Object inputObject
+		inputObject = input.read()
+		while ( ! (inputObject instanceof UniversalTerminator ) ){
+			int destination = (int) inputObject.getProperty(indexProperty)
 			assert ((destination >= 0) && (destination < destinations)): "OneDirectedList:  $indexProperty  < 0 or >= $destinations"
-//			println "writing to $batch from ${o.toString()}"
-			((ChannelOutput)outputList[destination]).write(o)
-			o = input.read()
+			((ChannelOutput)outputList[destination]).write(inputObject)
+			inputObject = input.read()
 		}
-//		println "ODL: has read UT"
-		for ( i in 0 ..< destinations) ((ChannelOutput)outputList[i]).write(o)
-//		println "ODL: has sent $destinations UT objects"
+		for ( i in 0 ..< destinations) ((ChannelOutput)outputList[i]).write(inputObject)
 	}
 
 }

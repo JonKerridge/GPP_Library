@@ -17,6 +17,10 @@ import jcsp.lang.ChannelInput
  *     while true
  *         outputList.broadcastSeq(input.read())
  * </pre>
+ * <p>
+ *  where broadcastSeq is a method in groovyJCSP; it writes a clone of the inputObject to
+ *  all elements of the outputList in sequence
+ *  <p>
  * @param input A one2one Channel used to read data objects from the previous process
  * @param outputList An OutputChannelList to which the incoming data object is written in sequence
  *
@@ -28,12 +32,13 @@ class OneSeqCastList  implements CSProcess{
 	ChannelOutputList outputList
 
 	void run() {
-		def o = input.read()
-		while ( ! (o instanceof UniversalTerminator ) ){
-			outputList.broadcastSeq(o)
-			o = input.read()
+		Object inputObject
+		inputObject = input.read()
+		while ( ! (inputObject instanceof UniversalTerminator ) ){
+			outputList.broadcastSeq(inputObject)
+			inputObject = input.read()
 		}
-		outputList.broadcastSeq(o)
+		outputList.broadcastSeq(inputObject)
 		
 	}
 

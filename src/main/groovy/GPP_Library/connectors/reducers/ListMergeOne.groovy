@@ -35,43 +35,46 @@ import jcsp.lang.ChannelOutput
 
 
 @CompileStatic
-class ListMergeOne implements CSProcess{
+class ListMergeOne implements CSProcess {
 
-	ChannelInputList inputList
-	ChannelOutput output
+  ChannelInputList inputList
+  ChannelOutput output
 
-	void run() {
-        int sources = inputList.size()
-        int currentIndex = 0
-        boolean running = true
-        Object o = null
-        while (running) {
-            o = ((ChannelInput) inputList[currentIndex]).read()
-//            println "read ${o} from $currentIndex"
-            if (!(o instanceof UniversalTerminator)) {
-                output.write(o)
-                currentIndex = currentIndex == sources - 1 ? 0 : currentIndex + 1
-            } else {
-                running = false
-            }
-        }
-        int c = currentIndex == sources - 1 ? 0 : currentIndex + 1
+  void run() {
+    int sources = inputList.size()
+    int currentIndex
+    currentIndex = 0
+    boolean running
+    running = true
+    Object inputObject
+    inputObject = null
+    while (running) {
+      inputObject = ((ChannelInput) inputList[currentIndex]).read()
+//            println "read ${inputObject} from $currentIndex"
+      if (!(inputObject instanceof UniversalTerminator)) {
+        output.write(inputObject)
+        currentIndex = currentIndex == sources - 1 ? 0 : currentIndex + 1
+      } else {
+        running = false
+      }
+    }
+    int c = currentIndex == sources - 1 ? 0 : currentIndex + 1
 //        println "terminating from $c at $currentIndex"
-        if (c > 0) {
-            while (c < sources) {
-                ((ChannelInput) inputList[c]).read()
-//                println "read 1: ${o} from $c"
-                c = c + 1
-            }
-        }
-        c = 0
-        while ( c < currentIndex){
-            ((ChannelInput)inputList[c]).read()
-//            println "read 2: ${o} from $c"
-            c = c + 1
-        }
-		output.write(o)
-	}
+    if (c > 0) {
+      while (c < sources) {
+        ((ChannelInput) inputList[c]).read()
+//                println "read 1: ${inputObject} from $c"
+        c = c + 1
+      }
+    }
+    c = 0
+    while (c < currentIndex) {
+      ((ChannelInput) inputList[c]).read()
+//            println "read 2: ${inputObject} from $c"
+      c = c + 1
+    }
+    output.write(inputObject)
+  }
 
 }
 

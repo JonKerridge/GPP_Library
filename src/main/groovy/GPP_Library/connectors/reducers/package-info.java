@@ -1,7 +1,7 @@
 /**
  * Package gpp.connectors.reducers defines some basic processes that can be use to connect
  * other processes together.  As such the processes defined in this package do no
- * data transformations. They simply take an input from one or more channels and output it to
+ * data transformations. They simply take an input from many channels and output it to
  * one output channel.
  * <p>
  *
@@ -12,7 +12,10 @@
  * List expects a channel list<br>
  * One expects a one2one channel<br>
  *
- * Fan processes one object at a time
+ * Fan processes one object at a time in such a way as to ensure
+ *      all inputs are given an equal share of the available input bandwidth
+ * Merge inputs a single value from an element of a channel list and then outputs it,
+ *      the processes then iterates through each input channel in turn
  * Seq inputs a single input value from all the input channels in sequence and then outputs them in sequence
  * Par inputs a single input value from all the input channels in parallel and then outputs them in sequence
  *

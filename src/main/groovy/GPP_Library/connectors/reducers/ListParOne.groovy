@@ -24,7 +24,7 @@ import jcsp.lang.ChannelOutput
  * </pre>
  * 
  * @param output A one2one Channel used to write data objects to the next process
- * @param inputList A ChannelInputList from which incoming data objects are read in sequence
+ * @param inputList A ChannelInputList from which incoming data objects are read in parallel
  */
 @CompileStatic
 class ListParOne  implements CSProcess{
@@ -34,8 +34,8 @@ class ListParOne  implements CSProcess{
 	
 	void run() {
 		int elements = inputList.size()
-		List valueList  = (List) inputList.read()
-		Object o
+		List valueList
+		valueList  = (List) inputList.read()
 		while ( ! (valueList[0] instanceof UniversalTerminator ) ){
 			for ( e in 0 ..< elements) output.write(valueList[e])
 			valueList  = (List)inputList.read()

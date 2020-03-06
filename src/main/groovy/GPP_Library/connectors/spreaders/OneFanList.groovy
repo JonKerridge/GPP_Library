@@ -31,22 +31,24 @@ class OneFanList  implements CSProcess{
 	
 	void run() {
 		int destinations = outputList.size()
-		int currentIndex = 0
-		def o = input.read()
-		while ( ! (o instanceof UniversalTerminator ) ){
-			((ChannelOutput)outputList[currentIndex]).write(o)
+		int currentIndex, c
+		currentIndex = 0
+		Object inputObject
+		inputObject = input.read()
+		while ( ! (inputObject instanceof UniversalTerminator ) ){
+			((ChannelOutput)outputList[currentIndex]).write(inputObject)
 			currentIndex = currentIndex + 1
 			if (currentIndex == destinations) currentIndex = 0
-			o = input.read()
+			inputObject = input.read()
 		}
-		int c = currentIndex
+		c = currentIndex
 		while ( c < destinations){
-			((ChannelOutput)outputList[c]).write(o)
+			((ChannelOutput)outputList[c]).write(inputObject)
 			c = c + 1
 		}
 		c = 0
 		while ( c < currentIndex){
-			((ChannelOutput)outputList[c]).write(o)
+			((ChannelOutput)outputList[c]).write(inputObject)
 			c = c + 1
 		}
 	}
