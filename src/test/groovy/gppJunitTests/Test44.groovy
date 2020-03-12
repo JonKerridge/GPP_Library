@@ -1,13 +1,13 @@
 package gppJunitTests
 
-import GPP_Library.DataDetails
-import GPP_Library.LocalDetails
-import GPP_Library.PipelineDetails
-import GPP_Library.ResultDetails
-import GPP_Library.functionals.pipelines.OnePipelineOne
-import GPP_Library.patterns.TaskParallelPattern
-import GPP_Library.terminals.Collect
-import GPP_Library.terminals.Emit
+import groovyParallelPatterns.DataDetails
+import groovyParallelPatterns.LocalDetails
+import groovyParallelPatterns.PipelineDetails
+import groovyParallelPatterns.ResultDetails
+import groovyParallelPatterns.functionals.pipelines.OnePipelineOne
+import groovyParallelPatterns.patterns.TaskParallelPattern
+import groovyParallelPatterns.terminals.Collect
+import groovyParallelPatterns.terminals.Emit
 import TestDataDefs.TestData
 import TestDataDefs.TestExtract
 import TestDataDefs.TestResult

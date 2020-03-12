@@ -1,13 +1,13 @@
 package gppJunitTests
 
-import GPP_Library.CompositeDetails
-import GPP_Library.DataDetails
-import GPP_Library.ResultDetails
-import GPP_Library.connectors.reducers.ListMergeOne
-import GPP_Library.connectors.spreaders.OneFanList
-import GPP_Library.functionals.composites.ListGroupOfPipelines
-import GPP_Library.terminals.Collect
-import GPP_Library.terminals.Emit
+import groovyParallelPatterns.CompositeDetails
+import groovyParallelPatterns.DataDetails
+import groovyParallelPatterns.ResultDetails
+import groovyParallelPatterns.connectors.reducers.ListMergeOne
+import groovyParallelPatterns.connectors.spreaders.OneFanList
+import groovyParallelPatterns.functionals.composites.ListGroupOfPipelines
+import groovyParallelPatterns.terminals.Collect
+import groovyParallelPatterns.terminals.Emit
 import groovyJCSP.ChannelInputList
 import groovyJCSP.ChannelOutputList
 import groovyJCSP.PAR

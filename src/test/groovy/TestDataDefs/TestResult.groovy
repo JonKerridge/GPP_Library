@@ -1,8 +1,8 @@
 package TestDataDefs
 
 
-import GPP_Library.DataClass
-import GPP_Library.DataClassInterface
+import groovyParallelPatterns.DataClass
+import groovyParallelPatterns.DataClassInterface
 
 //@CompileStatic
 class TestResult extends DataClass {

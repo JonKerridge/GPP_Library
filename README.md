@@ -1,4 +1,4 @@
-The Groovy Parallel Patterns Library (GPP_Library)
+The Groovy Parallel Patterns Library (groovyParallelPatterns)
 creates a number of re-usable parallel design patterns
 based on the use of Communicating Process Architectures (CPA).<p>
 
@@ -51,7 +51,7 @@ creating a diagram of the network and transforming that into the required code.<
 Some example systems using the library can be found at  
 https://github.com/JonKerridge/GPP_Demos<br>
 
-Package GPP_Library defines some basic classes and interfaces used by the rest of the library.<p>
+Package groovyParallelPatterns defines some basic classes and interfaces used by the rest of the library.<p>
  
 All user defined data classes utilising the library should extend DataClass.<p>
  

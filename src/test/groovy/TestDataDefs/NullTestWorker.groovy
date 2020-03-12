@@ -1,6 +1,6 @@
 package TestDataDefs
 
-import GPP_Library.UniversalTerminator
+import groovyParallelPatterns.UniversalTerminator
 import jcsp.lang.CSProcess
 import jcsp.lang.ChannelInput
 import jcsp.lang.ChannelOutput

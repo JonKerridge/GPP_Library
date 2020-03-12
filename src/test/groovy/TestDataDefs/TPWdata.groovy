@@ -1,6 +1,6 @@
 package TestDataDefs
 
-import GPP_Library.DataClass
+import groovyParallelPatterns.DataClass
 
 class TPWdata extends DataClass{
 

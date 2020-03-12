@@ -1,9 +1,9 @@
 package gppJunitTests
 
-import GPP_Library.CompositeDetails
-import GPP_Library.DataDetails
-import GPP_Library.ResultDetails
-import GPP_Library.patterns.PipelineOfGroupsPattern
+import groovyParallelPatterns.CompositeDetails
+import groovyParallelPatterns.DataDetails
+import groovyParallelPatterns.ResultDetails
+import groovyParallelPatterns.patterns.PipelineOfGroupsPattern
 import TestDataDefs.TestData
 import TestDataDefs.TestExtract
 import TestDataDefs.TestResult

@@ -1,16 +1,16 @@
 package gppJunitTests
 
-import GPP_Library.DataDetails
-import GPP_Library.GroupDetails
-import GPP_Library.LocalDetails
-import GPP_Library.ResultDetails
-import GPP_Library.connectors.reducers.AnyFanOne
-import GPP_Library.connectors.reducers.ListFanOne
-import GPP_Library.connectors.spreaders.OneFanList
-import GPP_Library.functionals.groups.ListGroupAny
-import GPP_Library.functionals.groups.ListGroupList
-import GPP_Library.terminals.Collect
-import GPP_Library.terminals.Emit
+import groovyParallelPatterns.DataDetails
+import groovyParallelPatterns.GroupDetails
+import groovyParallelPatterns.LocalDetails
+import groovyParallelPatterns.ResultDetails
+import groovyParallelPatterns.connectors.reducers.AnyFanOne
+import groovyParallelPatterns.connectors.reducers.ListFanOne
+import groovyParallelPatterns.connectors.spreaders.OneFanList
+import groovyParallelPatterns.functionals.groups.ListGroupAny
+import groovyParallelPatterns.functionals.groups.ListGroupList
+import groovyParallelPatterns.terminals.Collect
+import groovyParallelPatterns.terminals.Emit
 import TestDataDefs.TestData
 import TestDataDefs.TestExtract
 import TestDataDefs.TestResult

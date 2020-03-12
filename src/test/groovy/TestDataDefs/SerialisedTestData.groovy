@@ -1,7 +1,7 @@
 package TestDataDefs
 
 
-import GPP_Library.DataClass
+import groovyParallelPatterns.DataClass
 import jcsp.lang.CSTimer
 
 //@CompileStatic
@@ -126,7 +126,7 @@ class SerialisedTestData extends DataClass {
 //  }
 //
   @Override
-  SerialisedTestData clone() {
+  public SerialisedTestData clone() {
     //println "Creating clone $cloneInstance"
     SerialisedTestData newTD = new SerialisedTestData()
     newTD.data = this.data

@@ -1,9 +1,9 @@
 package gppJunitTests
 
-import GPP_Library.DataDetails
-import GPP_Library.ResultDetails
-import GPP_Library.functionals.workers.Worker
-import GPP_Library.terminals.*
+import groovyParallelPatterns.DataDetails
+import groovyParallelPatterns.ResultDetails
+import groovyParallelPatterns.functionals.workers.Worker
+import groovyParallelPatterns.terminals.*
 import groovyJCSP.*
 import jcsp.lang.*
 import org.junit.Test
