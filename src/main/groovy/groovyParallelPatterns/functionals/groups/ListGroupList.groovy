@@ -1,14 +1,14 @@
 package groovyParallelPatterns.functionals.groups
 
-import groovyParallelPatterns.GroupDetails
-import groovyParallelPatterns.functionals.workers.Worker
 import groovy.transform.CompileStatic
-
-//mimport groovyParallelPatterns.functionals.workers.Worker
-
 import groovyJCSP.ChannelInputList
 import groovyJCSP.ChannelOutputList
 import groovyJCSP.PAR
+import groovyParallelPatterns.GroupDetails
+import groovyParallelPatterns.functionals.workers.Worker
+
+//mimport groovyParallelPatterns.functionals.workers.Worker
+
 import jcsp.lang.Barrier
 import jcsp.lang.CSProcess
 import jcsp.lang.ChannelInput
@@ -29,12 +29,14 @@ import jcsp.lang.ChannelOutput
  * 					Each Worker process reads from just one element of the input.
  * @param outputList A ChannelOutputList with as many channels as the value of workers. 
  * 				  	  Each Worker process writes to just one of the channels
- * @param gDetails A {@link groovyParallelPatterns.GroupDetails} object defining any local class of each worker, default to null
+ * @param gDetails A {@link groovyParallelPatterns.GroupDetails} object defining any local
+ * class of each worker, default to null
  * @param function The name of the function identifying the operation to be undertaken 
  * 					by the Worker processes.  They all undertake the same operation.
  * @param modifier Contains a possible modifier for the operation, with each Worker
  * 					accessing the element that corresponds to the index of the Worker.
- * @param workers The number of Worker processes that will be created 
+ * 					Each element is itself a list of values
+ * @param workers The number of Worker processes that will be created
  * 					when the Group is run
  * @param outData If true the worker processes will output each processed input object. If false the process will output
  * 				  the workerClass once only, after it has processed all the input data objects. The output 
@@ -46,46 +48,44 @@ import jcsp.lang.ChannelOutput
  * otherwise the process will not be logged.  Each process in the group will be uniquely indexed.
  * @param logPropertyName the name of a property in the input object that will uniquely identify an instance of the object.  
  * LogPropertyName must be specified if logPhaseName is specified 
- * 
- * @see groovyParallelPatterns.functionals.workers.Worker
- * @see jcsp.lang.Barrier					
-*/
+ *
+ * @see groovyParallelPatterns.functionals.workers.Worker* @see jcsp.lang.Barrier
+ */
 
 @CompileStatic
-class ListGroupList implements CSProcess{
+class ListGroupList implements CSProcess {
 
-	ChannelInputList inputList
-	ChannelOutputList outputList
-	GroupDetails gDetails
-	String function
-	List modifier = null
-	int workers
-	boolean outData = true
-	boolean synchronised = false
-	
-	String logPhaseName = ""
-	String logPropertyName = ""
+  ChannelInputList inputList
+  ChannelOutputList outputList
+  GroupDetails gDetails
+  String function = ""
+  List<List> modifier = null
+  int workers = 0
+  boolean outData = true
+  boolean synchronised = false
 
-	void run() {
-        if (gDetails != null)            
-            assert (workers == gDetails.workers): "ListGroupList: Number of workers mismatch, Process exepcted $workers, Details specified ${gDetails.workers}"
-		def barrier = null
-//		if ((gDetails != null)&&(workers != gDetails.workers)) 
-//			groovyParallelPatterns.DataClass.unexpectedReturnCode("ListGroupList: Number of workers mismatch, Process expected $workers, Details specified ${gDetails.workers}", -1)
-		if (synchronised) barrier = new Barrier(workers)
-		List network = (0 ..< workers).collect { e ->
-			new Worker ( input: (ChannelInput)inputList[e],
-						 output: (ChannelOutput)outputList[e],
-						 lDetails: gDetails == null ? null : gDetails.groupDetails[e],
-						 function: function,
-						 dataModifier : modifier == null ? null : (List)modifier[e],
-						 outData: outData,
-						 barrier: synchronised ? (Barrier)barrier : null,
-						 logPhaseName: logPhaseName == "" ?  "" : (String)"$e, "  + logPhaseName ,
-						 logPropertyName: logPropertyName)
-		}
-		new PAR (network).run()
+  String logPhaseName = ""
+  String logPropertyName = ""
 
-	}
+  void run() {
+    assert function != "": "AnyGroupAny: function not specified"
+    assert workers > 0: "AnyGroupAny: workers not specified"
+    if (gDetails != null) assert (workers == gDetails.workers): "ListGroupList: Number of workers mismatch, Process exepcted $workers, Details specified ${gDetails.workers}"
+    Barrier barrier
+    if (synchronised) barrier = new Barrier(workers)
+    List network = (0..<workers).collect { e ->
+      new Worker(input: (ChannelInput) inputList[e],
+          output: (ChannelOutput) outputList[e],
+          lDetails: gDetails == null ? null : gDetails.groupDetails[e],
+          function: function,
+          dataModifier: modifier == null ? null :  modifier[e],
+          outData: outData,
+          barrier: synchronised ? (Barrier) barrier : null,
+          logPhaseName: logPhaseName == "" ? "" : (String) "$e, " + logPhaseName,
+          logPropertyName: logPropertyName)
+    }
+    new PAR(network).run()
+
+  }
 
 }

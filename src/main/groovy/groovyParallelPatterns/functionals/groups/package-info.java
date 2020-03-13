@@ -7,8 +7,8 @@
  *
  * Any expects the any end of a channel<br>
  * List expects a channel list<br>
- * Collect means a collection containing a Collect process as the
- * only element in the process<br>
+ * Collect means a collection containing a group of Collect processes as the
+ * only element in the network<br>
  *
  * The nature of the process is defined by concepts such as<br>
  *

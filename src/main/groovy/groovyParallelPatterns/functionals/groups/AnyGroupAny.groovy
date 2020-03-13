@@ -63,15 +63,13 @@ class AnyGroupAny implements CSProcess{
         assert workers > 0: "AnyGroupAny: workers not specified"
         if (gDetails != null)
             assert (workers == gDetails.workers): "AnyGroupAny: Number of workers mismatch, Process exepcted $workers, Details specified ${gDetails.workers}"
-        //		if ((gDetails != null)&&(workers != gDetails.workers))
-        //			groovyParallelPatterns.DataClass.unexpectedReturnCode("AnyGroupAny: Number of workers mismatch, Process exepcted $workers, Details specified ${gDetails.workers}", -1)
         List network = (0 ..< workers).collect {e ->
             new Worker ( 
             input: inputAny,
             output: outputAny,
             lDetails: gDetails == null ? null : gDetails.groupDetails[e],
             function: function,
-            dataModifier : modifier == null ? null : (List)modifier[e],
+            dataModifier : modifier == null ? null : modifier[e],
             outData: outData,
             logPhaseName: logPhaseName == "" ? "" : (String)"$e, "  + logPhaseName ,
             logPropertyName: logPropertyName)

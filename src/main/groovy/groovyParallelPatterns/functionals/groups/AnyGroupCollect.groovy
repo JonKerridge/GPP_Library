@@ -56,7 +56,7 @@ class AnyGroupCollect implements CSProcess{
 
 	void run() {
 		assert rDetails != null: "AnyGroupCollect: rDetails not specified"
-		assert collectors > 0: "AnyGroupCollect: workers not specified"
+		assert collectors > 0: "AnyGroupCollect: collectors not specified"
 		List network = (0 ..< collectors).collect { e ->
 			new Collect ( input: inputAny,
 						  rDetails: rDetails[e],
