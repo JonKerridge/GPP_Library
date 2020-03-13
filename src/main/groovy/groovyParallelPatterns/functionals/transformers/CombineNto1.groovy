@@ -1,11 +1,14 @@
 package groovyParallelPatterns.functionals.transformers
 
+import groovy.transform.CompileStatic
 import groovyParallelPatterns.DataClass
 import groovyParallelPatterns.LocalDetails
 import groovyParallelPatterns.Logger
 import groovyParallelPatterns.UniversalTerminator
-import groovy.transform.CompileStatic
-import jcsp.lang.*
+import jcsp.lang.CSProcess
+import jcsp.lang.CSTimer
+import jcsp.lang.ChannelInput
+import jcsp.lang.ChannelOutput
 
 /**
  * CombineNto1 takes any number of input data objects and then combines them into a single
@@ -39,109 +42,113 @@ import jcsp.lang.*
  *
  * <p>
  *
-*/
+ */
 
 class CombineNto1 extends DataClass implements CSProcess {
-	ChannelInput input
-	ChannelOutput output
-	LocalDetails localDetails
-	LocalDetails outDetails
-	String combineMethod
-	List dataModifier = null		// is this required???
+  ChannelInput input
+  ChannelOutput output
+  LocalDetails localDetails = null
+  LocalDetails outDetails = null
+  String combineMethod = ""
+//	List dataModifier = null		// is this required???
 
-    String logPhaseName = ""
-    String inputLogPropertyName = ""     // two property names required to refer to input and output objects
-    String outputLogPropertyName = ""
+  String logPhaseName = ""
+  String inputLogPropertyName = ""
+  // two property names required to refer to input and output objects
+  String outputLogPropertyName = ""
 
-    @CompileStatic
-    void runMethod(){
-        int returnCode
-        Class lClass = Class.forName(localDetails.lName)
-        def localClass = lClass.newInstance()
-        callUserMethod(localClass, localDetails.lInitMethod, localDetails.lInitData, 16)
+  @CompileStatic
+  void runMethod() {
+    int returnCode
+    Class lClass = Class.forName(localDetails.lName)
+    def localClass = lClass.newInstance()
+    callUserMethod(localClass, localDetails.lInitMethod, localDetails.lInitData, 16)
 
-        Class oClass = Class.forName(outDetails.lName)
-        def outputObject = oClass.newInstance()
-        callUserMethod(outputObject, outDetails.lInitMethod, outDetails.lInitData, 17)
+    Class oClass = Class.forName(outDetails.lName)
+    def outputObject = oClass.newInstance()
+    callUserMethod(outputObject, outDetails.lInitMethod, outDetails.lInitData, 17)
 
-        boolean running = true
-        Object inputObject = new Object()
-        while (running){
-            inputObject = input.read()
-            if ( inputObject instanceof UniversalTerminator){
-                running = false
-            }
-            else {
-                callUserMethod(localClass, combineMethod, inputObject, 18)
-                // does this need data modifier as well???? if so
-            }
-        }
-        callUserMethod(outputObject,outDetails.lFinaliseMethod, [localClass] , 19)
-        output.write(outputObject)
-        output.write(inputObject)   // the Universal Terminator previously read
+    boolean running
+    running = true
+    Object inputObject
+    inputObject = new Object()
+    while (running) {
+      inputObject = input.read()
+      if (inputObject instanceof UniversalTerminator) {
+        running = false
+      } else {
+        callUserMethod(localClass, combineMethod, inputObject, 18)
+        // does this need data modifier as well???? if so
+      }
     }
+    callUserMethod(outputObject, outDetails.lFinaliseMethod, [localClass], 19)
+    output.write(outputObject)
+    output.write(inputObject)   // the Universal Terminator previously read
+  }
 
-	void run(){
-        assert localDetails.lName != null : "CombineNto1: A local class MUST be defined"
-        assert outDetails.lName != null : "CombineNto1: An output class MUST be defined"
+  void run() {
+    assert localDetails.lName != null: "CombineNto1: A local class MUST be defined"
+    assert outDetails.lName != null: "CombineNto1: An output class MUST be defined"
+    assert combineMethod != "": "CombineNto1: combine method must be defined"
+    if (logPhaseName == "") {
+      runMethod()
+    } else { // logging
+      assert inputLogPropertyName != "": "CombineNto1 is logged so inputLogPropertyName must be specified"
+      assert outputLogPropertyName != "": "CombineNto1 is logged so outputLogPropertyName must be specified"
+      def timer = new CSTimer()
 
-        if (logPhaseName == "") {
-            runMethod()
+      Logger.startLog(logPhaseName, timer.read())
+
+      int returnCode
+      Class lClass = Class.forName(localDetails.lName)
+      def localClass = lClass.newInstance()
+      callUserMethod(localClass, localDetails.lInitMethod, localDetails.lInitData, 16)
+
+      Class oClass = Class.forName(outDetails.lName)
+      def outputObject = oClass.newInstance()
+      callUserMethod(outputObject, outDetails.lInitMethod, outDetails.lInitData, 17)
+
+      boolean running
+      running = true
+      Object inputObject
+      inputObject = new Object()
+      Logger.initLog(logPhaseName, timer.read())
+
+      while (running) {
+
+        ////////
+        Logger.inputReadyEvent(logPhaseName, timer.read())
+        ////////
+
+        inputObject = input.read()
+        if (inputObject instanceof UniversalTerminator) {
+          running = false
+        } else {
+          ////////
+          Logger.inputCompleteEvent(logPhaseName, timer.read(), inputObject.getProperty(inputLogPropertyName))
+          ////////
+
+          callUserMethod(localClass, combineMethod, inputObject, 18)
+          // does this need data modifier as well???? if so
         }
-        else { // logging
-            def timer = new CSTimer()
+      }
+      callUserMethod(outputObject, outDetails.lFinaliseMethod, [localClass], 19)
 
-            Logger.startLog(logPhaseName, timer.read())
+      //////
+      Logger.outputReadyEvent(logPhaseName, timer.read(), outputObject.getProperty(outputLogPropertyName))
+      //////
 
-    		int returnCode
-    		Class lClass = Class.forName(localDetails.lName)
-    		def localClass = lClass.newInstance()
-            callUserMethod(localClass, localDetails.lInitMethod, localDetails.lInitData, 16)
+      output.write(outputObject)
 
-    		Class oClass = Class.forName(outDetails.lName)
-    		def outputObject = oClass.newInstance()
-            callUserMethod(outputObject, outDetails.lInitMethod, outDetails.lInitData, 17)
+      ////////
+      Logger.outputCompleteEvent(logPhaseName, timer.read(), outputObject.getProperty(outputLogPropertyName))
+      ////////
 
-    		boolean running = true
-    		Object inputObject = new Object()
-			Logger.initLog(logPhaseName, timer.read())
-			
-    		while (running){
+      // now write the terminating UT that was read previously with log data appended
+      Logger.endEvent(logPhaseName, timer.read())
 
-                ////////
-                Logger.inputReadyEvent(logPhaseName, timer.read())
-                ////////
-
-    			inputObject = input.read()
-    			if ( inputObject instanceof UniversalTerminator){
-    				running = false
-    			}
-    			else {
-                    ////////
-                    Logger.inputCompleteEvent(logPhaseName, timer.read(), inputObject.getProperty(inputLogPropertyName))
-                    ////////
-
-                    callUserMethod(localClass, combineMethod, inputObject, 18)
-                    // does this need data modifier as well???? if so
-    			}
-    		}
-            callUserMethod(outputObject,outDetails.lFinaliseMethod, [localClass] , 19)
-
-            //////
-            Logger.outputReadyEvent(logPhaseName, timer.read(), outputObject.getProperty(outputLogPropertyName))
-            //////
-
-            output.write(outputObject)
-
-            ////////
-            Logger.outputCompleteEvent(logPhaseName, timer.read(), outputObject.getProperty(outputLogPropertyName))
-            ////////
-
-            // now write the terminating UT that was read previously with log data appended
-            Logger.endEvent(logPhaseName, timer.read())
-
-            output.write(inputObject)
-        }
-	}
+      output.write(inputObject)
+    }
+  }
 
 }

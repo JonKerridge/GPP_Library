@@ -26,9 +26,6 @@ class Test26 {
         def chan1 = Channel.one2one()
         def chan2 = Channel.one2one()
 
-        def m1 = [[0], [0], [0]]             // for stage 1
-        def m2 = [[100], [100], [100]]       // for stage 2
-        def m3 = [[1000], [1000], [1000]]    // for stage 3
         def er = new TestExtract()
 
         def emitterDetails = new DataDetails(dName: TestData.getName() ,
@@ -42,15 +39,18 @@ class Test26 {
         rFinaliseMethod: TestResult.finalise,
         rFinaliseData: [er])
 
-        def pipeDetails = new PipelineDetails(stages: stages,
-        stageDetails: new LocalDetails[stages])
+        def pipeDetails = new PipelineDetails(stages)
 
         for ( s in 0..< stages){
-            pipeDetails.stageDetails[s] = new LocalDetails()
-            pipeDetails.stageDetails[s].lName = TestWorker.getName()
-            pipeDetails.stageDetails[s].lInitMethod = TestWorker.init
-            pipeDetails.stageDetails[s].lFinaliseMethod = TestWorker.finalise
-        }
+            pipeDetails.insertPipelineDetails(
+                s,
+                TestWorker.getName(),
+                TestWorker.init,
+                null,
+                TestWorker.finalise,
+                null
+            )
+         }
 
         pipeDetails.stageDetails[0].lInitData = [25, 10]
         pipeDetails.stageDetails[1].lInitData = [25, 100]

@@ -2,7 +2,7 @@ package gppJunitTests
 
 import groovyParallelPatterns.DataDetails
 import groovyParallelPatterns.GroupDetails
-import groovyParallelPatterns.LocalDetails
+//import groovyParallelPatterns.LocalDetails
 import groovyParallelPatterns.ResultDetails
 import groovyParallelPatterns.connectors.reducers.*
 import groovyParallelPatterns.connectors.spreaders.*
@@ -18,19 +18,17 @@ import TestDataDefs.*
 class Test20 {
 
     @Test
-    public void test() {
+    void test() {
         def workers = 3
 
         def chan1 = Channel.one2one()
         def chan2 = Channel.one2one()
-        def any1 = Channel.one2any()
+//        def any1 = Channel.one2any()
         def any2 = Channel.any2one()
         def emitList = Channel.one2oneArray(workers)
         def inEmitList = new ChannelInputList(emitList)
         def outEmitList = new ChannelOutputList(emitList)
-        def collectList = Channel.one2oneArray(workers)
-        def inCollectList = new ChannelInputList(collectList)
-        def outCollectList = new ChannelOutputList(collectList)
+//        def collectList = Channel.one2oneArray(workers)
         def cList1 = Channel.one2oneArray(workers)
         def cList2 = Channel.one2oneArray(workers)
         def inCList1 = new ChannelInputList(cList1)
@@ -54,36 +52,64 @@ class Test20 {
         rFinaliseMethod: TestResult.finalise,
         rFinaliseData: [er])
 
-        def group1Details  = new GroupDetails( workers : workers,
-        groupDetails: new LocalDetails[workers])
-        def group2Details  = new GroupDetails( workers : workers,
-        groupDetails: new LocalDetails[workers])
-        def group3Details  = new GroupDetails( workers : workers,
-        groupDetails: new LocalDetails[workers])
+//        def group1Details  = new GroupDetails( workers : workers,
+//        groupDetails: new LocalDetails[workers])
+//        def group2Details  = new GroupDetails( workers : workers,
+//        groupDetails: new LocalDetails[workers])
+//        def group3Details  = new GroupDetails( workers : workers,
+//        groupDetails: new LocalDetails[workers])
+//
+//        for ( w in 0..< workers){
+//            group1Details.groupDetails[w] = new LocalDetails( lName: TestWorker.getName(),
+//            lInitMethod: TestWorker.init,
+//            lFinaliseMethod: TestWorker.finalise )
+//            group2Details.groupDetails[w] = new LocalDetails( lName: TestWorker.getName(),
+//            lInitMethod: TestWorker.init,
+//            lFinaliseMethod: TestWorker.finalise )
+//            group3Details.groupDetails[w] = new LocalDetails( lName: TestWorker.getName(),
+//            lInitMethod: TestWorker.init,
+//            lFinaliseMethod: TestWorker.finalise )
+//        }
+//        group1Details.groupDetails[0].lInitData = [100, 0]
+//        group1Details.groupDetails[1].lInitData = [100, 0]
+//        group1Details.groupDetails[2].lInitData = [100, 0]
+//
+//        group2Details.groupDetails[0].lInitData = [100, 0]
+//        group2Details.groupDetails[1].lInitData = [100, 0]
+//        group2Details.groupDetails[2].lInitData = [100, 0]
+//
+//        group3Details.groupDetails[0].lInitData = [100, 0]
+//        group3Details.groupDetails[1].lInitData = [100, 0]
+//        group3Details.groupDetails[2].lInitData = [100, 0]
+
+
+        def group1Details = new GroupDetails(workers)
+        def group2Details = new GroupDetails(workers)
+        def group3Details = new GroupDetails(workers)
 
         for ( w in 0..< workers){
-            group1Details.groupDetails[w] = new LocalDetails( lName: TestWorker.getName(),
-            lInitMethod: TestWorker.init,
-            lFinaliseMethod: TestWorker.finalise )
-            group2Details.groupDetails[w] = new LocalDetails( lName: TestWorker.getName(),
-            lInitMethod: TestWorker.init,
-            lFinaliseMethod: TestWorker.finalise )
-            group3Details.groupDetails[w] = new LocalDetails( lName: TestWorker.getName(),
-            lInitMethod: TestWorker.init,
-            lFinaliseMethod: TestWorker.finalise )
+            group1Details.insertGroupDetails(
+                w,
+                TestWorker.getName(),
+                TestWorker.init,
+                [100, 0],
+                TestWorker.finalise,
+                [])
+            group2Details.insertGroupDetails(
+                w,
+                TestWorker.getName(),
+                TestWorker.init,
+                [100, 0],
+                TestWorker.finalise,
+                [])
+            group3Details.insertGroupDetails(
+                w,
+                TestWorker.getName(),
+                TestWorker.init,
+                [100, 0],
+                TestWorker.finalise,
+                [])
         }
-        group1Details.groupDetails[0].lInitData = [100, 0]
-        group1Details.groupDetails[1].lInitData = [100, 0]
-        group1Details.groupDetails[2].lInitData = [100, 0]
-
-        group2Details.groupDetails[0].lInitData = [100, 0]
-        group2Details.groupDetails[1].lInitData = [100, 0]
-        group2Details.groupDetails[2].lInitData = [100, 0]
-
-        group3Details.groupDetails[0].lInitData = [100, 0]
-        group3Details.groupDetails[1].lInitData = [100, 0]
-        group3Details.groupDetails[2].lInitData = [100, 0]
-
 
         def emitter = new Emit( output: chan1.out(),
         eDetails: emitterDetails )

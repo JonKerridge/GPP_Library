@@ -9,6 +9,10 @@
  * The application GPP_Demos.Concordance shows how the TaskParallelPattern can be used, together with the other
  * patterns contained in this package.
  *
+ * The process networks in this package cannot be run with the logging capability.  If logging and visualisation is
+ * required then the user will have to create the required process network from skeletons in other packages and apply
+ * the required logging.
+ *
  *<pre>
  * Author, Licence and Copyright statement
  * author  Jon Kerridge

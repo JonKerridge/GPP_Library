@@ -1,13 +1,13 @@
 /**
  * Package groovyParallelPatterns.functionals.groups provides a number of processes that can be used as
  * a component in larger networks.  Each process comprises a network of
- * other processes, typically, Worker, WorkerTerminating and Collect.<p>
+ * other processes, typically, Worker, Worker and Collect.<p>
  * The processes are supplied in a number of different variations depending
  * on the nature of the channel connections provided by the process as follows.<p>
  *
  * Any expects the any end of a channel<br>
  * List expects a channel list<br>
- * Collect means a collection containing a Collect process as the last or
+ * Collect means a collection containing a Collect process as the
  * only element in the process<br>
  *
  * The nature of the process is defined by concepts such as<br>

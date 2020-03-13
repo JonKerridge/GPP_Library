@@ -13,12 +13,13 @@
  * <p>
  * This MUST be placed immediately BEFORE the specification of the Emit process in the network specification.
  *
- * The value of collectors should be the number of Collect processes in the network,
+ * The value of {@caode collectors} should be the number of Collect processes in the network,
  * typically 1 but when there is a group of collectors either explicitly or implicitly
  * the value should be modified accordingly.
  *
- * The fileName will be the name of the file to which the log file will be written in the current directory.
- * It will also be the title that appears in the visualiser window.
+ * The {@code fileName} will be the name of the file to which the log file will be written in the current directory.
+ * It will also be the title that appears in the visualiser window.  It will be created in the same folder as the .gpp
+ * source script.
  *
  * The Logging/Visualising capability uses JavaFX which is incorporated into the library build automatically.
  * */

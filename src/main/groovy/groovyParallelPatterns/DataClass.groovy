@@ -51,8 +51,9 @@ class DataClass implements DataClassInterface, Serializable, Cloneable {
       "Evolutionary: Server failed to incorporate a new child",              //31
       "Evolutionary: Server failed to finalise correctly",                   //32
       "Evolutionary: Client process failed to create new individual",        //33
-      "EmitWithFeedback: error during feedbackMethod call: "	,				 //34
-      "FeedbackSensor: error during fbCreateMethod call:",					 //35
+      "EmitWithFeedback: error during feedbackMethod call: "	,				       //34
+      "FeedbackSensor: error during fbCreateMethod call:",					         //35
+      "ThreePhaseWorker: error during outFunction processing:"                //36
   ]
 
   /**
@@ -72,6 +73,7 @@ class DataClass implements DataClassInterface, Serializable, Cloneable {
     returnCode = o.&"$methodName" ( parameters)
     if ( returnCode < 0){
       unexpectedReturnCode (callerMessages[caller], methodName, parameters, returnCode)
+      return -1
 //			the system exits on error
     }
     else
@@ -79,17 +81,17 @@ class DataClass implements DataClassInterface, Serializable, Cloneable {
   }
 
 
+
   /**
    * Invokes a call of the method named {@code methodName} in the Object {@code o} which always
    * returns a value.  If the return value is negative, the complete process network will terminate
    * with an appropriate message indicating where the call occurred.  If the return value is not
-   * negative then the method reurns to the calling process.
+   * negative then the method returns to the calling process, without returning the value of return code.
    *
    * @param o the object in which the method method name occurs
    * @param methodName String containing the name of the method to be called in object {@code o}
    * @param parameters as passed into the method, passed in a List
    * @param caller index of message in {@code callerMessages}
-   * @return the method's return code
    */
   void callUserMethod ( Object o, String methodName, List parameters, int caller){
     int returnCode
@@ -104,12 +106,11 @@ class DataClass implements DataClassInterface, Serializable, Cloneable {
    * Invokes a call of the method named {@code methodName} in the Object {@code o} which always
    * returns a value.  If the return value is negative, the complete process network will terminate
    * with an appropriate message indicating where the call occurred.  If the return value is not
-   * negative then the method reurns to the calling process.
+   * negative then the method returns to the calling process, without returning the value of return code.
    *
    * @param o the object in which the method method name occurs
    * @param methodName String containing the name of the method to be called in object {@code o}
    * @param caller index of message in {@code callerMessages}
-   * @return the method's return code
    */
   void callUserMethod ( Object o, String methodName, int caller){
     int returnCode
@@ -123,13 +124,12 @@ class DataClass implements DataClassInterface, Serializable, Cloneable {
    * Invokes a call of the method named {@code methodName} in the Object {@code o} which always
    * returns a value.  If the return value is negative, the complete process network will terminate
    * with an appropriate message indicating where the call occurred.  If the return value is not
-   * negative then the method reurns to the calling process.
+   * negative then the method reurns to the calling process, without returning the value of return code.
    *
    * @param o the object in which the method method name occurs
    * @param methodName String containing the name of the method to be called in object {@code o}
    * @param parameters as passed into the method, passed in as an Object
    * @param caller index of message in {@code callerMessages}
-   * @return the method's return code
    */
   void callUserMethod ( Object o, String methodName, Object parameter, int caller){
     int returnCode
@@ -142,7 +142,7 @@ class DataClass implements DataClassInterface, Serializable, Cloneable {
 
   /**
    *
-   * unexpectedReturnCode is called by any process that receives an error code as the return value
+   * called by any process that receives an error code as the return value
    * from a call to the invoke method.
    * It causes the whole process network to terminate.
    *
@@ -162,7 +162,7 @@ class DataClass implements DataClassInterface, Serializable, Cloneable {
 
   /**
    *
-   * unexpectedReturnCode is called by any process that receives an error code as the return value
+   * called by any process that receives an error code as the return value
    * from a call to the invoke method.
    * It causes the whole process network to terminate.
    *

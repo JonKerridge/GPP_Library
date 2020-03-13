@@ -47,7 +47,7 @@ class Worker extends DataClass implements CSProcess {
 
   ChannelInput input
   ChannelOutput output
-  String function
+  String function =""
   List dataModifier = null
   LocalDetails lDetails = null
   boolean outData = true
@@ -58,7 +58,6 @@ class Worker extends DataClass implements CSProcess {
 
   @CompileStatic
   void runMethod() {
-    int returnCode
     int workerType
     workerType = 0
     if (outData) {
@@ -122,13 +121,15 @@ class Worker extends DataClass implements CSProcess {
   } //runMethod
 
   void run(){
+    assert function != "": "Worker: the String function must be specified"
     if (logPhaseName == "")
       runMethod()
     else {  // getProperty() of this code cannot be compiled statically
+      assert logPropertyName != "" : "Worker is logged so logPropertyName must be specified"
       def timer = new CSTimer()
 
       Logger.startLog(logPhaseName, timer.read())
-      int returnCode
+//      int returnCode
       int workerType
       workerType = 0
       if (outData) {

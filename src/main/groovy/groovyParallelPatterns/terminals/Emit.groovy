@@ -35,7 +35,7 @@ import jcsp.lang.*
  * used by the Emit process
  * @param logPhaseName an optional string property, which if specified indicates that the process should be logged
  * otherwise the process will not be logged
- * @param logPropertyName the name of a property in the eDetails object that will uniquely identify an instance of the object.
+ * @param logPropertyName the name of a property in the {@code eDetails.dName} object that will uniquely identify an instance of the object.
  * LogPropertyName must be specified if logPhaseName is specified
  */
 
@@ -72,7 +72,7 @@ class Emit extends DataClass implements CSProcess {
         }
         else {
             //logging required
-			logPhaseName = "" + logPhaseName
+            assert logPropertyName != "" : "Emit is logged so logPropertyName must be specified"
             def timer = new CSTimer()
 
             Logger.startLog(logPhaseName, timer.read())

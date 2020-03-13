@@ -26,9 +26,9 @@
  *
  * All methods must return an int value as a return code, typically the value<br>
  * {@link groovyParallelPatterns.DataClassInterface#completedOK}, indicating the method was successful.  In cases
- * where the method fails, it should return a user defined error value that will cause
+ * where the method fails, it should return a user defined negative error value that will cause
  * the whole system to exit with an appropriate error message by means of a call to
- * {@link groovyParallelPatterns.DataClass#unexpectedReturnCode()}.<p>
+ * {@link groovyParallelPatterns.DataClass#unexpectedReturnCode}.<p>
  *
  * ThreePhaseWorker is a specialisation of a worker process that has an input phase, then a phase that undertakes
  * an operation on the input data and finally a phase that outputs the data to a following process.<p>

@@ -9,7 +9,9 @@ import jcsp.lang.*
 /**
  * Author: Jon Kerridge, augmented by Scott Hendrie
  * LoggingVisualiser is a JCSP process which receives logging events from other processes, appends the event to a log
- * file and communicates the nature of the event to the Visualier so the visual network can display the event.
+ * file and communicates the nature of the event to the Visualier so the network can display the event.
+ *
+ * The class contains no methods that the user needs to be aware of.
  */
 
 @CompileStatic

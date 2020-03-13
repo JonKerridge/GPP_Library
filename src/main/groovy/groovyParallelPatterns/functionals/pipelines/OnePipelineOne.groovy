@@ -7,19 +7,19 @@ import jcsp.lang.*
 
 /**
  * 
- * A Pipeline is a collection of WorkerTerminating processes running in sequence each 
+ * A Pipeline is a collection of Worker processes running in sequence each
  * processing instances of the same Class but applying a 
  * different operation in each of the Workers.
  * <p>
  * @param input The channel from which data objects are read.  The channel 
- * 					is a one2one typically connected to an EmitToOne process.
+ * 					is a one2one typically connected to an Emit process.
  * @param output The channel upon which processed data objects are written.  The
  * 					channel must be a one2one channel and will typically be connected to 
  * 					a Collect process.
- * @param stages The number of Worker processes in the pipeline.  Normally there will
+ * @param stages The number of {@link groovyParallelPatterns.functionals.workers.Worker Worker} processes in the pipeline.  Normally there will
  * 				 be as many stages as there are operations performed on each data object 
- * @param stageOp A List containing the code value identifying the operation to be undertaken 
- * 					by each Worker process.  The operation codes must be specified in the 
+ * @param stageOp A List containing the name identifying the operation to be undertaken
+ * 					by each Worker process.  The operation names must be specified in the
  * 					order in which they are to be carried out.
  * @param stageModifier A List containing a modifier value, if any, for each stage of the pipeline.
  * 						There must be as many elements in the List as there are stages. Any stage 
@@ -61,9 +61,6 @@ class OnePipelineOne implements CSProcess{
             assert (stages == pDetails.stages): "OnePipelineOne: Number of stages mismatch, Process exepcted $stages, Details specified ${pDetails.stages}"
 		if (logPhaseNames == null) logPhaseNames = (0..<stages).collect{i -> return ""}
 		if (outData == null) outData = (0..<stages).collect{i -> return true}
-//		if (stages < 2) groovyParallelPatterns.DataClass.unexpectedReturnCode("OnePipelineOne: insufficient  stages ", stages)
-//		if ((pDetails != null) &&(stages != pDetails.stages) )
-//			groovyParallelPatterns.DataClass.unexpectedReturnCode("OnePipelineOne: Number of stages mismatch, Process exepcted $stages, Details specified ${pDetails.stages}", -1)
 		def lastIndex = stages - 1
 		def interConnect = Channel.one2oneArray(stages-1)
 		def firstStage = new Worker( input: input,

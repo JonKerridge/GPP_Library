@@ -79,6 +79,7 @@ class EmitWithLocal extends DataClass implements CSProcess {
             runMethod()
         }
         else { //logging required
+            assert logPropertyName != "" : "EmitWithLocal is logged so logPropertyName must be specified"
             def timer = new CSTimer()
 
             Logger.startLog(logPhaseName, timer.read())

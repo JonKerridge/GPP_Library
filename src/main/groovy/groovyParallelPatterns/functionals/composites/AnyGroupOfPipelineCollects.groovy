@@ -74,10 +74,11 @@ class AnyGroupOfPipelineCollects implements CSProcess {
         List<String> phaseNames = (0..stages).collect { s -> return (String) "$g, " + logPhaseNames[s] }
         logNames[g] = phaseNames
       }
-    } else {
-      List<String> phaseNames = (0..stages).collect { s -> return "" }
-      logNames[0] = phaseNames
     }
+//    else {
+//      List<String> phaseNames = (0..stages).collect { s -> return "" }
+//      logNames[0] = phaseNames
+//    }
     if (outData == null) {
       outData = []
       for (g in 0..<groups) {
@@ -93,7 +94,7 @@ class AnyGroupOfPipelineCollects implements CSProcess {
           stageOp: stageOp,
           stageModifier: stageModifier == null ? null : stageModifier[g],
           outData: outData[g],
-          logPhaseNames: logPhaseNames == null ? logNames[0] : logNames[g],
+          logPhaseNames: logPhaseNames == null ? null : logNames[g],
           logPropertyName: logPropertyName,
           visLogChan: visLogChan)
     }

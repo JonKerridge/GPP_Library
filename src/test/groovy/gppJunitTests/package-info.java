@@ -50,7 +50,7 @@
  * 42.  Emit -> OneIndexedList -> ListGroupList -> ListFanOne -> Collect
  * 43.  DataParallelPattern, based on Test 6
  * 44.  TaskParallelPattern, based on Test 26
- * 45.  GroupOfPipelinesPatter, based on Test 32
+ * 45.  GroupOfPipelinesPattern, based on Test 32
  * 46.  PipelineOfGroupsPattern, based on Test 31
  * 47.  GroupOfPipelineCollectPattern  based on Test 28
  * 48.  PipelineOfGroupCollectPattern  based on Test 36

@@ -61,36 +61,33 @@ class Test23 {
         rFinaliseMethod: TestResult.finalise,
         rFinaliseData: [er])
 
-        def group1Details  = new GroupDetails( workers : workers,
-        groupDetails: new LocalDetails[workers])
-        def group2Details  = new GroupDetails( workers : workers,
-        groupDetails: new LocalDetails[workers])
-        def group3Details  = new GroupDetails( workers : workers,
-        groupDetails: new LocalDetails[workers])
+        def group1Details = new GroupDetails(workers)
+        def group2Details = new GroupDetails(workers)
+        def group3Details = new GroupDetails(workers)
 
         for ( w in 0..< workers){
-            group1Details.groupDetails[w] = new LocalDetails( lName: TestWorker.getName(),
-            lInitMethod: TestWorker.init,
-            lFinaliseMethod: TestWorker.finalise )
-            group2Details.groupDetails[w] = new LocalDetails( lName: TestWorker.getName(),
-            lInitMethod: TestWorker.init,
-            lFinaliseMethod: TestWorker.finalise )
-            group3Details.groupDetails[w] = new LocalDetails( lName: TestWorker.getName(),
-            lInitMethod: TestWorker.init,
-            lFinaliseMethod: TestWorker.finalise )
+            group1Details.insertGroupDetails(
+                w,
+                TestWorker.getName(),
+                TestWorker.init,
+                [100, 0],
+                TestWorker.finalise,
+                [])
+            group2Details.insertGroupDetails(
+                w,
+                TestWorker.getName(),
+                TestWorker.init,
+                [100, 0],
+                TestWorker.finalise,
+                [])
+            group3Details.insertGroupDetails(
+                w,
+                TestWorker.getName(),
+                TestWorker.init,
+                [100, 0],
+                TestWorker.finalise,
+                [])
         }
-        group1Details.groupDetails[0].lInitData = [100, 0]
-        group1Details.groupDetails[1].lInitData = [100, 0]
-        group1Details.groupDetails[2].lInitData = [100, 0]
-
-        group2Details.groupDetails[0].lInitData = [100, 0]
-        group2Details.groupDetails[1].lInitData = [100, 0]
-        group2Details.groupDetails[2].lInitData = [100, 0]
-
-        group3Details.groupDetails[0].lInitData = [100, 0]
-        group3Details.groupDetails[1].lInitData = [100, 0]
-        group3Details.groupDetails[2].lInitData = [100, 0]
-
 
         def emitter = new Emit( output: chan1.out(),
         eDetails: emitterDetails )

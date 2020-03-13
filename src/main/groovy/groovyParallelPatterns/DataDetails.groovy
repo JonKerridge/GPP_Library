@@ -9,7 +9,8 @@ import groovy.transform.CompileStatic
  * class and key method names.  It also specifies user defined data values associated with these
  * methods.  All properties have default values.
  * In some cases where the defined class is used in a process which requires a local
- * worker class the parameters {@code lName}, {@code lInitMethod}, {@code lInitData} will need to be specified
+ * worker class the parameters {@code lName}, {@code lInitMethod}, {@code lInitData}
+ * will need to be specified
  *
  * @param dName String containing the name of the data class
  * @param dInitMethod String containing the name of the data class' initClass Method

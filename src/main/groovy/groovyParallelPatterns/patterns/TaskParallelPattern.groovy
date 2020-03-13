@@ -18,11 +18,11 @@ import jcsp.lang.Channel
  * <p>
  * @param eDetails A {@link groovyParallelPatterns.DataDetails}  object containing information concerning the DataClass
  * used by the Emit process
- * @param lDetails A {@link groovyParallelPatterns.LocalDetails}  list object containing information concerning each stage of the Pipeline
  * @param stageOp A List of String values identifying the operation to be undertaken
  * 					by each stage process
  * @param stageModifier A List Containing a possible modifier for the operation, with each stage
- * 					accessing the element that corresponds to the index of the stage.
+ * 					accessing the element that corresponds to the index of the stage. The values for
+ * 				each stage are stored as a List.
  * @param pDetails A List of {@link groovyParallelPatterns.LocalDetails} objects containing data pertaining to any local class used by the stage processes.
  * @param rDetails A {@link groovyParallelPatterns.ResultDetails} object containing data pertaining to result class used by the Collect process, it MUST be specified.
  * @param stages The number of stages in the pipeline of processes that will be created
@@ -42,14 +42,13 @@ class TaskParallelPattern {
 	List stageOp = null
 	List stageModifier = null
 	PipelineDetails pDetails = null
-	List modifier = null
 	ResultDetails rDetails = null
 	List <Boolean> outData = null
 
 	def run() {
 		assert (eDetails != null) : "TaskParallelPattern: eDetails must be specified"
 		assert (rDetails != null) : "TaskParallelPattern: rDetails must be specified"
-		assert (stageOp != "") : "TaskParallelPattern: stageOp List must be specified"
+		assert (stageOp != null) : "TaskParallelPattern: stageOp List must be specified"
 		assert (stages != 0) : "TaskParallelPattern: stages must be specified"
 
 		def chan1 = Channel.one2one()

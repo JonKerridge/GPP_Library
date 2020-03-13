@@ -70,7 +70,7 @@ class Collect extends DataClass implements CSProcess {
             runMethod()
         else {
             assert visLogChan != null :"Collector is logged so visLogChan must not be null"
-            assert logPropertyName != "" : "Collector is logged so logPropertyName must not be null"
+            assert logPropertyName != "" : "Collector is logged so logPropertyName must be specified"
             def timer = new CSTimer()
             Logger.startLog(logPhaseName, timer.read())
             Class resultsClass = Class.forName(rDetails.rName)

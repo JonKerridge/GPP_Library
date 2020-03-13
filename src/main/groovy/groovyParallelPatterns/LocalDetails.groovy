@@ -3,7 +3,7 @@ package groovyParallelPatterns
 import groovy.transform.CompileStatic
 
 /**
- * LocalDetails contains data pertaining to any local class used in the processes that make up a network.
+ * Contains data pertaining to any local class used in the processes that make up a network.
  * The local class itself will be defined by extend-ing the DataClass object.
  * LocalDetails specifies values associated with the class such as the name of the
  * class and key method names.  It also specifies data values associated with these
@@ -16,6 +16,9 @@ import groovy.transform.CompileStatic
  *@param lCreateData a List containing parameter values for the create Method
  *@param lFinaliseMethod String containing the name of the local class' finalise Method
  *@param lFinaliseData a List containing parameter values for the finalise Method
+ *
+ * Note {@code lCreateMethod} and {@code lCreateData}are ONLY used in an
+ * {@link groovyParallelPatterns.terminals.EmitFromInput} process
  */
 
 @CompileStatic

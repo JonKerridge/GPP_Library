@@ -40,14 +40,17 @@ class Test44 {
         rFinaliseMethod: TestResult.finalise,
         rFinaliseData: [er])
 
-    def pipeDetails = new PipelineDetails(stages: stages,
-        stageDetails: new LocalDetails[stages])
+    def pipeDetails = new PipelineDetails(stages)
 
     for ( s in 0..< stages){
-      pipeDetails.stageDetails[s] = new LocalDetails()
-      pipeDetails.stageDetails[s].lName = TestWorker.getName()
-      pipeDetails.stageDetails[s].lInitMethod = TestWorker.init
-      pipeDetails.stageDetails[s].lFinaliseMethod = TestWorker.finalise
+      pipeDetails.insertPipelineDetails(
+          s,
+          TestWorker.getName(),
+          TestWorker.init,
+          null,
+          TestWorker.finalise,
+          null
+      )
     }
 
     pipeDetails.stageDetails[0].lInitData = [25, 10]

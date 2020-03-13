@@ -67,7 +67,8 @@ class EmitSingle extends DataClass implements CSProcess {
         }
         else {
             //logging required
-			logPhaseName = "" + logPhaseName
+            assert logPropertyName != "" : "EmitSingle is logged so logPropertyName must be specified"
+			      logPhaseName = "" + logPhaseName
             def timer = new CSTimer()
 
             Logger.startLog(logPhaseName, timer.read())

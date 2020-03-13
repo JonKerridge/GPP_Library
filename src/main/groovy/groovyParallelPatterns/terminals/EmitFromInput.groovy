@@ -1,11 +1,14 @@
 package groovyParallelPatterns.terminals
 
+import groovy.transform.CompileStatic
 import groovyParallelPatterns.DataClass
 import groovyParallelPatterns.LocalDetails
 import groovyParallelPatterns.Logger
 import groovyParallelPatterns.UniversalTerminator
-import groovy.transform.CompileStatic
-import jcsp.lang.*
+import jcsp.lang.CSProcess
+import jcsp.lang.CSTimer
+import jcsp.lang.ChannelInput
+import jcsp.lang.ChannelOutput
 
 /**
  * EmitFromInput reads ONE object of type {@code eDetails.lName} from its input channel; it then uses the
@@ -28,83 +31,80 @@ import jcsp.lang.*
  * @param logPropertyName the name of a property in the input object that will uniquely identify an instance of the object.
  * LogPropertyName must be specified if logPhaseName is specified
  *
-*/
+ */
 
 
 class EmitFromInput extends DataClass implements CSProcess {
-	ChannelInput input
-	ChannelOutput output
-	LocalDetails eDetails
+  ChannelInput input
+  ChannelOutput output
+  LocalDetails eDetails
 
-    String logPhaseName = ""
-    String logPropertyName = ""
+  String logPhaseName = ""
+  String logPropertyName = ""
 
-    @CompileStatic
-    void runMethod(){
-        int returnCode
-        Class LocalClass = Class.forName(eDetails.lName)
-        Object lcInit = LocalClass.newInstance()
-        def lcBase = input.read()
-        assert (lcBase.getClass().isInstance(lcInit)) : "EmitFromInput: input Class not ${eDetails.lName}"
-        callUserMethod(lcInit, eDetails.lInitMethod, eDetails.lInitData, 21)
+  @CompileStatic
+  void runMethod() {
+    int returnCode
+    Class LocalClass = Class.forName(eDetails.lName)
+    Object lcInit = LocalClass.newInstance()
+    def lcBase = input.read()
+    assert (lcBase.getClass().isInstance(lcInit)): "EmitFromInput: input Class not ${eDetails.lName}"
+    callUserMethod(lcInit, eDetails.lInitMethod, eDetails.lInitData, 21)
 //        lcInit.&"${eDetails.lInitMethod}"(eDetails.lInitData)
-        boolean running = true
-        while (running){
-            Object lc = LocalClass.newInstance()
-            returnCode = callUserFunction(lc, eDetails.lCreateMethod, [lcBase, eDetails.lCreateData], 15)
-            if ( returnCode == normalContinuation){
-                output.write(lc)
-            }
-            else
-                running = false
-        }
-        UniversalTerminator ut = (UniversalTerminator) input.read()   // terminator from previous process
-        output.write(ut)
-
+    boolean running = true
+    while (running) {
+      Object lc = LocalClass.newInstance()
+      returnCode = callUserFunction(lc, eDetails.lCreateMethod, [lcBase, eDetails.lCreateData], 15)
+      if (returnCode == normalContinuation) {
+        output.write(lc)
+      } else running = false
     }
+    UniversalTerminator ut = (UniversalTerminator) input.read()
+    // terminator from previous process
+    output.write(ut)
 
-	void run() {
-        if (logPhaseName == "") {
-            runMethod()
-        }
-        else {
-            def timer = new CSTimer()
+  }
 
-            Logger.startLog(logPhaseName, timer.read())
+  void run() {
+    if (logPhaseName == "") {
+      runMethod()
+    } else {
+      assert logPropertyName != "": "EmitFromInput is logged so logPropertyName must be specified"
+      def timer = new CSTimer()
 
-            int returnCode = -1
-    		Class LocalClass = Class.forName(eDetails.lName)
-    		Object lcInit = LocalClass.newInstance()
-    		def lcBase = input.read()
-            assert (lcBase.getClass().isInstance(lcInit)) : "EmitFromInput: input Class not ${eDetails.lName}"
+      Logger.startLog(logPhaseName, timer.read())
 
-            callUserMethod(lcInit, eDetails.lInitMethod, eDetails.lInitData, 21)
+      int returnCode = -1
+      Class LocalClass = Class.forName(eDetails.lName)
+      Object lcInit = LocalClass.newInstance()
+      def lcBase = input.read()
+      assert (lcBase.getClass().isInstance(lcInit)): "EmitFromInput: input Class not ${eDetails.lName}"
+
+      callUserMethod(lcInit, eDetails.lInitMethod, eDetails.lInitData, 21)
 //            lcInit.&"${eDetails.lInitMethod}"(eDetails.lInitData)
-    		boolean running = true
+      boolean running = true
 
-            Logger.initLog(logPhaseName, timer.read())
+      Logger.initLog(logPhaseName, timer.read())
 
-    		while (running){
-    			Object lc = LocalClass.newInstance()
-                returnCode = callUserFunction(lc, eDetails.lCreateMethod, [lcBase, eDetails.lCreateData], 15)
-                if ( returnCode == normalContinuation) {
-                    //////
-                    Logger.outputReadyEvent(logPhaseName, timer.read(), lc.getProperty(logPropertyName))
-                    //////
+      while (running) {
+        Object lc = LocalClass.newInstance()
+        returnCode = callUserFunction(lc, eDetails.lCreateMethod, [lcBase, eDetails.lCreateData], 15)
+        if (returnCode == normalContinuation) {
+          //////
+          Logger.outputReadyEvent(logPhaseName, timer.read(), lc.getProperty(logPropertyName))
+          //////
 
-                    output.write(lc)
+          output.write(lc)
 
-                    //////
-                    Logger.outputCompleteEvent(logPhaseName, timer.read(), lc.getProperty(logPropertyName))
-                    //////
-                }
-                else
-                    running = false
-    		}
-            Logger.endEvent(logPhaseName, timer.read())
-    		UniversalTerminator ut = input.read()	// terminator from previous process
-    		output.write(ut)
-        }
-	}
+          //////
+          Logger.outputCompleteEvent(logPhaseName, timer.read(), lc.getProperty(logPropertyName))
+          //////
+        } else running = false
+      }
+      Logger.endEvent(logPhaseName, timer.read())
+      UniversalTerminator ut = input.read()  // terminator from previous process
+      output.write(ut)
+    }
+  }
 
 }
