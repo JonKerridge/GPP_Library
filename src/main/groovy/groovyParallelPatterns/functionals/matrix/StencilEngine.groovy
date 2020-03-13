@@ -5,24 +5,26 @@ import groovyJCSP.*
 import jcsp.lang.*
 
 /**
- * StencilEngine provides a means of processing stencil /kernal operations and applying them to
+ * StencilEngine provides a means of processing stencil kernel operations and applying them to
  * matrix transformations by means of kernel operations.  The process has been designed so that the
  * output from a StencilEngine can form the input to another so that a sequence of transformations
  * can be undertaken on a sequence of sources.<p>
- * Though primarily designed for image processing the engine can also be used for any file based input
- * where the data is processed once and then output, possibly to another StencilEngine for subsequent
- * processing where the transformation output does not have to be written to file
- * between each transformation but is saved in a memory based object. A reference to the object is passed
- * between StencilEngines.<p>
- * The StencilEngine comprises, internally, an StencilManager process and a number of StencilNode processes
- * that each carry out the required operation on a partition of the complete matrix.  Each partition must access
- * a distinct part of the total data structure. Each partition will be processed by one of the StencilNode processes.
+ * Though primarily designed for image processing the engine can also be used for any file based
+ * input  where the data is processed once and then output, possibly to another StencilEngine for
+ * subsequent processing where the transformation output does not have to be written to file
+ * between each transformation but is saved in a memory based object. A reference to the object
+ * is passed between StencilEngines.<p>
+ * The StencilEngine comprises, internally, an StencilManager process and a number of
+ * StencilNode processes that each carry out the required operation on a partition of the
+ * complete matrix.  Each partition must access a distinct part of the total data structure.
+ * Each partition will be processed by one of the StencilNode processes.
  * The number of StencilNodes equals the number of partitions. The architecture assumes
- * the data structure is double buffered in that a transformation reads from one buffer to the other buffer.
- * The way in which the kernel  operation is carried out is left to the programmer as that is
- * part of the sequential code that has to be written.  In addition to convolutions the engine can carry out a
- * scaler operation such as convert to grey scale; these are defined by a function.  A StencilEngine can
- * carry out a function or a convolution but not both, hence the ability to chain ImageEngines together.<p>
+ * the data structure is double buffered in that a transformation reads from one buffer to the
+ * other buffer.  The way in which the kernel  operation is carried out is left to the programmer
+ * as that is part of the sequential code that has to be written.  In addition to convolutions
+ * the engine can carry out a  scalar operation such as convert to grey scale; these are defined
+ * by a function.  A StencilEngine can carry out a function or a convolution but not both,
+ * hence the ability to chain StencilEngines together.<p>
  *
  * @param input The channel used to read the object containing the image
  * @param output The channel used to write the object after transformation
@@ -30,21 +32,22 @@ import jcsp.lang.*
  * @param partitionMethod The name of the method that is used to partition the image.
  * The partitioning structure is saved within the image object.
  * @param convolutionMethod The name of the method that undertakes the convolution operation
- * @param convolutionData Any further data required by the convolution method; typically the kernel and
- * other kernel paramters that are required.
- * @param funtionMethod The name of a function that carries out a scaler operation on the image. For an instance of
- * an StencilEngine only ONE of ConvolutionMethod and FunctionMethod must be specified.
+ * @param convolutionData Any further data required by the convolution method; typically the kernel
+ * and other kernel parameters that are required.
+ * @param funtionMethod The name of a function that carries out a scalar operation on the image.
+ * For an instance of a StencilEngine only ONE of ConvolutionMethod and FunctionMethod
+ * must be specified.
  * @param functionData Any further data required by the function
- * @param updateImageIndexMethod The name of the method used to modify the index of the current buffer holding
- * the transformed image. This means that internal buffering methods can be utilised that require more
- * than double buffering.  The method is only called if an instance of StencilEngine specifies the method name;
- * it defualts to the empty string.  An Image object may have more than one updateImageIndexMethod
+ * @param updateImageIndexMethod The name of the method used to modify the index of the
+ * current buffer holding the transformed image. This means that internal buffering methods
+ * can be utilised that require more than double buffering.  The method is only called if an
+ * instance of StencilEngine specifies the method name;  * it defaults to the empty string.
+ * An Image object may have more than one updateImageIndexMethod
  * depending on the application, but only one can be called by a specific StencilEngine instance.
  *
- * @param logPhaseName an optional string property, which if specified indicates that the process should be logged
- * otherwise the process will not be logged
- * @param logPropertyName the name of a property in the input object that will uniquely identify an instance of the object.
- * LogPropertyName must be specified if logPhaseName is specified<p>
+ * @param logPropertyName the name of a property in the matrix object that will uniquely identify
+ * an instance of the object.  LogPropertyName must be specified if logging is required.
+ * The names associated with the log phases are generated internally.
  *
  *
  */
@@ -54,7 +57,7 @@ class StencilEngine implements CSProcess {
 
     ChannelInput input
     ChannelOutput output
-    int nodes                       // number of StencilNode processes
+    int nodes = 0                     // number of StencilNode processes
     String partitionMethod = ""     // name of partition method
     String convolutionMethod = ""   // name of convolution method
     List convolutionData = null     // List of parameters required by convolution method

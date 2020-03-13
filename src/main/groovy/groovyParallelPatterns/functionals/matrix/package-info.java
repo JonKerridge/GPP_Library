@@ -1,12 +1,14 @@
 /**
- * Package groovyParallelPatterns.functionals.matrix provides a number of matrix based processing engines. Two basic objects are
- * provided<br> {@link Matrix} provides a two-dimensional data structure <br> {@link Vector} provides
- * a one-dimensional data structure<br>  in addition, programmers can use any form of Groovy List object <p>
+ * Package groovyParallelPatterns.functionals.matrix provides a number of matrix based processing engines.
+ * Two basic objects are provided<br>
+ *     {@link groovyParallelPatterns.functionals.matrix.Matrix} provides a two-dimensional data structure <br>
+ *         {@link groovyParallelPatterns.functionals.matrix.Vector} provides  a one-dimensional data structure<br>
+ *             in addition, programmers can use any form of Groovy List object <p>
  *
- * {@link ImageEngine} provides an architecture where the process transforms an input object and immediately outputs
- * that object, possibly to another StencilEngine process.<br>
- * {@link MultiCoreEngine} provides an architecture where the process iterates a fixed number of times or iterates
- * until a terminating condition is met. <br>
+ * {@link groovyParallelPatterns.functionals.matrix.StencilEngine} provides an architecture where the process
+ * transforms an input object and then outputs that object, possibly to another StencilEngine process.<br>
+ * {@link groovyParallelPatterns.functionals.matrix.MultiCoreEngine} provides an architecture where the process
+ * iterates a fixed number of times or iterates until a terminating condition is met. <br>
  * In both cases it is assumed that the data structure can be separated into disjoint partitions each of which can
  * be subsequently processed in a separate processing node.
  * <p>

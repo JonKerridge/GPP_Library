@@ -20,8 +20,10 @@ class MultiCoreNode implements CSProcess {
 
   @CompileStatic
   void runMethod() {
-    boolean running = true
-    Object data = new Object()
+    boolean running
+    running = true
+    Object data
+    data = new Object()
 
     while (running){
       data = input.read()
@@ -49,8 +51,6 @@ class MultiCoreNode implements CSProcess {
   }
 
   void run(){
-    assert calculationMethod != "" :
-        "MultiCoreNode: calculationMethod has not been specified"
     assert nodeId > -1: "MultiCoreNode: NodeId has not been set"
 
     boolean running

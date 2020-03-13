@@ -20,26 +20,28 @@ class StencilManager implements CSProcess {
     String logPropertyName = ""
 
     void run(){
-        boolean running = true
-        Object o = input.read()
+        boolean running
+        running = true
+        Object inputObject
+        inputObject = input.read()
         while (running){
-            if ( o instanceof UniversalTerminator){
+            if ( inputObject instanceof UniversalTerminator){
                 running = false
             }
             else {
                 // create object partitions
-                if (partitionMethod != "") o.&"$partitionMethod"(nodes)
+                if (partitionMethod != "") inputObject.&"$partitionMethod"(nodes)
                 // send object to each node
                 for ( n in 0 ..< nodes) {
-                    ((ChannelOutput) toNodesList[n]).write(o)
+                    ((ChannelOutput) toNodesList[n]).write(inputObject)
                 }
                 // read done signal from each node
                 for ( n in 0 ..< nodes) {
                     fromNodes.read()
                 }
-                if ( updateImageIndexMethod != "") o.&"$updateImageIndexMethod"()
-                output.write(o)
-                o = input.read()
+                if ( updateImageIndexMethod != "") inputObject.&"$updateImageIndexMethod"()
+                output.write(inputObject)
+                inputObject = input.read()
             }
         } // while
         // send Universal terminator to each node
@@ -47,6 +49,6 @@ class StencilManager implements CSProcess {
             ((ChannelOutput) toNodesList[n]).write(new UniversalTerminator())
         // read done signal from each node
         for ( n in 0 ..< nodes) fromNodes.read()
-        output.write(o)
+        output.write(inputObject)
     }
 }

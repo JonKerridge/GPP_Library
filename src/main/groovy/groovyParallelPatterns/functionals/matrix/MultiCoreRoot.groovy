@@ -53,7 +53,8 @@ class MultiCoreRoot implements CSProcess {
         else { // looping until errorMargin is satisfed
 //                        println "error looping"
           iterations = 0
-          boolean iterating = true
+          boolean iterating
+          iterating = true
           while (iterating) {
             iterations += 1
             for ( i in 0 ..< nodes) ((ChannelOutput)toNodes[i]).write(new UniversalSignal())
@@ -85,9 +86,6 @@ class MultiCoreRoot implements CSProcess {
   } // run method
 
   void run(){
-    assert partitionMethod != "" : "MultiCoreRoot: partitionMethod must be specified"
-    assert updateMethod != "" : "MultiCoreRoot: updateMethod must be specified"
-
     boolean running
     running = true
     Object data
