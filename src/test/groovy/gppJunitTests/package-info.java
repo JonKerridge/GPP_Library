@@ -54,6 +54,7 @@
  * 46.  PipelineOfGroupsPattern, based on Test 31
  * 47.  GroupOfPipelineCollectPattern  based on Test 28
  * 48.  PipelineOfGroupCollectPattern  based on Test 36
+ * 49.	EmitSingle -> Worker(null()) -> Collect
  * <p>
   *
   */
