@@ -11,7 +11,6 @@ class TestWorker extends DataClass {
 	static String init = "initClass"
 	static String finalise = "nullFinalise"
 
-
 	int initClass ( List d){
 		int instances = d[0]
 		int initialValue = d[1]

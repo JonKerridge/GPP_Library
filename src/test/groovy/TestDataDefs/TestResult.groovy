@@ -17,7 +17,9 @@ class TestResult extends DataClass {
 
     static String init = "initClass"
     static String collector = "collector"
+    static String collectorSingle = "collectorSingle"
     static String finalise = "finalise"
+    static String finaliseSingle = "finaliseSingle"
 
     int initClass ( List d){
         return completedOK
@@ -51,4 +53,18 @@ class TestResult extends DataClass {
         return completedOK
     }
 
+    int len
+    int collectorSingle(TestSingle d){
+        for ( i in 0 .. d.len) sum = sum + d.consts[i]
+        this.len = d.len
+        dataSets = 1
+        return completedOK
+    }
+
+    int finaliseSingle(List d){
+        TestExtract er = d[0]
+        er.finalSum = sum
+        er.dataSetCount = dataSets
+        return completedOK
+    }
 }

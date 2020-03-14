@@ -52,6 +52,7 @@ result = JUnitCore.runClasses (
     Test46,
     Test47,
     Test48,
+    Test49,
 )
 
 String message = "Ran: " + result.getRunCount() +
