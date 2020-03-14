@@ -1,7 +1,10 @@
 /**
- * The groovyParallelPatterns.functionals.composites package provides easily reused combinations of pipelines and groups. <br>
- * A pipeline of groups provides a Task parallel architecture in which each stage is itself a group of Data parallel worker processes.<br>
- * A group of pipelines provides a Data parallel architecture in which each worker is itself  a Task parallel implementation<p>
+ * The groovyParallelPatterns.functionals.composites package provides easily reused
+ * combinations of pipelines and groups. <br>
+ * A pipeline of groups provides a Task parallel architecture in which each stage
+ * is itself a group of Data parallel worker processes.<br>
+ * A group of pipelines provides a Data parallel architecture in which each worker
+ * is itself  a Task parallel implementation<p>
  *<pre>
  * Author, Licence and Copyright statement
  * author  Jon Kerridge
