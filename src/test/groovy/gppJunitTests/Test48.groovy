@@ -20,9 +20,6 @@ class Test48 {
     def stages = 3
     def workers = 3
 
-    def chan1 = Channel.one2one()
-    def chan2 = Channel.one2any()
-
     def er = new TestExtract()
     def er1 = new TestExtract()
     def er2 = new TestExtract()
