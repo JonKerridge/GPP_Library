@@ -2,7 +2,8 @@ package groovyParallelPatterns
 
 import groovy.transform.CompileStatic
 /**
- * Class {@code UniversalResponse} is used internally to return values in response to a {@code UniversalRequest}
+ * Class {@code UniversalResponse} is used internally to return values in response
+ * to a {@code UniversalRequest}
  *
  * <p>This object is used internally within the library.
  * @param payload a list of value

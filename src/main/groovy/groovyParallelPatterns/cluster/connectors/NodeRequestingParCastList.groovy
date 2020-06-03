@@ -29,7 +29,8 @@ class NodeRequestingParCastList implements CSProcess {
 	ChannelOutput request
 	ChannelInput response
 	ChannelOutputList outList
-	
+	int id
+
 	void run(){
 		def signal = new UniversalSignal()
 		def o = null
@@ -37,8 +38,10 @@ class NodeRequestingParCastList implements CSProcess {
 		while (running) {
 			request.write(signal)
 			o = response.read()
-			if ( !( o instanceof UniversalTerminator))
+			if (!(o instanceof UniversalTerminator)) {
+//				println "$id broadcasting ${o.instanceNumber}"
 				outList.broadcast(o)
+			}
 			else
 				running = false
 		}

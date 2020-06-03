@@ -130,7 +130,7 @@ class TestData extends DataClass {
   static int cloneInstance = 1
   @Override
   public TestData clone() {
-    //println "Creating clone $cloneInstance"
+//    println "Creating clone $instanceNumber; $cloneInstance"
     TestData newTD = new TestData()
     newTD.data = this.data
     newTD.instanceNumber = this.instanceNumber

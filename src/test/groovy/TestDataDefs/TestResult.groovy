@@ -31,8 +31,8 @@ class TestResult extends DataClass {
         dataSets += 1
         if ( d.cloneNumber > maxCloneNumber) {
             maxCloneNumber = d.cloneNumber
-            cloneOrder.add(d.cloneNumber)
         }
+        cloneOrder.add(d.cloneNumber)
         w1 += d.w1
         w2 += d.w2
         w3 += d.w3

@@ -17,7 +17,7 @@ import groovy.transform.CompileStatic
 */
 
 @CompileStatic
-class UniversalTerminator implements Cloneable, Serializable{
+class       UniversalTerminator implements Cloneable, Serializable{
 //	int terminator = -1
 	List log = []		// a list of lists of LogEntry s
 }

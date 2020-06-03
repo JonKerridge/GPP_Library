@@ -43,6 +43,7 @@
  * 35.  Emit-> OneFanList -> ListPipelineOfGroupCollects  (also tests ListGroupCollect implicitly)
  * 36.  Emit -> OneFanAny -> AnyPipelineOfGroupCollects
  * 37.  Emit -> OneNodeRequestedList ->> NodeRequestingFanAny ->> AnyFanOne ->> AnyFanOne -> Collect (2 clusters)
+ * 37a.  Emit -> OneNodeRequestedCastList ->> NodeRequestingFanAny ->> AnyFanOne ->> AnyFanOne -> Collect (2 clusters)
  * 38.  Emit -> OneNodeRequestedList ->> NodeRequestingFanList ->> ListFanOne ->> AnyFanOne -> Collect (2 clusters)
  * 39.  Emit -> OneNodeRequestedList ->> NodeRequestingParCastList ->> ListFanOne ->> AnyFanOne -> Collect (2 clusters)
  * 40.  Emit -> OneNodeRequestedList ->> NodeRequestingSeqCastList ->> ListFanOne ->> AnyFanOne -> Collect (2 clusters)

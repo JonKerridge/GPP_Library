@@ -44,6 +44,7 @@ class NodeRequestingFanAny implements CSProcess {
 			else
 				running = false
 		}
+//		println "NRFA terminating"
 		for ( i in 1..destinations) outputAny.write(new UniversalTerminator())
 //		println "NRFA has terminated"
 	}

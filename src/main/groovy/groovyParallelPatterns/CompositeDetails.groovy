@@ -2,6 +2,7 @@ package groovyParallelPatterns
 
 import groovy.transform.CompileStatic
 
+
 /**
  * CompositeDetails is used to define the workers and stages of the skeletons appearing in the
  * {@link groovyParallelPatterns.functionals.composites.AnyGroupOfPipelines composites} package.
@@ -23,8 +24,9 @@ import groovy.transform.CompileStatic
  * @param cDetails A LocalDetails[{@code workers}][{@code stages}] structure holding the required data
  *
  */
-@CompileStatic
 
+
+@CompileStatic
 class CompositeDetails implements Serializable, Cloneable {
 	int workers = 2
 	int stages = 2
@@ -41,7 +43,7 @@ class CompositeDetails implements Serializable, Cloneable {
 
 	GroupDetails extractByStage (int stage){
 		// extracts details for all the workers in a group corresponding to the stage
-        GroupDetails gDetails = new GroupDetails(workers)
+		GroupDetails gDetails = new GroupDetails(workers)
 //        gDetails.groupDetails = []
 		for ( w in 0 ..< workers){
 			gDetails.groupDetails << new LocalDetails(
@@ -105,6 +107,7 @@ class CompositeDetails implements Serializable, Cloneable {
 	 * @param finaliseMethod A String specifying the finalise method of any local data class
 	 * @param finaliseData A list containing parameters for the finaliseMethod
 	 */
+
 	void insertCompositeDetails(int group,
 								int stage,
 								String name,

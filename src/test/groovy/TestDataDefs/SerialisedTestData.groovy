@@ -125,16 +125,18 @@ class SerialisedTestData extends DataClass {
 //    return completedOK
 //  }
 //
+  static int cloneInstance =0
   @Override
   public SerialisedTestData clone() {
-    //println "Creating clone $cloneInstance"
     SerialisedTestData newTD = new SerialisedTestData()
     newTD.data = this.data
     newTD.instanceNumber = this.instanceNumber
-    newTD.cloneNumber = this.cloneNumber
+    newTD.cloneNumber = this.cloneInstance
     newTD.w1 = this.w1
     newTD.w2 = this.w2
     newTD.w3 = this.w3
+//    println "Created clone for $instanceNumber -> $cloneInstance"
+    cloneInstance++
     return newTD
   }
 

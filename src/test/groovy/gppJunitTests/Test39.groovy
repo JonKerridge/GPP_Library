@@ -71,10 +71,12 @@ class Test39 {
 
     def rfl0 = new NodeRequestingParCastList(request: request[0].out(),
         response: response[0].in(),
+        id: 0,
         outList: chan2OutList)
 
     def rfl1 = new NodeRequestingParCastList(request: request[1].out(),
         response: response[1].in(),
+        id: 1,
         outList: chan4OutList)
 
     def lgl0 = new ListGroupList(inputList: chan2InList,
@@ -109,7 +111,7 @@ class Test39 {
     assertTrue(er.finalSum == 630)
     assertTrue(er.dataSetCount == 60)
     assertTrue(er.finalInstance == 20)
-    assertTrue(er.maxClone == 0)  // clone is unaltered because SerialisedTD does not increment it
+    assertTrue(er.maxClone == 59)  // clone is unaltered because SerialisedTD does not increment it
   }
 }
 

@@ -6,7 +6,9 @@ import jcsp.lang.*
 
 /**
  * The process OneNodeRequestedList reads an input data object.  It then reads a request for data
- * and responds by writing the data object to the corresponding element of the response channel list.
+ * and responds by writing a serializable version of the input data object to the
+ * corresponding element of the response channel list.  The Request and Response channels will be
+ * implemented as net channels.
  * <p>
  * @param input
  * @param request
@@ -28,13 +30,14 @@ class OneNodeRequestedList implements CSProcess {
 			index = alt.fairSelect()
 //			println "ONRL processed at $index"
 			request[index].read()
-//			println "ONRL has read signal and processing ${o.toString()}"
+//			println "ONRL has read signal $index and processing ${o.toString()}"
 			def smp = o.serialize()
 //			println "ONRL has serialized to ${smp.toString()}"
 			response[index].write(smp) 
 //			println "ONRL has completed output "
 			o = input.read()
 		}
+//		println "ONRL Terminating"
 		int terminated = 0
 		while ( terminated < nodes){
 			index = alt.fairSelect()

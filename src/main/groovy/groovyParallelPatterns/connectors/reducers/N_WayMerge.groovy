@@ -46,7 +46,6 @@ class N_WayMerge extends DataClass implements CSProcess{
 		Object inputObject
 		inputObject = null
 		boolean running
-		running = true
 		// read in the initial values from each inputList element
 		for ( i in 0 ..< sources){
 			inputObject =  ((ChannelInput)inputList[i]).read()
@@ -57,13 +56,12 @@ class N_WayMerge extends DataClass implements CSProcess{
 				terminated = terminated + 1
 			}
 		}
-		running = terminated == sources ? false : true
-		returnCode = -1
+		running = terminated != sources
 		Class dataClass = Class.forName(inClassName)
 		def dc = dataClass.newInstance()
 		while (running){
 			//returnCode = dc.&"$mergeChoice"(buffers)
-            returnCode = callUserFunction(dc, mergeChoice, buffers, 25)
+			returnCode = callUserFunction(dc, mergeChoice, buffers, 25)
 			if ((returnCode >= 0) && (returnCode < sources)) {
 				output.write(buffers[returnCode])
 				inputObject =  ((ChannelInput)inputList[returnCode]).read()
@@ -72,7 +70,7 @@ class N_WayMerge extends DataClass implements CSProcess{
 				else {
 					buffers[returnCode]= null
 					terminated = terminated + 1
-					running = terminated == sources ? false : true
+					running = terminated != sources
 				}
 			}
 //			else

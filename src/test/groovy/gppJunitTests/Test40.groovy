@@ -110,7 +110,7 @@ class Test40 {
     assertTrue(er.finalSum == 630)
     assertTrue(er.dataSetCount == 60)
     assertTrue(er.finalInstance == 20)
-    assertTrue(er.maxClone == 0)  // clone is unaltered because SerialisedTD does not increment it
+
   }
 }
 
