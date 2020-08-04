@@ -25,7 +25,9 @@ class OneNodeRequestedList implements CSProcess {
 		int nodes = request.size()	// assume list have same number of elements
 		def alt = new ALT(request)
 		int index = -1
+//		println "ONRL running"
 		def o = input.read()
+//		println "ONRL has read ${o.toString()}"
 		while (!(o instanceof UniversalTerminator)){
 			index = alt.fairSelect()
 //			println "ONRL processed at $index"
@@ -36,13 +38,17 @@ class OneNodeRequestedList implements CSProcess {
 			response[index].write(smp) 
 //			println "ONRL has completed output "
 			o = input.read()
+//			println "ONRL has read ${o.toString()}"
 		}
 //		println "ONRL Terminating"
 		int terminated = 0
 		while ( terminated < nodes){
 			index = alt.fairSelect()
+//			println "ONRL-T processed at $index"
 			request[index].read()
+//			println "ONRL-T has read from $index"
 			response[index].write(new UniversalTerminator())
+//			println "ONRL-T written UT to $index"
 			terminated = terminated + 1
 		}
 //		println "ONRL has terminated"

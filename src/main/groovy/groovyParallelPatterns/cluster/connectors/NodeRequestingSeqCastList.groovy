@@ -28,19 +28,28 @@ class NodeRequestingSeqCastList implements CSProcess {
 	ChannelOutputList outList
 	
 	void run(){
+//		println "NRSCL invoked"
 		def signal = new UniversalSignal()
 		def o = null
 		boolean running = true
+//		println "NRSCL running"
 		while (running) {
+//			println "NRSCL: sending request signal"
 			request.write(signal)
+//			println "NRSCL: awaiting response"
 			o = response.read()
-			if ( !( o instanceof UniversalTerminator))
+//			println "NRSCL: response has been read"
+			if ( !( o instanceof UniversalTerminator)) {
 				outList.broadcastSeq(o)
-			else
+//				println "NRSCL: processing data ${o.toString()}"
+			}
+			else {
 				running = false
+//				println "NRSCL: terminating"
+			}
 		}
 		outList.broadcastSeq(new UniversalTerminator())
-
+//		println "NRSCL: terminated"
 	}
 
 }

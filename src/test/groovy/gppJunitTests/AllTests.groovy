@@ -43,6 +43,7 @@ result = JUnitCore.runClasses (
     Test37,
     Test37a,
     Test38,
+    Test38a,
     Test39,
     Test40,
     Test41,

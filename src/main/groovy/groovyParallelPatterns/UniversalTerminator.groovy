@@ -1,5 +1,7 @@
 package groovyParallelPatterns
 
+import groovy.transform.AutoClone
+import groovy.transform.AutoCloneStyle
 import groovy.transform.CompileStatic
 
 /**
@@ -15,9 +17,11 @@ import groovy.transform.CompileStatic
  *
  * <p>This object is used internally within the library.
 */
-
 @CompileStatic
-class       UniversalTerminator implements Cloneable, Serializable{
+@AutoClone(style= AutoCloneStyle.SERIALIZATION)
+
+class       UniversalTerminator  implements Serializable{
 //	int terminator = -1
 	List log = []		// a list of lists of LogEntry s
+
 }

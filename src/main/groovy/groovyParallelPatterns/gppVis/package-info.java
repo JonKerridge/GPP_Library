@@ -13,7 +13,7 @@
  * <p>
  * This MUST be placed immediately BEFORE the specification of the Emit process in the network specification.
  *
- * The value of {@caode collectors} should be the number of Collect processes in the network,
+ * The value of {@code collectors} should be the number of Collect processes in the network,
  * typically 1 but when there is a group of collectors either explicitly or implicitly
  * the value should be modified accordingly.
  *

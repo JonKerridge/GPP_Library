@@ -156,6 +156,18 @@ class SerialisedTestData extends DataClass {
 //    return currentLocation
 //  }
 
+  @Override
+  public SerialisedTestData serialize() {
+    def std = new SerialisedTestData()
+    std.instanceNumber = this.instanceNumber
+    std.cloneNumber = this.cloneNumber
+    std.w1 = this.w1
+    std.w2 = this.w2
+    std.w3 = this.w3
+    std.data = this.data
+    return std
+  }
+
 
   String toString() {
     String s = "SerialisedTestData: $data, $instanceNumber, $cloneNumber"

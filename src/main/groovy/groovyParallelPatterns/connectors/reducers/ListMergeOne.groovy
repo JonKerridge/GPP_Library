@@ -14,7 +14,8 @@ import jcsp.lang.ChannelOutput
  * output bandwidth in the order of the inputList index.
  * <p>
  * Once the UniversalTerminator is read from the any element of the input channel list, a
- * UniversalTerminator object will be read from all the  source processes.
+ * UniversalTerminator object will be read from all the  source processes ensuring that
+ * any other data objects are processed.
  * The process will then output a single UniversalTerminator object.
  * The incoming data is not modified in any manner.
  *
@@ -41,7 +42,9 @@ class ListMergeOne implements CSProcess {
   ChannelOutput output
 
   void run() {
-    int sources = inputList.size()
+    int sources
+    sources = inputList.size()
+    List sourceList = (0..<sources).collect() // [0, 1, ... sources-1]
     int currentIndex
     currentIndex = 0
     boolean running
@@ -49,31 +52,18 @@ class ListMergeOne implements CSProcess {
     Object inputObject
     inputObject = null
     while (running) {
-      inputObject = ((ChannelInput) inputList[currentIndex]).read()
+      inputObject = ((ChannelInput) inputList[sourceList[currentIndex]]).read()
 //            println "read ${inputObject} from $currentIndex"
       if (!(inputObject instanceof UniversalTerminator)) {
         output.write(inputObject)
-        currentIndex = currentIndex == sources - 1 ? 0 : currentIndex + 1
       } else {
-        running = false
+        sourceList.remove(currentIndex)  // remove source at currentIndex
+        sources--
+        if (sources == 0) running = false // simple termination test
       }
+      currentIndex = currentIndex >= sources - 1 ? 0 : currentIndex + 1  //reset currentIndex
     }
-    int c = currentIndex == sources - 1 ? 0 : currentIndex + 1
-//        println "terminating from $c at $currentIndex"
-    if (c > 0) {
-      while (c < sources) {
-        ((ChannelInput) inputList[c]).read()
-//                println "read 1: ${inputObject} from $c"
-        c = c + 1
-      }
-    }
-    c = 0
-    while (c < currentIndex) {
-      ((ChannelInput) inputList[c]).read()
-//            println "read 2: ${inputObject} from $c"
-      c = c + 1
-    }
-    output.write(inputObject)
+    output.write(inputObject) // the last Universal Terminator that was read
   }
 
 }

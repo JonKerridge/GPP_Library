@@ -1,5 +1,7 @@
 package groovyParallelPatterns
 
+import groovy.transform.AutoClone
+import groovy.transform.AutoCloneStyle
 import groovy.transform.CompileStatic
 
 /**
@@ -17,7 +19,7 @@ import groovy.transform.CompileStatic
  *
  *
 */
-
+@AutoClone (style = AutoCloneStyle.SERIALIZATION)
 @CompileStatic
 class UniversalSignal implements Cloneable, Serializable{
 	int signal = -2
