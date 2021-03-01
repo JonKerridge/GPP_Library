@@ -4,7 +4,6 @@ plugins {
   id 'maven-publish'
   id 'application'
   id 'org.openjfx.javafxplugin' version '0.0.7'
-  id 'idea'
 }
 
 group 'groovyParallelPatterns'
@@ -31,12 +30,6 @@ repositories {
     url "https://mvnrepository.com/artifact/org.codehaus.groovy/groovy-all"
   }
   mavenLocal()
-}
-
-idea{
-  module {
-    downloadJavadoc = true
-  }
 }
 
 task sourcesJar(type: Jar) {
