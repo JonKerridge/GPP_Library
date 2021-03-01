@@ -25,7 +25,7 @@ import jcsp.lang.ChannelOutput
  * @param stageOp a list of function identifiers to be associated with each stage of the pipeline
  * @param stageModifier a list of {@code groups} lists, each containing {@code stages} elements
  * that are the stage modifier data for that combination of group and stage. Each entry is
- * itself be a list of values.
+ * itself a list of values.
  * @param outData a list of {@code groups} lists each entry of which comprises a List of
  * {@code stages} entries.
  * Each entry is a boolean value such that if true the worker processes in that stage will output

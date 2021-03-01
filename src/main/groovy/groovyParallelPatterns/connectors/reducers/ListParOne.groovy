@@ -31,7 +31,8 @@ class ListParOne  implements CSProcess{
 
 	ChannelInputList inputList
 	ChannelOutput output
-	
+
+
 	void run() {
 		int elements = inputList.size()
 		List valueList
@@ -40,6 +41,6 @@ class ListParOne  implements CSProcess{
 			for ( e in 0 ..< elements) output.write(valueList[e])
 			valueList  = (List)inputList.read()
 		}
-		output.write(valueList[0])
+		output.write(new UniversalTerminator())
 	}
 }

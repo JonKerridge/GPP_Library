@@ -38,13 +38,15 @@ public interface DataClassInterface {
 	public Object clone()
 
 
-	/**
-	 * Used to create a version of an object that removes machine specific properties, such as
-	 * static variables, channel addresses that are not Serializable.<p>
-	 * serialize MUST be implemented if the object is processed by means of
-	 * {@link groovyParallelPatterns.cluster.connectors.OneNodeRequestedList}.
-	 *
-	 * @return a version of the object that implements the Serializable interface
-	 */
-	public Object serialize()
+//	/**
+//	 * Used to create a version of an object that removes machine specific properties, such as
+//	 * static variables, channel addresses that are not Serializable.<p>
+//	 * serialize MUST be implemented if the object is processed by means of
+//	 * {@link groovyParallelPatterns.cluster.connectors.OneNodeRequestedList}.
+//	 *
+//	 * @return a version of the object that implements the Serializable interface
+//	 */
+//	public Object serialize()
+
+// removed in version 1.0.9 when creating gppClusterBuilder
 }

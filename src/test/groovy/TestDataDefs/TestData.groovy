@@ -141,18 +141,18 @@ class TestData extends DataClass {
     cloneInstance += 1
     return newTD
   }
-
-  @Override
-  public SerialisedTestData serialize() {
-    def std = new SerialisedTestData()
-    std.instanceNumber = this.instanceNumber
-    std.cloneNumber = this.cloneNumber
-    std.w1 = this.w1
-    std.w2 = this.w2
-    std.w3 = this.w3
-    std.data = this.data
-    return std
-  }
+// removed in version 1.0.9
+//  @Override
+//  public SerialisedTestData serialize() {
+//    def std = new SerialisedTestData()
+//    std.instanceNumber = this.instanceNumber
+//    std.cloneNumber = this.cloneNumber
+//    std.w1 = this.w1
+//    std.w2 = this.w2
+//    std.w3 = this.w3
+//    std.data = this.data
+//    return std
+//  }
 
   int mergeMethod (List <TestData> buffers){
     // should output smallest first

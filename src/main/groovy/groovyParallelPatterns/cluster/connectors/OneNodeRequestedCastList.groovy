@@ -9,7 +9,7 @@ import jcsp.lang.ChannelInput
 
 /**
  * The process OneNodeRequestedCastList reads an input data object.  It then read requests for data
- * from all the requesting Nodes and responds by writing a serializable version of the input data
+ * from all the requesting Nodes and responds by writing a serialized version of the input data
  * object to all the elements of the response channel list.  The Request and Response channels will be
  * implemented as net channels.
  * <p>
@@ -31,9 +31,9 @@ class OneNodeRequestedCastList implements CSProcess {
 		while (!(o instanceof UniversalTerminator)){
 			for ( index in 0 ..< nodes) request[index].read()
 //			println "ONRL has read all signals and processing ${o.toString()}"
-			def smp = o.serialize()
+//			def smp = o.serialize() // removed in v 1.0.9
 //			println "ONRL has serialized to ${smp.toString()}"
-			for ( index in 0 ..< nodes) response[index].write(smp)
+			for ( index in 0 ..< nodes) response[index].write(o) // o MUST be serializable
 //			println "ONRL has completed output "
 				o = input.read()
 		}

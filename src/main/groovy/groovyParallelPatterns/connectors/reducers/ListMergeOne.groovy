@@ -63,7 +63,7 @@ class ListMergeOne implements CSProcess {
       }
       currentIndex = currentIndex >= sources - 1 ? 0 : currentIndex + 1  //reset currentIndex
     }
-    output.write(inputObject) // the last Universal Terminator that was read
+    output.write(new UniversalTerminator())
   }
 
 }

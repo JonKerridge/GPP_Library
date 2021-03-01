@@ -188,16 +188,16 @@ class DataClass implements DataClassInterface, Serializable, Cloneable {
     return null
   }
 
-
-  /**
-   * A null implementation of {@link groovyParallelPatterns.DataClassInterface#serialize}
-   *
-   * @usage o.Serialize(), where o is the non-Serializable object
-   * @return the Serializable version of o
-   */
-  @Override
-  public Object serialize() {
-    println " method serialize() needs to be implemented - see DataClass"
-    return null;
-  }
+// removed in version 1.0.9
+//  /**
+//   * A null implementation of {@link groovyParallelPatterns.DataClassInterface#serialize}
+//   *
+//   * @usage o.Serialize(), where o is the non-Serializable object
+//   * @return the Serializable version of o
+//   */
+//  @Override
+//  public Object serialize() {
+//    println " method serialize() needs to be implemented - see DataClass"
+//    return null;
+//  }
 }

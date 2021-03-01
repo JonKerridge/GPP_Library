@@ -37,7 +37,6 @@ class AnyFanOne  implements CSProcess{
 		boolean running
 		int terminated
 		Object inputObject
-
 		running = true
 		terminated = 0
 		inputObject = inputAny.read()
@@ -52,7 +51,6 @@ class AnyFanOne  implements CSProcess{
 				else inputObject = inputAny.read()
 			}
 		}
-		output.write(inputObject) // this will be a UniversalTerminator
+		output.write(new UniversalTerminator())
 	}
-
 }

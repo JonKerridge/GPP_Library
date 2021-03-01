@@ -22,11 +22,11 @@ class UniversalRequest implements DataClassInterface, Cloneable, Serializable{
     public Object clone () {
         return null
     }
-
-    @Override
-    public Object serialize() {
-        return null;
-    }
+// removed in version 1.0.9
+//    @Override
+//    public Object serialize() {
+//        return null;
+//    }
 
 
 

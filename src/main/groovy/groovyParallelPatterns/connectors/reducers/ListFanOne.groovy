@@ -36,6 +36,7 @@ class ListFanOne  implements CSProcess{
 	ChannelInputList inputList
 	ChannelOutput output
 
+
 	void run() {
 		int sources = inputList.size()
 		def alt = new ALT(inputList)
@@ -56,8 +57,7 @@ class ListFanOne  implements CSProcess{
 				if ( terminated == sources ) running = false
 			}
 		}
-		output.write(outputObject)
+		output.write(new UniversalTerminator())
 	}
-
 }
 

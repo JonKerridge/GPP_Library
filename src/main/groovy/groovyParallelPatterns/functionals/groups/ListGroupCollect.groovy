@@ -55,8 +55,8 @@ class ListGroupCollect implements CSProcess{
   ChannelOutput visLogChan = null
 
   void run() {
-    assert rDetails != null: "AnyGroupCollect: rDetails not specified"
-    assert collectors > 0: "AnyGroupCollect: collectors not specified"
+    assert rDetails != null: "ListGroupCollect: rDetails not specified"
+    assert collectors > 0: "ListGroupCollect: collectors not specified"
     int inSize = inputList.size()
     int rSize = rDetails.size()
     assert inSize == collectors : "ListGroupCollect: inputList size, $inSize, does not equal the number of collectors $collectors"

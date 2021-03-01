@@ -34,6 +34,7 @@ class ListSeqOne  implements CSProcess{
 	ChannelOutput output
 	
 	void run() {
+
 		int elements = inputList.size()
 		List valueList
 		valueList  = (List)inputList.readSeq()
@@ -41,6 +42,6 @@ class ListSeqOne  implements CSProcess{
 			for ( e in 0 ..< elements) output.write(valueList[e])
 			valueList  = (List)inputList.readSeq()
 		}
-		output.write(valueList[0])
+		output.write(new UniversalTerminator())
 	}
 }

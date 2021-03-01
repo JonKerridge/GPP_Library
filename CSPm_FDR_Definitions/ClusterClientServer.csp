@@ -1,0 +1,76 @@
+datatype objects = A | B | C | D | E | UT  
+datatype signal = S
+N = 3
+
+channel a: objects          -- channels connecting the processes
+channel b: {0..N-1}.signal   -- indicating the object types that
+channel c: {0..N-1}.objects   -- indicating the object types that
+channel d: {0..N-1}.objects   -- form the events on the channel
+channel e: {0..N-1}.objects   
+channel f: objects
+channel finished : Bool     -- used during system refinement
+
+a_A = {|a|} -- the alphabet (events) associated with each channel
+a_B = {|b|}
+a_C = {|c|}
+a_D = {|d|}
+a_E = {|e|}
+a_F = {|f|}
+
+gen(A) = B      -- the specification of objects as they
+gen(B) = C      -- are created and emitted from the
+gen(C) = D      -- Emit process
+gen(D) = E 
+gen(E) = UT     -- the final terminating Universal Terminator
+
+--Emit
+Emit(o) = a!o -> if o == UT then SKIP else Emit(gen(o))
+
+-- Server
+Server() = a?o -> if o == UT then Server_End(0) else  Server_Choice(o) 
+Service(i, o) = b?i.S -> c!i.o -> Server()
+Server_Choice(o) = [] x : {0..N-1} @ Service(x, o)
+Server_End(y) = b?y.S -> c!y.UT -> if y == N then SKIP else Server_End(y+1)
+
+--Clients
+Client(i) = b!i.S -> c?i.o -> if o == UT then (d!i.UT -> SKIP) else (d!i.o -> Client(i))
+a_G(x) = {|b.x, c.x, d.x|}
+Clients() = || x : {0..N-1} @ [a_G(x)] Client(x)
+
+-- Client-Server alphabet
+a_CS = {|b, c|}
+
+-- Workers
+Worker(i) = d?i.o -> if o == UT then (e!i.UT -> SKIP) else (e!i.o -> Worker(i))
+--  a null worker
+a_W(x) =  {|d.x, e.x|}  -- the alphabet used by each Worker(x)
+Workers() =  || x : {0..N-1} @  [a_W(x)] Worker(x)
+
+--Reducer
+Reduce(i) = e?i.o -> if o == UT then (Reduce_End(i, (i+1)%N) ) else ( f!o -> Reduce(i))
+Reduce_End(s, n) = if s==n then f!UT -> SKIP else e?n.o -> if o == UT then ( f!o -> Reduce_End(s, n) ) else Reduce_End(s, (n+1)%N ) 
+-- ensures that UT is read from all input channels BEFORE writing UT 
+-- having ensured that all data has been read from the input channel
+Reducer() = [] x: {0..N-1} @ Reduce(x)    -- replicated choice
+
+--Collector
+Collect() = f?o -> if o == UT then Collect_End() else Collect()
+Collect_End() = finished!True -> Collect_End()
+-- this construct ensure that the system does not end with a SKIP
+-- and thus can be refined to the behaviour of TestSystem 
+-- provided the events on the other channels are hidden during assertion testing
+
+--System
+System = ((((Emit(A) [| a_A |] Server()) [|a_CS|] Clients()) [| a_D |]  Workers() ) [| a_E |] Reducer() ) [| a_F|] Collect()
+
+--the model used to test,  to which the System model is finally refined
+
+TestSystem = finished!True -> TestSystem     
+			
+assert (System \ {|a, b, c, d, e, f|}) [T= TestSystem        -- hide events on all channels but finished
+assert (System \ {|a, b, c, d, e, f|}) [F= TestSystem
+assert (System \ {|a, b, c, d, e, f|}) [FD= TestSystem
+assert System :[deadlock free]
+assert System :[divergence free]
+assert System :[deterministic]
+

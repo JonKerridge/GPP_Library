@@ -75,5 +75,5 @@ https://github.com/JonKerridge/GPP_Builder<br>
 
 The folder CSPm_FDR_Defintions contains a number of files containing the CSPm scripts that can
 be checked by the FDR tool to shows deadlock and livelock freedom of the main library components
-and also how some newroks are refinements of others.
+and also how some neworks are refinements of others.
  

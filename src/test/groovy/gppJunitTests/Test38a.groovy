@@ -10,7 +10,7 @@ import groovyJCSP.PAR
 import groovyParallelPatterns.DataDetails
 import groovyParallelPatterns.ResultDetails
 import groovyParallelPatterns.cluster.connectors.List2Net
-import groovyParallelPatterns.cluster.connectors.Net2List
+import groovyParallelPatterns.cluster.connectors.NetInputs2List
 import groovyParallelPatterns.cluster.connectors.NodeRequestingFanList
 import groovyParallelPatterns.cluster.connectors.OneNodeRequestedList
 import groovyParallelPatterns.connectors.reducers.AnyFanOne
@@ -123,12 +123,12 @@ class Test38a {
         outputList: chan6OutList
     )
 
-    def nl0 = new Net2List(
+    def nl0 = new NetInputs2List(
         inputList: chan7InList,
         outputList: chan10OutList
     )
 
-    def nl1 = new Net2List(
+    def nl1 = new NetInputs2List(
         inputList: chan6InList,
         outputList: chan8OutList
     )

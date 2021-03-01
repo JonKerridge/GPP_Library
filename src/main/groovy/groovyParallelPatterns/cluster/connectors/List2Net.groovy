@@ -31,7 +31,7 @@ class List2Net implements CSProcess{
         outputList[index].write(inputObject)  // input object is Universal Terminator
       }
       else {
-        outputList[index].write(inputObject.serialize())
+        outputList[index].write(inputObject)
       }
     }
   }

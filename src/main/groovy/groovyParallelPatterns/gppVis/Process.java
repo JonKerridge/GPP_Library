@@ -76,7 +76,7 @@ public class Process extends VBox {
         btn.setVisible(true);
     }
 
-    public void update(int tag, String packet){
+    public void update (int tag, String packet){
 
         switch(tag){
             case 0: //started

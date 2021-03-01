@@ -76,7 +76,7 @@ class N_WayMerge extends DataClass implements CSProcess{
 //			else
 //				groovyParallelPatterns.DataClass.unexpectedReturnCode("N_WayMerge: error during $mergeChoice", returnCode)
 		}
-		output.write(inputObject)  // write the last instance of a UT
+		output.write(new UniversalTerminator())
 	}
 
 }
