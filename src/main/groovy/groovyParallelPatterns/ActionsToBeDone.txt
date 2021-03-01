@@ -1,0 +1,8 @@
+Rationalise the way in which cloning is done using AutoClone
+
+List2Net and NetInputs2List and also if multiple clusters Net2List
+need to be incorporated into clusterBuilder.
+NB the process definition for the two processes NI2L and N2L are
+identical but their processing in cluster builder is very different.
+L2N and N2L have identical sized input and output lists.
+NI2L has an input list of nodes x cores inputs.
