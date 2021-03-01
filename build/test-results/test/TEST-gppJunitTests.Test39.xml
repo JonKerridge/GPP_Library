@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="gppJunitTests.Test39" tests="1" skipped="0" failures="0" errors="0" timestamp="2020-02-28T09:56:07" hostname="Jon-Xpc" time="0.008">
+<testsuite name="gppJunitTests.Test39" tests="1" skipped="0" failures="0" errors="0" timestamp="2021-03-01T16:47:25" hostname="JON-XPC" time="0.009">
   <properties/>
-  <testcase name="test" classname="gppJunitTests.Test39" time="0.008"/>
-  <system-out><![CDATA[39: Final Sum = 630 from 60 data sets with final instance 20 max clone is 0 ... W-values = w1: 0, w2: 0, w3: 0
+  <testcase name="test" classname="gppJunitTests.Test39" time="0.009"/>
+  <system-out><![CDATA[39: Final Sum = 630 from 60 data sets with final instance 20 max clone is 60 ... W-values = w1: 0, w2: 0, w3: 0
+ Clone Order =  1 4 2 6 2 5 7 9 10 12 8 11 13 15 18 16 14 17 19 21 22 24 20 23 25 27 28 30 26 29 31 33 34 36 32 35 37 39 42 40 38 41 43 45 46 48 44 47 51 49 50 54 52 53 57 55 56 60 58 59
 ]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

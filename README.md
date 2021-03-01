@@ -72,7 +72,7 @@ Groovy script into a runnable script thereby removing the need for the user
 to construct the communications channels that are required to implement 
 the process network.
 
-https://github.com/JonKerridge/GPP_Builder<br>
+https://github.com/JonKerridge/GPP_Builder  
 
 The folder CSPm_FDR_Defintions contains a number of files containing the 
 CSPm scripts that can be checked by the FDR tool to show deadlock 
@@ -87,7 +87,7 @@ https://github.com/JonKerridge/GPP_Library/releases/tag/1.1.11
 
 Download the ???-1.1.8-binaries.zip file and extract the contents to the directory
 
-%user_name%/.m2/repository/groovyParallelPatterns/groovyParallelPatterns/1.1.11
+%user_name%/.m2/repository/groovyParallelPatterns/groovyParallelPatterns/1.1.11  
 
 where %user_name% is the user's local directory for example in
 Windows 10 it is C:\Users\username
@@ -96,18 +96,18 @@ in a unix system it is /user/username OR /home/username OR /users/username
 It is assumed that the required libraries have already been downloaded
 to the Local Maven repository as described above
 
-jcsp: https://github.com/CSPforJAVA/jcsp/releases/tag/1.1.8
-groovyJCSP: https://github.com/JonKerridge/groovyJCSP/releases/tag/1.1.8
+jcsp: https://github.com/CSPforJAVA/jcsp/releases/tag/1.1.8  
+groovyJCSP: https://github.com/JonKerridge/groovyJCSP/releases/tag/1.1.8  
 
 In order to use jcsp, groovyJCSP and Groovy the following will be required 
 in the build.gradle file.
-
+<pre>
 repositories {
-...
-maven {
-url "https://mvnrepository.com/artifact/org.codehaus.groovy/groovy-all"
-}
-mavenLocal()
+  ...
+  maven {
+    url "https://mvnrepository.com/artifact/org.codehaus.groovy/groovy-all"
+  }
+  mavenLocal()
 }
 
 dependencies {
@@ -116,4 +116,23 @@ implementation 'cspforjava:jcsp:1.1.8'
 implementation 'groovyJCSP:groovyJCSP:1.1.8'
 implementation 'groovyParallelPatterns:groovyParallelPatterns:1.1.11'
 }
+</pre>
+**Please note**
+This library uses Java 11+ as it makes use of JavaFX 11 thus, Java11 JDK is required.
 
+Further details can be see in the repository
+https://github.com/JonKerridge/GPP_Demos   
+which uses this library and another called GBB_Builder. The complete list of dependencies is:  
+
+<pre>
+dependencies {
+  implementation 'org.codehaus.groovy:groovy-all:3.0.7'
+  implementation 'cspforjava:jcsp:1.1.8'
+  implementation 'groovyJCSP:groovyJCSP:1.1.8'
+  implementation "groovyParallelPatterns:groovyParallelPatterns:1.1.11"
+  implementation "gppBuilder:gppBuilder:1.1.11"
+// to include javafx  into  compile required for groovyParallelPatterns
+  implementation "org.openjfx:javafx-base:11:win"
+  implementation "org.openjfx:javafx-graphics:11:win"
+  implementation "org.openjfx:javafx-controls:11:win"
+}</pre>
