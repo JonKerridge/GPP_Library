@@ -67,13 +67,53 @@ function([dataModifier, wc]) carries out a function on an object using an option
 More specialised methods are required for more specific tasks: <br>
 updateDisplayList( ) used to update the data structure used in a graphical user interface in CollectUI<br>
 
-A program GPP_Builder in library gppBuilder is used to convert a declarative style Groovy script into a runnable script
-thereby removing the need for the user to construct the communications channels that are required to implement
-the process network.<p>
+A program GPP_Builder in library gppBuilder is used to convert a declarative style 
+Groovy script into a runnable script thereby removing the need for the user 
+to construct the communications channels that are required to implement 
+the process network.
 
 https://github.com/JonKerridge/GPP_Builder<br>
 
-The folder CSPm_FDR_Defintions contains a number of files containing the CSPm scripts that can
-be checked by the FDR tool to shows deadlock and livelock freedom of the main library components
-and also how some neworks are refinements of others.
- 
+The folder CSPm_FDR_Defintions contains a number of files containing the 
+CSPm scripts that can be checked by the FDR tool to show deadlock 
+and livelock freedom of the main library components
+and also how some networks are refinements of others.
+
+**Download release from GitHub version 1.1.11**
+
+The library is available from
+https://github.com/JonKerridge/GPP_Library/releases/tag/1.1.11
+
+
+Download the ???-1.1.8-binaries.zip file and extract the contents to the directory
+
+%user_name%/.m2/repository/groovyParallelPatterns/groovyParallelPatterns/1.1.11
+
+where %user_name% is the user's local directory for example in
+Windows 10 it is C:\Users\username
+in a unix system it is /user/username OR /home/username OR /users/username
+
+It is assumed that the required libraries have already been downloaded
+to the Local Maven repository as described above
+
+jcsp: https://github.com/CSPforJAVA/jcsp/releases/tag/1.1.8
+groovyJCSP: https://github.com/JonKerridge/groovyJCSP/releases/tag/1.1.8
+
+In order to use jcsp, groovyJCSP and Groovy the following will be required 
+in the build.gradle file.
+
+repositories {
+...
+maven {
+url "https://mvnrepository.com/artifact/org.codehaus.groovy/groovy-all"
+}
+mavenLocal()
+}
+
+dependencies {
+implementation 'org.codehaus.groovy:groovy-all:3.0.7'
+implementation 'cspforjava:jcsp:1.1.8'
+implementation 'groovyJCSP:groovyJCSP:1.1.8'
+implementation 'groovyParallelPatterns:groovyParallelPatterns:1.1.11'
+}
+
