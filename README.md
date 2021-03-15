@@ -1,4 +1,4 @@
-The Groovy Parallel Patterns Library (groovyParallelPatterns)
+The Groovy Parallel Patterns Library (groovy_parallel_patterns)
 creates a number of re-usable parallel design patterns
 based on the use of Communicating Process Architectures (CPA).<p>
 
@@ -42,7 +42,7 @@ to build yet further application networks.<p>
 The design goal has been to construct data objects that contain no parallel
 content at all and that are solely derived from the needs of the application. <p>
 
-The programmer can use the the patterns with no underlying understanding of,
+The programmer can use the patterns with no underlying understanding of,
 nor the need to program any communication between any of the processes. The
 only concern of the programmer is to create the required communication
 channels for the resulting process network. This can be easily achieved by
@@ -51,12 +51,14 @@ creating a diagram of the network and transforming that into the required code.<
 Some example systems using the library can be found at  
 https://github.com/JonKerridge/GPP_Demos<br>
 
-Package groovyParallelPatterns defines some basic classes and interfaces used by the rest of the library.<p>
+Package groovy_parallel_patterns defines some basic classes and interfaces 
+used by the rest of the library.<p>
  
 All user defined data classes utilising the library should extend DataClass.<p>
  
 In addition, a number of methods are required, depending upon the use of the class.
-These are described more fully in the information in the packages; terminals, patterns and functionals.  A list
+These are described more fully in the information in the packages; 
+terminals, patterns and functionals.  A list
 of the required methods follows: <br>
 initClass([initialData]) used to initialise an object<br>
 createInstance([createData]) used to create an instance of the class<br>
@@ -65,7 +67,8 @@ collector() used to collect and save results<br>
 function([dataModifier, wc]) carries out a function on an object using an optional local worker class wc<p>
  
 More specialised methods are required for more specific tasks: <br>
-updateDisplayList( ) used to update the data structure used in a graphical user interface in CollectUI<br>
+updateDisplayList( ) used to update the data structure used in a 
+graphical user interface in CollectUI<br>
 
 A program GPP_Builder in library gppBuilder is used to convert a declarative style 
 Groovy script into a runnable script thereby removing the need for the user 
@@ -79,60 +82,73 @@ CSPm scripts that can be checked by the FDR tool to show deadlock
 and livelock freedom of the main library components
 and also how some networks are refinements of others.
 
-**Download release from GitHub version 1.1.11**
+**Download Package from GitHub version 1.1.12**
 
 The library is available from
-https://github.com/JonKerridge/GPP_Library/releases/tag/1.1.11
+https://github.com/JonKerridge/GPP_Library
 
+The available build.gradle downloads the required libraries
 
-Download the ???-1.1.8-binaries.zip file and extract the contents to the directory
+jcsp: https://github.com/CSPforJAVA/jcsp 
+groovyJCSP: https://github.com/JonKerridge/groovyJCSP 
 
-%user_name%/.m2/repository/groovyParallelPatterns/groovyParallelPatterns/1.1.11  
-
-where %user_name% is the user's local directory for example in
-Windows 10 it is C:\Users\username
-in a unix system it is /user/username OR /home/username OR /users/username
-
-It is assumed that the required libraries have already been downloaded
-to the Local Maven repository as described above
-
-jcsp: https://github.com/CSPforJAVA/jcsp/releases/tag/1.1.8  
-groovyJCSP: https://github.com/JonKerridge/groovyJCSP/releases/tag/1.1.8  
-
-In order to use jcsp, groovyJCSP and Groovy the following will be required 
+In order to use jcsp, groovyJCSP and Groovy the following are required 
 in the build.gradle file.
 <pre>
 repositories {
-  ...
-  maven {
-    url "https://mvnrepository.com/artifact/org.codehaus.groovy/groovy-all"
+  mavenCentral()
+  maven { // to download the jonkerridge.groovy_jcsp library
+    name = "GitHubPackages"
+    url = "https://maven.pkg.github.com/JonKerridge/groovyJCSP"
+    credentials {
+      username = project.findProperty("gpr.user")
+      password = project.findProperty("gpr.key")
+    }
   }
-  mavenLocal()
+  maven { // to download the cspforjava.jcsp library
+    name = "GitHubPackages"
+    url = "https://maven.pkg.github.com/CSPforJAVA/jcsp"
+    credentials {
+      username = project.findProperty("gpr.user")
+      password = project.findProperty("gpr.key")
+    }
+  }
 }
 
-dependencies {
-implementation 'org.codehaus.groovy:groovy-all:3.0.7'
-implementation 'cspforjava:jcsp:1.1.8'
-implementation 'groovyJCSP:groovyJCSP:1.1.8'
-implementation 'groovyParallelPatterns:groovyParallelPatterns:1.1.11'
+javafx {
+  modules = [ 'javafx.controls', 'javafx.fxml' ]
 }
-</pre>
-**Please note**
-This library uses Java 11+ as it makes use of JavaFX 11 thus, Java11 JDK is required.
 
-Further details can be see in the repository
-https://github.com/JonKerridge/GPP_Demos   
-which uses this library and another called GBB_Builder. The complete list of dependencies is:  
+mainClassName = "gppVis/Viualiser/org.openjfx.MainApp"
 
-<pre>
 dependencies {
   implementation 'org.codehaus.groovy:groovy-all:3.0.7'
-  implementation 'cspforjava:jcsp:1.1.8'
-  implementation 'groovyJCSP:groovyJCSP:1.1.8'
-  implementation "groovyParallelPatterns:groovyParallelPatterns:1.1.11"
-  implementation "gppBuilder:gppBuilder:1.1.11"
-// to include javafx  into  compile required for groovyParallelPatterns
-  implementation "org.openjfx:javafx-base:11:win"
-  implementation "org.openjfx:javafx-graphics:11:win"
-  implementation "org.openjfx:javafx-controls:11:win"
-}</pre>
+  implementation 'cspforjava:jcsp:1.1.9'
+  implementation 'jonkerridge:groovy_jcsp:1.1.9'
+  implementation group: 'junit', name: 'junit', version: '4.13.1'
+  testImplementation 'org.codehaus.groovy:groovy-all:3.0.7'
+  testImplementation 'cspforjava:jcsp:1.1.9'
+  testImplementation 'jonkerridge:groovy_jcsp:1.1.9'
+  testImplementation group: 'junit', name: 'junit', version: '4.13.1'
+}
+
+</pre>
+
+**Please note**
+
+This library uses Java 11+ as it makes use of JavaFX 11 thus, Java11 JDK is required.
+
+Further details can be seen in the repository
+https://github.com/JonKerridge/GPP_Demos   
+which uses this library and another called GBB_Builder. The build.gradle file in these
+repositories will download the GPP_Library components automatically.
+
+In order to download Github Packages a user requires to have a Github Personal Access Token.  
+See https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token  
+
+A gradle.properties file is required at the same directory level as the build.gradle file that contains
+
+<pre>
+gpr.user=userName
+gpr.key=userPersonalAccessToken
+</pre>

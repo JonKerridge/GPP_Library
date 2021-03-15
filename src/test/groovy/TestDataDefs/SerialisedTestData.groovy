@@ -1,7 +1,7 @@
 package TestDataDefs
 
 
-import groovyParallelPatterns.DataClass
+import groovy_parallel_patterns.DataClass
 import jcsp.lang.CSTimer
 
 //@CompileStatic

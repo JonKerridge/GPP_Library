@@ -1,6 +1,6 @@
 package TestDataDefs
 
-import groovyParallelPatterns.DataClass
+import groovy_parallel_patterns.DataClass
 
 class TestSingle extends DataClass {
   List<Integer> consts = []

@@ -1,13 +1,13 @@
 plugins {
   id 'groovy'
-  id 'java'
+  id 'java-library'
   id 'maven-publish'
   id 'application'
   id 'org.openjfx.javafxplugin' version '0.0.7'
 }
 
-group 'groovyParallelPatterns'
-version '1.1.11'
+group 'jonkerridge'
+version '1.1.12'
 
 // version 1.0.0 was the base version with the Builder reconfigured
 // version 1.0.1 includes the Visualisation of matrix style engines
@@ -16,31 +16,34 @@ version '1.1.11'
 // version 1.0.4 built using Java 11 (LTS) and Groovy 3.0.0!
 // version 1.0.4a includes an Emit Single process to get Gough Recursion working not in repo
 // version 1.0.5 includes an EmitSingle J11 G3.0.1
-// version 1.0.6 renames library to groovyParallelPatterns and includes revised documentation
+// version 1.0.6 renames library to groovy_parallel_patterns and includes revised documentation
 // version 1.0.7 include processes NetList and Listnet to permit multi-cluster solutions
 // version 1.0.8 includes a clone of the Universal Terminator using AutoClone = Serializable
 // version 1.0.9 removes the need for a serialize method when using clusters
 //               assumes that all data transferred over net channels is serializable
 //               ie no final or static variables are used that are crucial to operation
 // version 1.1.11 the release created for GitHub release of binaries Java 11
+//version 1.1.12 Github Package using Java11 and Groovy3.0.7
+//                renamed group and package name to groovy_parallel_patterns
 
 repositories {
   mavenCentral()
-  maven {
-    url "https://mvnrepository.com/artifact/org.codehaus.groovy/groovy-all"
+  maven { // to download the jonkerridge.groovy_jcsp library
+    name = "GitHubPackages"
+    url = "https://maven.pkg.github.com/JonKerridge/groovyJCSP"
+    credentials {
+      username = project.findProperty("gpr.user")
+      password = project.findProperty("gpr.key")
+    }
   }
-  mavenLocal()
-}
-
-task sourcesJar(type: Jar) {
-  from sourceSets.main.allSource
-  archiveClassifier.set( "sources")
-}
-
-task javadocJar(type: Jar) {
-  from javadoc.destinationDir
-  from groovydoc.destinationDir
-  archiveClassifier.set("javadoc")
+  maven { // to download the cspforjava.jcsp library
+    name = "GitHubPackages"
+    url = "https://maven.pkg.github.com/CSPforJAVA/jcsp"
+    credentials {
+      username = project.findProperty("gpr.user")
+      password = project.findProperty("gpr.key")
+    }
+  }
 }
 
 javafx {
@@ -49,28 +52,42 @@ javafx {
 
 mainClassName = "gppVis/Viualiser/org.openjfx.MainApp"
 
+dependencies {
+  implementation 'org.codehaus.groovy:groovy-all:3.0.7'
+  implementation 'cspforjava:jcsp:1.1.9'
+  implementation 'jonkerridge:groovy_jcsp:1.1.9'
+  implementation group: 'junit', name: 'junit', version: '4.13.1'
+  testImplementation 'org.codehaus.groovy:groovy-all:3.0.7'
+  testImplementation 'cspforjava:jcsp:1.1.9'
+  testImplementation 'jonkerridge:groovy_jcsp:1.1.9'
+  testImplementation group: 'junit', name: 'junit', version: '4.13.1'
+}
+
+task sourcesJar(type: Jar) {
+  from sourceSets.main.allSource
+  archiveClassifier.set( "sources")
+}
+
 artifacts {
-  archives sourcesJar, javadocJar
+  archives sourcesJar
 }
 
 publishing {
-  publications {
-    gppLibrary(MavenPublication) {
-      from components.java
-      artifact sourcesJar
-      artifact javadocJar
+  repositories {
+    maven {
+      name = "GitHubPackages"
+      url = "https://maven.pkg.github.com/JonKerridge/GPP_Library"
+      credentials {
+        username = project.findProperty("gpr.user")
+        password = project.findProperty("gpr.key")
+      }
     }
   }
-}
-
-dependencies {
-  implementation 'org.codehaus.groovy:groovy-all:3.0.7'
-  implementation 'cspforjava:jcsp:1.1.8'
-  implementation 'groovyJCSP:groovyJCSP:1.1.8'
-  implementation group: 'junit', name: 'junit', version: '4.13.1'
-  testImplementation 'org.codehaus.groovy:groovy-all:3.0.7'
-  testImplementation 'cspforjava:jcsp:1.1.8'
-  testImplementation 'groovyJCSP:groovyJCSP:1.1.8'
-  testImplementation group: 'junit', name: 'junit', version: '4.13.1'
+  publications {
+    gpp(MavenPublication) {
+      from components.java
+      artifact sourcesJar
+    }
+  }
 }
 

@@ -3,12 +3,12 @@ package gppJunitTests
 import TestDataDefs.TestExtract
 import TestDataDefs.TestResult
 import TestDataDefs.TestSingle
-import groovyJCSP.PAR
-import groovyParallelPatterns.DataDetails
-import groovyParallelPatterns.ResultDetails
-import groovyParallelPatterns.functionals.workers.Worker
-import groovyParallelPatterns.terminals.Collect
-import groovyParallelPatterns.terminals.EmitSingle
+import groovy_jcsp.PAR
+import groovy_parallel_patterns.DataDetails
+import groovy_parallel_patterns.ResultDetails
+import groovy_parallel_patterns.functionals.workers.Worker
+import groovy_parallel_patterns.terminals.Collect
+import groovy_parallel_patterns.terminals.EmitSingle
 import jcsp.lang.Channel
 import org.junit.Test
 

@@ -1,12 +1,12 @@
 package gppJunitTests
 
-import groovyParallelPatterns.DataDetails
-import groovyParallelPatterns.ResultDetails
-import groovyParallelPatterns.connectors.reducers.AnyFanOne
-import groovyParallelPatterns.connectors.spreaders.OneFanAny
-import groovyParallelPatterns.functionals.groups.AnyGroupAny
-import groovyParallelPatterns.terminals.*
-import groovyJCSP.*
+import groovy_parallel_patterns.DataDetails
+import groovy_parallel_patterns.ResultDetails
+import groovy_parallel_patterns.connectors.reducers.AnyFanOne
+import groovy_parallel_patterns.connectors.spreaders.OneFanAny
+import groovy_parallel_patterns.functionals.groups.AnyGroupAny
+import groovy_parallel_patterns.terminals.*
+import groovy_jcsp.*
 import jcsp.lang.*
 import org.junit.Test
 

@@ -1,7 +1,7 @@
 package TestDataDefs
 
-import groovyParallelPatterns.DataClass
-import groovyParallelPatterns.DataClassInterface
+import groovy_parallel_patterns.DataClass
+import groovy_parallel_patterns.DataClassInterface
 import groovy.transform.CompileStatic
 
 @CompileStatic
